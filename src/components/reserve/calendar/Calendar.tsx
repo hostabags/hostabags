@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { Host } from "@/types/host";
+import  "./calendar.css";
 
 
 export default function CalendarComponent() {
@@ -67,15 +68,15 @@ export default function CalendarComponent() {
   return (
     <div className="p-4">
       <h2 className="text-xl font-bold mb-2">{host.name}&apos;s Calendar</h2>
-      <Calendar onClickDay={toggleDate} tileClassName={tileClassName} />
-      <div className="mt-4">
+      <Calendar onClickDay={toggleDate} tileClassName={tileClassName} locale="en-US" className="calendar"/>
+      {/* <div className="mt-4">
         <h3 className="font-semibold">Available dates:</h3>
         <ul className="list-disc ml-5">
           {host.calendar.map((date) => (
             <li key={date}>{formatDisplayDate(date)}</li>
           ))}
         </ul>
-      </div>
+      </div> */}
     </div>
   );
 }
