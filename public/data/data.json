@@ -1,0 +1,157 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Alice",
+      "email": "alice@example.com"
+    },
+    {
+      "id": "2",
+      "name": "Bob",
+      "email": "bob@example.com"
+    },
+    {
+      "id": "3",
+      "name": "Carol",
+      "email": "carol@example.com"
+    },
+    {
+      "id": "4",
+      "name": "David",
+      "email": "david@example.com"
+    }
+  ],
+  "hosts": [
+    {
+      "id": "1",
+      "name": "Locker Sants Estació",
+      "address": "Plaça dels Països Catalans, 1",
+      "lat": 41.3809,
+      "lng": 2.1408,
+      "calendar": [
+        "2025-06-13",
+        "2025-05-21",
+        "2025-06-12",
+        "2025-06-18",
+        "2025-05-19",
+        "2025-05-05"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Hostel Gòtic Drop",
+      "address": "Carrer de Ferran, 17",
+      "lat": 41.3803,
+      "lng": 2.1755,
+      "calendar": [
+        "2025-05-21"
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Café El Raval Storage",
+      "address": "Carrer de l'Hospital, 74",
+      "lat": 41.3795,
+      "lng": 2.1687,
+      "calendar": []
+    },
+    {
+      "id": "4",
+      "name": "Plaça Catalunya Lockers",
+      "address": "Plaça de Catalunya, 1",
+      "lat": 41.387,
+      "lng": 2.1701,
+      "calendar": [
+        "2025-05-20",
+        "2025-05-24"
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Aerobus Stop Storage",
+      "address": "Gran Via de les Corts Catalanes, 674",
+      "lat": 41.3853,
+      "lng": 2.1616,
+      "calendar": []
+    },
+    {
+      "id": "6",
+      "name": "Museu Picasso Locker Point",
+      "address": "Carrer Montcada, 15",
+      "lat": 41.3859,
+      "lng": 2.1805,
+      "calendar": []
+    },
+    {
+      "id": "7",
+      "name": "Diagonal Metro Lockers",
+      "address": "Avinguda Diagonal, 468",
+      "lat": 41.3947,
+      "lng": 2.1596,
+      "calendar": [
+        "2025-05-19"
+      ]
+    },
+    {
+      "id": "8",
+      "name": "Gràcia Bag Drop",
+      "address": "Carrer d'Astúries, 36",
+      "lat": 41.4031,
+      "lng": 2.1536,
+      "calendar": []
+    },
+    {
+      "id": "9",
+      "name": "Sagrada Família Lockers",
+      "address": "Carrer de Mallorca, 401",
+      "lat": 41.4036,
+      "lng": 2.1744,
+      "calendar": []
+    },
+    {
+      "id": "10",
+      "name": "Glòries Shopping Center",
+      "address": "Avinguda Diagonal, 208",
+      "lat": 41.4033,
+      "lng": 2.191,
+      "calendar": []
+    }
+  ],
+  "bookings": [
+    {
+      "id": "1",
+      "userId": 1,
+      "hostId": 2,
+      "date": "2025-05-21",
+      "luggageCount": 2
+    },
+    {
+      "id": "2",
+      "userId": 3,
+      "hostId": 4,
+      "date": "2025-05-24",
+      "luggageCount": 1
+    },
+    {
+      "id": "3",
+      "userId": 2,
+      "hostId": 1,
+      "date": "2025-05-22",
+      "luggageCount": 3
+    },
+    {
+      "id": "4",
+      "userId": 4,
+      "hostId": 7,
+      "date": "2025-05-19",
+      "luggageCount": 1
+    },
+    {
+      "id": "5",
+      "userId": 1,
+      "hostId": 4,
+      "date": "2025-05-20",
+      "luggageCount": 2
+    }
+  ]
+}
