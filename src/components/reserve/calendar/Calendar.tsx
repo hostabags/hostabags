@@ -3,66 +3,76 @@
 import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import { Host } from "@/types/host";
 
-type Host = {
-  id: number;
-  name: string;
-  calendar: string[];
-};
 
 export default function CalendarComponent() {
   const [host, setHost] = useState<Host | null>(null);
+  const hostId = 1; 
 
   useEffect(() => {
-    async function fetchHost() {
-      try {
-        const res = await fetch("/data/data.json");
-        const json = await res.json();
-        // Buscar host por ID
-        const host = json.hosts.find((h: any) => h.id === 2);
-        setHost(host);
-      } catch (err) {
-        console.error("Error loading host:", err);
-      }
+    async function fetchData() {
+      const res = await fetch(`http://localhost:3001/hosts/${hostId}`);
+      const data = await res.json();
+      setHost(data);
     }
 
-    fetchHost();
+    fetchData();
   }, []);
 
-  if (!host) return <div>Loading...</div>;
+  const formatDate = (date: Date) => date.toLocaleDateString("sv-SE"); 
 
-  const formatDate = (date: Date) => date.toISOString().split("T")[0];
+  const formatDisplayDate = (date: string) => {
+    return new Date(date).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  };
+
+  const saveDates = async (updatedHost: Host) => {
+    try {
+      await fetch(`http://localhost:3001/hosts/${updatedHost.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedHost),
+      });
+    } catch (err) {
+      console.error("Error saving:", err);
+    }
+  };
 
   const toggleDate = (date: Date) => {
+    if (!host) return;
     const dateStr = formatDate(date);
     const isSelected = host.calendar.includes(dateStr);
-
     const updatedDates = isSelected
       ? host.calendar.filter((d) => d !== dateStr)
       : [...host.calendar, dateStr];
 
-    setHost({ ...host, calendar: updatedDates });
+    const updatedHost = { ...host, calendar: updatedDates };
+    setHost(updatedHost);
+    saveDates(updatedHost);
   };
 
   const tileClassName = ({ date }: { date: Date }) => {
-    if (host.calendar.includes(formatDate(date))) {
-      return "bg-green-300 text-black rounded-md";
+    if (host?.calendar.includes(formatDate(date))) {
+      return "!bg-green-300 !text-black !rounded-md";
     }
     return "";
   };
 
+  if (!host) return <div>Loading...</div>;
+
   return (
     <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">{host.name}&apos;s Calendar</h2>
-      <Calendar
-        onClickDay={toggleDate}
-        tileClassName={tileClassName}
-      />
+      <h2 className="text-xl font-bold mb-2">{host.name}&apos;s Calendar</h2>
+      <Calendar onClickDay={toggleDate} tileClassName={tileClassName} />
       <div className="mt-4">
-        <h3 className="font-semibold">Fechas seleccionadas:</h3>
+        <h3 className="font-semibold">Available dates:</h3>
         <ul className="list-disc ml-5">
-          {host.calendar.sort().map((date) => (
-            <li key={date}>{date}</li>
+          {host.calendar.map((date) => (
+            <li key={date}>{formatDisplayDate(date)}</li>
           ))}
         </ul>
       </div>

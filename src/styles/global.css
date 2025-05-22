@@ -1,0 +1,25 @@
+@import "tailwindcss";
+.selected-date {
+  background-color: #86efac; 
+  color: black;
+  border-radius: 0.375rem; 
+}
+.react-calendar {
+  border: none;
+  background: transparent;
+}
+
+.react-calendar__tile {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  transition: background 0.2s;
+}
+
+.react-calendar__tile--active {
+  background-color: #86efac; /* Tailwind green-300 */
+  color: black;
+}
+
+.react-calendar__tile--now {
+  background-color: #dbeafe; /* Tailwind blue-100 */
+}
