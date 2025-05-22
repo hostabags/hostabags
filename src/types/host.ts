@@ -6,3 +6,4 @@ export interface Host {
   lng: number;
   calendar: string[];
 } 
+
