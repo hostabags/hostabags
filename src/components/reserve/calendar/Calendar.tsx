@@ -57,7 +57,7 @@ export default function CalendarComponent() {
 
   const tileClassName = ({ date }: { date: Date }) => {
     if (host?.calendar.includes(formatDate(date))) {
-      return "!bg-green-300 !text-black !rounded-md";
+      return "selected-date";
     }
     return "";
   };
