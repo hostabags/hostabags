@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
-import hostsData from '@/data/data.json';
+import hostsData from '@/data/data.danilo.json';
 import { Host } from '@/types/host';
 
 // Importar el componente Map dinámicamente para evitar problemas con SSR
