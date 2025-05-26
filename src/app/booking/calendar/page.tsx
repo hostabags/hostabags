@@ -1,12 +1,10 @@
-import Header from "@/components/layout/header/Header";
-import Calendar from "@/components/reserve/calendar/Calendar";
+import Header from "@/components/layout/header/Header"
 
-
-export default function Page() {
+export default function page() {
   return (
     <>
-      <Header />
-      <Calendar />
+    <Header></Header>
+    <div>soy map</div>
     </>
-  );
+  )
 }
