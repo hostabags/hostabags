@@ -4,6 +4,7 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import hostsData from "@/data/data.danilo.json";
 import { Host } from "@/types/host";
+import Modal from "@/components/ui/Modal";
 
 const Map = dynamic(() => import("@/components/map/Map"), {
   ssr: false,
@@ -25,16 +26,11 @@ export default function MapPage() {
     <div className="relative w-full h-screen">
       <Map hosts={hostsData.hosts} onMarkerClick={handleMarkerClick} />
       {selectedHost && (
-        <div className="absolute top-4 right-4 bg-white p-4 rounded-lg shadow-lg max-w-sm z-[1000]">
-          <h2 className="text-xl font-bold mb-2">{selectedHost.name}</h2>
-          <p className="text-gray-600 mb-2">{selectedHost.address}</p>
-          <button
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-            onClick={() => setSelectedHost(null)}
-          >
-            Cerrar
-          </button>
-        </div>
+        <Modal
+          address={selectedHost.address}
+          name={selectedHost.name}
+          setSelectedHost={setSelectedHost}
+        />
       )}
     </div>
   );
