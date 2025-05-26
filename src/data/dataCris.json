@@ -28,15 +28,8 @@
       "address": "Plaça dels Països Catalans, 1",
       "lat": 41.3809,
       "lng": 2.1408,
-      "calendar": [
-        "2025-06-13",
-        "2025-06-12",
-        "2025-06-18",
-        "2025-05-26",
-        "2025-05-25",
-        "2025-05-24",
-        "2025-05-23"
-      ]
+      "calendarSelected": [],
+      "calendarNew": []
     },
     {
       "id": "2",
@@ -44,8 +37,22 @@
       "address": "Carrer de Ferran, 17",
       "lat": 41.3803,
       "lng": 2.1755,
-      "calendar": [
-        "2025-05-21"
+      "calendarSelected": [
+        "28/05/2025",
+        "29/05/2025",
+        "20/06/2025",
+        "19/06/2025",
+        "03/06/2025",
+        "04/06/2025",
+        "27/06/2025",
+        "26/06/2025",
+        "30/05/2025"
+      ],
+      "calendarNew": [
+        "10/06/2025",
+        "12/06/2025",
+        "11/06/2025",
+        "13/06/2025"
       ]
     },
     {
@@ -54,7 +61,8 @@
       "address": "Carrer de l'Hospital, 74",
       "lat": 41.3795,
       "lng": 2.1687,
-      "calendar": []
+      "calendarSelected": [],
+      "calendarNew": []
     },
     {
       "id": "4",
@@ -62,10 +70,8 @@
       "address": "Plaça de Catalunya, 1",
       "lat": 41.387,
       "lng": 2.1701,
-      "calendar": [
-        "2025-05-20",
-        "2025-05-24"
-      ]
+      "calendarSelected": [],
+      "calendarNew": []
     },
     {
       "id": "5",
@@ -73,7 +79,8 @@
       "address": "Gran Via de les Corts Catalanes, 674",
       "lat": 41.3853,
       "lng": 2.1616,
-      "calendar": []
+      "calendarSelected": [],
+      "calendarNew": []
     },
     {
       "id": "6",
@@ -81,7 +88,8 @@
       "address": "Carrer Montcada, 15",
       "lat": 41.3859,
       "lng": 2.1805,
-      "calendar": []
+      "calendarSelected": [],
+      "calendarNew": []
     },
     {
       "id": "7",
@@ -89,9 +97,8 @@
       "address": "Avinguda Diagonal, 468",
       "lat": 41.3947,
       "lng": 2.1596,
-      "calendar": [
-        "2025-05-19"
-      ]
+      "calendarSelected": [],
+      "calendarNew": []
     },
     {
       "id": "8",
@@ -99,7 +106,8 @@
       "address": "Carrer d'Astúries, 36",
       "lat": 41.4031,
       "lng": 2.1536,
-      "calendar": []
+      "calendarSelected": [],
+      "calendarNew": []
     },
     {
       "id": "9",
@@ -107,7 +115,8 @@
       "address": "Carrer de Mallorca, 401",
       "lat": 41.4036,
       "lng": 2.1744,
-      "calendar": []
+      "calendarSelected": [],
+      "calendarNew": []
     },
     {
       "id": "10",
@@ -115,7 +124,8 @@
       "address": "Avinguda Diagonal, 208",
       "lat": 41.4033,
       "lng": 2.191,
-      "calendar": []
+      "calendarSelected": [],
+      "calendarNew": []
     }
   ],
   "bookings": [

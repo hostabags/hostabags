@@ -24,7 +24,14 @@ export default function MapPage() {
 
   return (
     <div className="relative w-full h-screen">
-      <Map hosts={hostsData.hosts} onMarkerClick={handleMarkerClick} />
+      <Map
+        hosts={hostsData.hosts.map(host => ({
+          ...host,
+          calendarSelected: [],
+          calendarNew: []
+        }))}
+        onMarkerClick={handleMarkerClick}
+      />
       {selectedHost && (
         <Modal
           address={selectedHost.address}
