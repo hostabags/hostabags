@@ -1,14 +1,17 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import dynamic from 'next/dynamic';
-import hostsData from '@/data/data.json';
-import { Host } from '@/types/host';
+import { useState } from "react";
+import dynamic from "next/dynamic";
+import hostsData from "@/data/data.danilo.json";
+import { Host } from "@/types/host";
 
-// Importar el componente Map dinámicamente para evitar problemas con SSR
-const Map = dynamic(() => import('@/components/Map'), {
+const Map = dynamic(() => import("@/components/map/Map"), {
   ssr: false,
-  loading: () => <div className="h-screen w-full flex items-center justify-center">Cargando mapa...</div>
+  loading: () => (
+    <div className="h-screen w-full flex items-center justify-center">
+      Cargando mapa...
+    </div>
+  ),
 });
 
 export default function MapPage() {
@@ -35,4 +38,4 @@ export default function MapPage() {
       )}
     </div>
   );
-} 
+}
