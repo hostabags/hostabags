@@ -23,13 +23,13 @@ export default function CalendarComponent() {
 
   const formatDate = (date: Date) => date.toLocaleDateString("sv-SE"); 
 
-  const formatDisplayDate = (date: string) => {
-    return new Date(date).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-  };
+//   const formatDisplayDate = (date: string) => {
+//     return new Date(date).toLocaleDateString("en-US", {
+//       year: "numeric",
+//       month: "short",
+//       day: "numeric",
+//     });
+//   };
 
   const saveDates = async (updatedHost: Host) => {
     try {

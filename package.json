@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "server":"npx json-server --watch public/data/data.json --port 3001"
+    "server":"npx json-server --watch src/data/data-cris.json --port 3001"
    
   },
   "dependencies": {
