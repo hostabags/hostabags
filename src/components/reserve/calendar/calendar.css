@@ -1,7 +1,7 @@
 
 .calendar {
-  width: 100%;
-  max-width:400px;
+  min-width: 380px;
+  max-width: 100%;
   background: white;
   border: none;
   border-radius: 16px;
@@ -157,8 +157,9 @@
 
 /* Other month dates */
 .calendar .react-calendar__month-view__days__day--neighboringMonth {
-  color: #d1d5db;
-  background: #f9fafb;
+  color: #d1d5db!important;
+  background: #f9fafb!important;
+  border-color: #d1d5db!important;
 }
 
 /* Today's date */
