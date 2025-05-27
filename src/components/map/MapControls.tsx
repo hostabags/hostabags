@@ -117,7 +117,7 @@ export default function MapControls() {
   };
 
   return (
-    <div className="absolute bottom-4 right-4 z-[1000] flex flex-col gap-2">
+    <div className="absolute bottom-20 right-4 z-[1000] flex flex-col gap-2">
       {/* Controles de zoom */}
       <button
         onClick={zoomIn}

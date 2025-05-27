@@ -4,7 +4,7 @@ export default function page() {
   return (
     <>
     <Header></Header>
-    <div>soy map</div>
+    <div>soy Auth</div>
     </>
   )
 }
