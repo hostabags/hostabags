@@ -91,7 +91,9 @@
       "address": "Plaça de Catalunya, 1",
       "lat": 41.387,
       "lng": 2.1701,
-      "calendarSelected": [],
+      "calendarSelected": [
+        "2025-05-28"
+      ],
       "calendarNew": []
     },
     {

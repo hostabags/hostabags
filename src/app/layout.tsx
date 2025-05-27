@@ -1,5 +1,14 @@
-
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.scss";
+import { AuthContextProvider } from "@/context/AuthContext";
+
+const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "Hostabags",
+  description: "Your luggage storage solution",
+};
 
 export default function RootLayout({
   children,
@@ -8,8 +17,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        {children}
+      <body className={inter.className}>
+        <AuthContextProvider>
+          {children}
+        </AuthContextProvider>
       </body>
     </html>
   );
