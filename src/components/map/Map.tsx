@@ -23,7 +23,9 @@ interface MapProps {
 
 export default function Map({ hosts, onMarkerClick }: MapProps) {
   return (
+
     <MapContainer
+
       center={MAP_CONFIG.DEFAULT_CENTER}
       zoom={MAP_CONFIG.DEFAULT_ZOOM}
       style={{ height: '100vh', width: '100%' }}
@@ -55,5 +57,6 @@ export default function Map({ hosts, onMarkerClick }: MapProps) {
         </Marker>
       ))}
     </MapContainer>
+  
   );
 } 
