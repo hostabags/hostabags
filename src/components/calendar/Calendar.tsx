@@ -4,30 +4,33 @@ import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { Host } from "@/types/host";
-import { Check, User } from "lucide-react";
-import  "./calendar.css";
+import { Check } from "lucide-react";
+import  "./calendar.scss";
 
 
-export default function CalendarComponent() {
+export default function CalendarComponent({ id }: { id: number }) {
   const [host, setHost] = useState<Host | null>(null);
   const [loading, setLoading] = useState(true);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState<string | null>(null);
   const [confirmedDates, setConfirmedDates] = useState<string[]>([]);
   const [showConfirmed, setShowConfirmed] = useState(false);
 
-  const [hostId, setHostId] = useState<number | null>(2);
+  const hostId =Number(id);
  
 
   useEffect(() => {
     async function fetchData() {
         try {
        setLoading(true)
+       console.log(hostId);
       const res = await fetch(`http://localhost:3001/hosts/${hostId}`);
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`)
         }
       const data = await res.json();
       setHost(data);
+
        setError(null)
        } catch (err) {
         console.error("Error fetching host data:", err)
@@ -38,9 +41,9 @@ export default function CalendarComponent() {
     }
 
     fetchData();
-  }, []);
+  }, [hostId]);
 
-  const formatDate = (date: Date) => date.toLocaleDateString("en-GB"); 
+  const formatDate = (date: Date) => date.toISOString().slice(0, 10);
 
 
   const saveDates = async (updatedHost: Host) => {
@@ -99,7 +102,7 @@ export default function CalendarComponent() {
     setShowConfirmed(true);
     saveDates(updatedHost);
  
-    // setTimeout(() => setShowConfirmed(false), 3000);
+
   };
   const tileClassName = ({ date }: { date: Date }) => {
     const dateStr = formatDate(date);
@@ -139,15 +142,7 @@ if (!host) return null
 
   return (
     <div className=" mx-auto p-6 bg-white flex flex-col items-center">
-      <div className="mb-8">
-        <div className="flex items-center space-x-3 mb-2">
-          <div className="p-2 bg-blue-100 rounded-lg">
-            <User className="h-6 w-6 text-blue-600" />
-          </div>
-          <h1 className="text-3xl font-bold text-gray-900">{host.name}&apos;s Calendar</h1>
-        </div>
-        <p className="text-gray-600">Select your dates for  luggage hosting</p>
-      </div>
+    
 
  
       <div className=" p-6 mb-6">
