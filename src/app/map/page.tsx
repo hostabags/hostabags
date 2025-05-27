@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import hostsData from "@/data/data.danilo.json";
 import { Host } from "@/types/host";
-import Modal from "@/components/ui/Modal";
+import Modal from "@/components/ui/Modal/Modal";
 import Header from "@/components/layout/header/Header";
 import { useSearchParams } from 'next/navigation';
 
@@ -39,6 +39,7 @@ export default function MapPage() {
       <Map
         hosts={hostsData.hosts.map(host => ({
           ...host,
+          id: Number(host.id),
           calendarSelected: [],
           calendarNew: []
         }))}
@@ -46,7 +47,8 @@ export default function MapPage() {
         initialLocation={initialLocation}
       />
       {selectedHost && (
-        <Modal
+        <Modal 
+          id={selectedHost.id}
           address={selectedHost.address}
           name={selectedHost.name}
           setSelectedHost={setSelectedHost}
