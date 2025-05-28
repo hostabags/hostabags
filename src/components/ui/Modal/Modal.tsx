@@ -1,7 +1,7 @@
 import { Host } from "@/types/host";
 import Calendar from "@/components/calendar/Calendar";
 import CloseButton from "../CloseButton/CloseButton";
-import Lugagge from "../../luggage/Lugagge";
+
 
 interface Props {
   id: number;
@@ -18,7 +18,7 @@ export default function Modal({ id, name, address, setSelectedHost }: Props) {
       <p className="text-gray-600 mb-2">{address}</p>
 
       <Calendar id={id} />
-      <Lugagge />
+
     </div>
   );
 }
