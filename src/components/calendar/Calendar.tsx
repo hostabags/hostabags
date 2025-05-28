@@ -1,197 +1,123 @@
+
 "use client";
-
-import { useEffect, useState } from "react";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+import { useState, useEffect } from "react";
+import { useHost } from "@/hooks/useHost";
+import CalendarUI from "./CalendarUI";
+import QuantitySelector from "./QuantitySelector";
+import ConfirmBooking from "./ConfirmBooking";
 import { Host } from "@/types/host";
-import { Check } from "lucide-react";
-import  "./calendar.scss";
-
+import "./calendar.scss";
 
 export default function CalendarComponent({ id }: { id: number }) {
-  const [host, setHost] = useState<Host | null>(null);
-  const [loading, setLoading] = useState(true);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [error, setError] = useState<string | null>(null);
-  const [confirmedDates, setConfirmedDates] = useState<string[]>([]);
-  const [showConfirmed, setShowConfirmed] = useState(false);
+  const { host, setHost, loading, error } = useHost(id);
+  const [quantity, setQuantity] = useState(1);
+  const [totalPrice, setTotalPrice] = useState(0);
 
-  const hostId =Number(id);
- 
+  const pricePerDay = 3; 
 
   useEffect(() => {
-    async function fetchData() {
-        try {
-       setLoading(true)
-       console.log(hostId);
-      const res = await fetch(`http://localhost:3001/hosts/${hostId}`);
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`)
-        }
-      const data = await res.json();
-      setHost(data);
-
-       setError(null)
-       } catch (err) {
-        console.error("Error fetching host data:", err)
-        setError("Failed to load calendar data")
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchData();
-  }, [hostId]);
+    const numDays = host?.calendarNew.length ?? 0;
+    setTotalPrice(quantity * numDays * pricePerDay);
+  }, [quantity, host?.calendarNew]);
 
   const formatDate = (date: Date) => date.toISOString().slice(0, 10);
-
-
-  const saveDates = async (updatedHost: Host) => {
-    try {
-     const res = await fetch(`http://localhost:3001/hosts/${updatedHost.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedHost),
-       })
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`)
-      }
-    } catch (err) {
-      console.error("Error saving:", err)
-      setError("Failed to save changes")
-    }
-  }
 
   const toggleDate = (date: Date) => {
     if (!host) return;
     const dateStr = formatDate(date);
-
-
     if (host.calendarSelected.includes(dateStr)) return;
 
-    let updatedCalendarNew: string[];
-    if (host.calendarNew.includes(dateStr)) {
+    const updatedCalendarNew = host.calendarNew.includes(dateStr)
+      ? host.calendarNew.filter((d) => d !== dateStr)
+      : [...host.calendarNew, dateStr];
 
-      updatedCalendarNew = host.calendarNew.filter((d) => d !== dateStr);
-    } else {
-
-      updatedCalendarNew = [...host.calendarNew, dateStr];
-    }
-
-    const updatedHost = { ...host, calendarNew: updatedCalendarNew };
-    setHost(updatedHost);
-    saveDates(updatedHost);
+    setHost({ ...host, calendarNew: updatedCalendarNew });
   };
 
-  const confirmDates = () => {
-    if (!host) return;
-    const newConfirmed = host.calendarNew.filter(
-      (d) => !host.calendarSelected.includes(d)
-    );
-    const updatedCalendarSelected = [
-      ...host.calendarSelected,
-      ...newConfirmed,
-    ];
-    const updatedHost = {
-      ...host,
+ const onConfirm = async (confirmedDates: string[], updatedHost: Host) => {
+  const updatedCalendarSelected = [
+    ...new Set([...updatedHost.calendarSelected, ...confirmedDates]),
+  ];
+
+  const finalHost = {
+    ...updatedHost,
+    calendarSelected: updatedCalendarSelected,
+    calendarNew: [], // solo en estado, no se enviará al backend
+  };
+
+  setHost(finalHost);
+  localStorage.removeItem(`calendarNew-${updatedHost.id}`);
+
+  await fetch(`http://localhost:3001/hosts/${updatedHost.id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      ...updatedHost,
       calendarSelected: updatedCalendarSelected,
-      calendarNew: [],
-    };
-    setHost(updatedHost);
-    setConfirmedDates(newConfirmed);
-    setShowConfirmed(true);
-    saveDates(updatedHost);
- 
+      // No calendarNew aquí
+    }),
+  });
+};
 
-  };
+
   const tileClassName = ({ date }: { date: Date }) => {
     const dateStr = formatDate(date);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-      // Si está seleccionada y NO es pasada, aplica el estilo
-      if (
-        host?.calendarSelected.includes(dateStr) &&
-        date >= today
-      ) {
-        return "selected-date";
-      } else if (host?.calendarNew.includes(dateStr)) {
-        return "new-date";
-      }
-      return "";
-    };
-const tileDisabled = ({ date }: { date: Date }) => {
-  const dateStr = formatDate(date);
-  const today = new Date();
-  today.setHours(0, 0, 0, 0); // Ignora la hora para comparar solo la fecha
-  return (
-    (!!host && host.calendarSelected.includes(dateStr)) ||
-    date < today // Desactiva fechas en el pasado
-  );
-};
-  if (loading) {
+    if (host?.calendarSelected.includes(dateStr) && date >= today)
+      return "selected-date";
+    if (host?.calendarNew.includes(dateStr)) return "new-date";
+    return "";
+  };
+
+  const tileDisabled = ({ date }: { date: Date }) => {
+    const dateStr = formatDate(date);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="flex flex-col items-center space-y-4">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-          <p className="text-gray-600">Loading calendar...</p>
+      (!!host && host.calendarSelected.includes(dateStr)) || date < today
+    );
+  };
+
+  if (loading)
+    return <div className="text-center mt-10">Loading calendar...</div>;
+  if (!host) return null;
+  if (error) {
+      return (
+        <div className="text-center mt-10 text-red-600">
+          {error}
         </div>
-      </div>
-    )
-  }
-if (!host) return null
+      );
+    }
 
   return (
-    <div className=" mx-auto p-6 bg-white flex flex-col items-center">
-    
-
- 
-      <div className=" p-6 mb-6">
-       
-        {(() => {
-          const today = new Date();
-          today.setHours(0, 0, 0, 0);
-          return (
-            <Calendar
-              onClickDay={toggleDate}
-              tileClassName={tileClassName}
-              tileDisabled={tileDisabled}
-              locale="en-GB"
-              className="calendar"
-              minDate={today}
-            />
-          );
-        })()}
-      </div>
-
+    <div className="calendarContainer">
+      
+      <CalendarUI
+        onClickDay={toggleDate}
+        tileClassName={tileClassName}
+        tileDisabled={tileDisabled}
+      />
 
       {host.calendarNew.length > 0 && (
-        <div className="text-center">
-          <button
-            className="inline-flex items-center space-x-2 px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-blue-800 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl cursor-pointer"
-            onClick={confirmDates}
-          >
-            <Check className="h-5 w-5" />
-            <span>
-              Confirm {host.calendarNew.length} New Date{host.calendarNew.length !== 1 ? "s" : ""}
-            </span>
-          </button>
-        </div>
-      )}
-
-        {showConfirmed && confirmedDates.length > 0 && (
-        <div className="mt-6 text-center">
-          <div className="text-green-700 font-semibold mb-2">
-            Dates confirmed
+        <>
+          <label className="block mt-6 text-sm font-medium text-gray-800">
+            Number of bags:
+          </label>
+          <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
+          <div className="text-center mt-4 text-lg text-gray-700 font-semibold">
+            Total price: <span className="font-bold text-xxl">{totalPrice}€</span>
           </div>
-          <ul className="text-gray-700">
-            {confirmedDates.map((date) => (
-              <li key={date}>{date}</li>
-            ))}
-          </ul>
-        </div>
+          <ConfirmBooking
+            host={host}
+            quantity={quantity}
+            totalPrice={totalPrice}
+            onConfirm={onConfirm}
+          />
+
+          
+        </>
       )}
-
-
     </div>
-  )
+  );
 }
