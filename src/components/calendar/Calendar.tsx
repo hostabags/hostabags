@@ -63,9 +63,17 @@ export default function CalendarComponent({ id }: { id: number }) {
   if (loading)
     return <div className="text-center mt-10">Loading calendar...</div>;
   if (!host) return null;
+  if (error) {
+      return (
+        <div className="text-center mt-10 text-red-600">
+          {error}
+        </div>
+      );
+    }
 
   return (
-    <div className="p-6 flex flex-col items-center bg-white shadow rounded-xl max-w-xl mx-auto">
+    <div className="calendarContainer">
+      
       <CalendarUI
         onClickDay={toggleDate}
         tileClassName={tileClassName}
@@ -74,11 +82,13 @@ export default function CalendarComponent({ id }: { id: number }) {
 
       {host.calendarNew.length > 0 && (
         <>
-          <label className="block mt-6 mb-2 font-medium text-gray-800">
+          <label className="block mt-6 text-sm font-medium text-gray-800">
             Number of bags:
           </label>
           <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
-
+          <div className="text-center mt-4 text-lg text-gray-700 font-semibold">
+            Total price: <span className="font-bold text-2xl">{totalPrice}€</span>
+          </div>
           <ConfirmBooking
             host={host}
             quantity={quantity}
@@ -86,9 +96,7 @@ export default function CalendarComponent({ id }: { id: number }) {
             onConfirm={onConfirm}
           />
 
-          <div className="text-center mt-4 text-lg text-gray-700 font-semibold">
-            Total price: {totalPrice}€
-          </div>
+          
         </>
       )}
     </div>

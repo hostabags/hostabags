@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight } from "lucide-react";
+
 
 export default function QuantitySelector({
   quantity,
@@ -8,21 +8,21 @@ export default function QuantitySelector({
   setQuantity: (q: number) => void;
 }) {
   return (
-    <div className="flex justify-center items-center gap-4 my-4">
+    <div className="flex justify-center items-center gap-4 my-4 bg-gray-50 p-4 ">
       <button
-        onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-        className="p-2 rounded-full border border-gray-300 hover:bg-gray-100"
+        onClick={() => setQuantity(Math.max(1, quantity - 1))}
+        className="flex items-center justify-center rounded-full border border-gray-300 hover:bg-gray-100 cursor-pointer w-8 h-8"
       >
-        <ChevronLeft className="w-5 h-5 text-gray-700" />
+         <span className="text-gray-500 text-2xl" >-</span> 
       </button>
       <span className="text-lg font-semibold text-gray-800 w-8 text-center">
         {quantity}
       </span>
       <button
-        onClick={() => setQuantity((q) => Math.min(10, q + 1))}
-        className="p-2 rounded-full border border-gray-300 hover:bg-gray-100"
+        onClick={() => setQuantity(Math.min(10, quantity + 1))}
+        className="flex items-center justify-center rounded-full border border-gray-300 hover:bg-gray-100 cursor-pointer w-8 h-8"
       >
-        <ChevronRight className="w-5 h-5 text-gray-700" />
+       <span className="text-gray-500 text-2xl"  >+</span> 
       </button>
     </div>
   );

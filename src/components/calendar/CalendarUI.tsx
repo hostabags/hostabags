@@ -1,18 +1,20 @@
-
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+
+interface CalendarUIProps {
+  onClickDay: (date: Date) => void;
+  tileClassName: (props: { date: Date; view: string }) => string | null | undefined;
+  tileDisabled: (props: { date: Date; view: string }) => boolean;
+}
 
 export default function CalendarUI({
   onClickDay,
   tileClassName,
   tileDisabled,
-}: {
-  onClickDay: (date: Date) => void;
-  tileClassName: any;
-  tileDisabled: any;
-}) {
+}: CalendarUIProps) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+
   return (
     <Calendar
       onClickDay={onClickDay}

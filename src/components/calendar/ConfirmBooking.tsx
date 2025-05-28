@@ -1,5 +1,5 @@
 
-import { Check } from "lucide-react";
+
 import { saveBooking } from "@/utils/localStorage";
 import { Host } from "@/types/host";
 
@@ -40,9 +40,9 @@ export default function ConfirmBooking({
   return (
     <button
       onClick={handleClick}
-      className="inline-flex items-center space-x-2 px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-blue-800 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl cursor-pointer"
+      className="px-8 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-blue-800 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl cursor-pointer w-full mt-4 text-center"
     >
-      <Check className="h-5 w-5" />
+
       <span>Save Booking</span>
     </button>
   );
