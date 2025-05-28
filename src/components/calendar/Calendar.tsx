@@ -13,9 +13,11 @@ export default function CalendarComponent({ id }: { id: number }) {
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
 
+  const pricePerDay = 3; 
+
   useEffect(() => {
     const numDays = host?.calendarNew.length ?? 0;
-    setTotalPrice(quantity * numDays * 3);
+    setTotalPrice(quantity * numDays * pricePerDay);
   }, [quantity, host?.calendarNew]);
 
   const formatDate = (date: Date) => date.toISOString().slice(0, 10);
@@ -32,14 +34,31 @@ export default function CalendarComponent({ id }: { id: number }) {
     setHost({ ...host, calendarNew: updatedCalendarNew });
   };
 
-  const onConfirm = async (confirmedDates: string[], updatedHost: Host) => {
-    setHost(updatedHost);
-    await fetch(`http://localhost:3001/hosts/${updatedHost.id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedHost),
-    });
+ const onConfirm = async (confirmedDates: string[], updatedHost: Host) => {
+  const updatedCalendarSelected = [
+    ...new Set([...updatedHost.calendarSelected, ...confirmedDates]),
+  ];
+
+  const finalHost = {
+    ...updatedHost,
+    calendarSelected: updatedCalendarSelected,
+    calendarNew: [], // solo en estado, no se enviará al backend
   };
+
+  setHost(finalHost);
+  localStorage.removeItem(`calendarNew-${updatedHost.id}`);
+
+  await fetch(`http://localhost:3001/hosts/${updatedHost.id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      ...updatedHost,
+      calendarSelected: updatedCalendarSelected,
+      // No calendarNew aquí
+    }),
+  });
+};
+
 
   const tileClassName = ({ date }: { date: Date }) => {
     const dateStr = formatDate(date);
@@ -87,7 +106,7 @@ export default function CalendarComponent({ id }: { id: number }) {
           </label>
           <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
           <div className="text-center mt-4 text-lg text-gray-700 font-semibold">
-            Total price: <span className="font-bold text-2xl">{totalPrice}€</span>
+            Total price: <span className="font-bold text-xxl">{totalPrice}€</span>
           </div>
           <ConfirmBooking
             host={host}

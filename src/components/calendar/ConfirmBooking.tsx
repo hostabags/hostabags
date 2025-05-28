@@ -19,13 +19,11 @@ export default function ConfirmBooking({
       (d) => !host.calendarSelected.includes(d)
     );
     const updatedCalendarSelected = [
-      ...host.calendarSelected,
-      ...newConfirmed,
+      ...host.calendarSelected
     ];
     const updatedHost = {
       ...host,
-      calendarSelected: updatedCalendarSelected,
-      calendarNew: [],
+      calendarSelected: updatedCalendarSelected
     };
     onConfirm(newConfirmed, updatedHost);
 

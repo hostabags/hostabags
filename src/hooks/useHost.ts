@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Host } from "@/types/host";
 
 export function useHost(hostId: number) {
-  const [host, setHost] = useState<Host | null>(null);
+  const [host, setHostState] = useState<Host | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -13,8 +13,15 @@ export function useHost(hostId: number) {
         const res = await fetch(`http://localhost:3001/hosts/${hostId}`);
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         const data = await res.json();
-        setHost(data);
+
+        // Cargar fechas guardadas en localStorage
+        const storedDates = localStorage.getItem(`calendarNew-${hostId}`);
+        const calendarNew = storedDates ? JSON.parse(storedDates) : [];
+
+        // Añadir calendarNew solo en frontend
+        setHostState({ ...data, calendarNew });
         setError(null);
+
       } catch (err) {
         console.error("Error fetching host data:", err);
         setError("Failed to load calendar data");
@@ -25,6 +32,15 @@ export function useHost(hostId: number) {
 
     fetchData();
   }, [hostId]);
+  const setHost = (updatedHost: Host) => {
 
+    localStorage.setItem(
+      `calendarNew-${updatedHost.id}`,
+      JSON.stringify(updatedHost.calendarNew ?? [])
+    );
+
+
+    setHostState(updatedHost);
+  };
   return { host, setHost, loading, error };
 }
