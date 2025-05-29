@@ -1,11 +1,11 @@
 import Header from "@/components/layout/header/Header";
+import ReservesList from "@/components/reserves/ReservesList";
 
 export default function page() {
   return (
     <div>
       <Header />
-      <p className="mt-5 ms-5 text-4xl">Aqui van a estar las reservas del usuario logeado y esta sera una ruta protegida</p>
-      
+      <ReservesList />
     </div>
-  )
+  );
 }
