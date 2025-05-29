@@ -23,7 +23,7 @@ export default function Header() {
       <nav>
         <ul className="flex space-x-4">
           <li>
-            <Link href="/map" className="hover:text-gray-300">MAPA</Link>
+            <Link href="/booking" className="hover:text-gray-300">MAPA</Link>
           </li>
           <li>
             <Link href="/reserve" className="hover:text-gray-300">RESERVAS</Link>
