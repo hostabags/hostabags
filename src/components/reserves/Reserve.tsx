@@ -113,7 +113,7 @@ export default function Reserve() {
   if (loading) {
     return (
       <div className="m-8 text-center">
-        <p className="text-gray-600">Cargando reservas...</p>
+        <p className="text-gray-600">Loading Bookings...</p>
       </div>
     );
   }
@@ -121,12 +121,12 @@ export default function Reserve() {
   if (!user) {
     return (
       <div className="m-8 text-center">
-        <p className="text-gray-600 mb-4">Por favor, inicia sesión para ver tus reservas</p>
+        <p className="text-gray-600 mb-4">Please, SignIn to see your bookings</p>
         <button 
           onClick={() => router.push('/auth/signin')}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
-          Iniciar sesión
+          SignIn
         </button>
       </div>
     );
@@ -134,22 +134,22 @@ export default function Reserve() {
 
   if (userBookings.length === 0) {
     return (
-      <div className="m-8">
-        <h2 className="text-2xl font-bold mb-4">Tus Reservas</h2>
-        <p className="text-gray-600">No tienes reservas activas</p>
+      <main className="m-8">
+        <h1 className="text-2xl font-bold mb-4">Your Bookings</h1>
+        <p className="text-gray-600">You don`t have any active booking</p>
         <button 
           onClick={() => router.push('/booking')}
           className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
-          Hacer una nueva reserva
+          Make a new booking
         </button>
-      </div>
+      </main>
     );
   }
 
   return (
-    <div className="m-8">
-      <h2 className="text-2xl font-bold mb-6">Tus Reservas</h2>
+    <main className="m-8">
+      <h1 >Your Bookings</h1>
       <div className="space-y-6">
         {userBookings.map((booking) => {
           const host = hosts[booking.hostId];
@@ -161,19 +161,19 @@ export default function Reserve() {
                   <p className="text-gray-600 mb-2">{host?.address || 'Dirección no disponible'}</p>
                   <div className="space-y-2">
                     <p className="text-gray-700">
-                      <span className="font-medium">Fecha de reserva:</span> {formatDate(booking.date)}
+                      <span className="font-medium">Reservation dates:</span> {formatDate(booking.date)}
                     </p>
                     <p className="text-gray-700">
-                      <span className="font-medium">Cantidad de maletas:</span> {booking.luggageCount}
+                      <span className="font-medium">Number of bags:</span> {booking.luggageCount}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center justify-end">
                   <button 
                     onClick={() => router.push('/booking')}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    className="btn"
                   >
-                    Ver en el mapa
+                    See map
                   </button>
                 </div>
               </div>
@@ -181,6 +181,6 @@ export default function Reserve() {
           );
         })}
       </div>
-    </div>
+    </main>
   );
 }

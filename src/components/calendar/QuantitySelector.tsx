@@ -15,7 +15,7 @@ export default function QuantitySelector({
       >
          <span className="text-gray-500 text-2xl" >-</span> 
       </button>
-      <span className="text-lg font-semibold text-gray-800 w-8 text-center">
+      <span className="text-lg font-semibold  w-8 text-center evid">
         {quantity}
       </span>
       <button

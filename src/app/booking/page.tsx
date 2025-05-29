@@ -34,7 +34,7 @@ export default function MapPage() {
   };
 
   return (
-    <main className="relative w-full max-screen">
+    <>
       <Header />
       <Map
         hosts={hostsData.hosts.map(host => ({
@@ -54,6 +54,6 @@ export default function MapPage() {
           setSelectedHost={setSelectedHost}
         />
       )}
-    </main>
+</>
   );
 }

@@ -69,9 +69,9 @@ export default function ConfirmPage() {
     return (
       <>
         <Header />
-        <div className="min-h-screen flex items-center justify-center">
+        <main className="min-h-screen flex items-center justify-center">
           <p className="text-xl text-gray-600">No booking details found</p>
-        </div>
+        </main>
       </>
     );
   }
@@ -79,7 +79,7 @@ export default function ConfirmPage() {
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <main className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-8 text-center">Booking Confirmation</h1>
           
@@ -125,12 +125,12 @@ export default function ConfirmPage() {
                 onClick={handleConfirmReservation}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors duration-200"
               >
-                {user ? 'Confirmar reserva' : 'Iniciar sesión para reservar'}
+               {user ? 'Confirm Booking' : 'SignIn to Confirm Booking'}
               </button>
             </div>
           </div>
         </div>
-      </div>
+      </main>
     </>
   );
 }
