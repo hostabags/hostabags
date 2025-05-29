@@ -125,11 +125,15 @@
         "2025-06-24",
         "2025-06-25",
         "2025-06-26",
-        "2025-06-27"
+        "2025-06-27",
+        "2025-06-18",
+        "2025-06-19",
+        "2025-06-20"
       ],
       "calendarNew": [
-        "2025-06-26",
-        "2025-06-27"
+        "2025-06-18",
+        "2025-06-19",
+        "2025-06-20"
       ]
     },
     {
@@ -145,7 +149,13 @@
         "2025-05-29",
         "2025-05-30",
         "2025-06-11",
-        "2025-06-12"
+        "2025-06-12",
+        "2025-06-17",
+        "2025-06-18"
+      ],
+      "calendarNew": [
+        "2025-06-17",
+        "2025-06-18"
       ]
     },
     {
@@ -165,9 +175,13 @@
       "address": "Avinguda Diagonal, 468",
       "lat": 41.3947,
       "lng": 2.1596,
-      "calendarSelected": [],
+      "calendarSelected": [
+        "2025-05-29",
+        "2025-05-30"
+      ],
       "calendarNew": [
-        "2025-05-27"
+        "2025-05-29",
+        "2025-05-30"
       ]
     },
     {
@@ -277,6 +291,34 @@
       "hostId": "4",
       "date": "2025-05-20",
       "luggageCount": 2
+    },
+    {
+      "id": "2705",
+      "userId": "LTjihs3sboYv0Exs6vzgA5jLhbv1",
+      "hostId": "4",
+      "date": "2025-06-26",
+      "luggageCount": 2
+    },
+    {
+      "id": "d15f",
+      "userId": "LTjihs3sboYv0Exs6vzgA5jLhbv1",
+      "hostId": "5",
+      "date": "2025-06-17",
+      "luggageCount": 2
+    },
+    {
+      "id": "ea91",
+      "userId": "LTjihs3sboYv0Exs6vzgA5jLhbv1",
+      "hostId": "7",
+      "date": "2025-05-29",
+      "luggageCount": 2
+    },
+    {
+      "id": "4abd",
+      "userId": "LTjihs3sboYv0Exs6vzgA5jLhbv1",
+      "hostId": "4",
+      "date": "2025-06-18",
+      "luggageCount": 4
     }
   ]
 }

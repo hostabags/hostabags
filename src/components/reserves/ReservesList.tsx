@@ -7,9 +7,6 @@ export default function ReservesList() {
         <li>
           <Reserve />
         </li>
-        <li>
-          <Reserve />
-        </li>
       </ul>
     </div>
   );
