@@ -106,7 +106,7 @@ export default function CalendarComponent({ id }: { id: number }) {
           </label>
           <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
           <div className="text-center mt-4 text-lg text-gray-700 font-semibold">
-            Total price: <span className="font-bold text-xxl">{totalPrice}€</span>
+            Total price: <span className="font-bold text-xl evid">{totalPrice}€</span>
           </div>
           <ConfirmBooking
             host={host}

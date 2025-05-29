@@ -3,10 +3,14 @@
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { Menu, X } from 'lucide-react';
+import "./header.scss"
 
 export default function Header() {
   const { user, logout } = useAuth();
   const router = useRouter();
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleLogout = async () => {
     try {
@@ -18,39 +22,57 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-gray-800 text-white p-4 flex justify-between items-center">
-      <div className="text-xl font-bold"><Link href="/">LOGO HOSTABAGS</Link></div>
-      <nav>
-        <ul className="flex space-x-4">
-          <li>
-            <Link href="/booking" className="hover:text-gray-300">MAPA</Link>
-          </li>
-          <li>
-            <Link href="/reserve" className="hover:text-gray-300">RESERVAS</Link>
-          </li>
-          <li>
-            <Link href="/dashboard" className="hover:text-gray-300">DASHBOARD</Link>
-          </li>
-        </ul>
-      </nav>
-      <div className="flex items-center space-x-4">
-        {user ? (
-          <>
-            <span className="">CB</span> {/* Placeholder for user initial/icon */}
-            <button
-              onClick={handleLogout}
-              className="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
-            >
-              Logout
-            </button>
-          </>
-        ) : (
-          <>
-            <Link href="/auth/signin" className="hover:text-gray-300">Signin</Link>
-            <Link href="/auth/signup" className="hover:text-gray-300">Signup</Link>
-          </>
-        )}
+     <header className="header">
+      <div className="flex justify-between items-center">
+        <div className="logo">
+          <Link href="/">HOSTABAGS</Link>
+        </div>
+
+        {/* Desktop menu */}
+        <nav className="nav-links">
+          <Link href="/booking">MAP</Link>
+          <Link href="/reserve">BOOKINGS</Link>
+          <Link href="/dashboard">DASHBOARD</Link>
+        </nav>
+
+        {/* Mobile hamburger button */}
+        <button
+          className="mobile-menu text-white md:hidden"
+          onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle mobile menu"
+        >
+           {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
+
+        {/* User actions */}
+        <div className="flex items-center gap-4">
+          {user ? (
+            <>
+              <span>CB</span>
+              <button
+                onClick={handleLogout}
+                className="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link href="/auth/signin">Sign-in</Link>
+              <Link href="/auth/signup">Sign-up</Link>
+            </>
+          )}
+        </div>
       </div>
+
+      {/* Mobile dropdown menu */}
+      {isMobileMenuOpen && (
+        <nav className="flex flex-col mt-2 space-y-2 md:hidden">
+          <Link href="/booking">MAP</Link>
+          <Link href="/reserve">BOOKINGS</Link>
+          <Link href="/dashboard">DASHBOARD</Link>
+        </nav>
+      )}
     </header>
   );
 }

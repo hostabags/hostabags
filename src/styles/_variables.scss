@@ -1,0 +1,23 @@
+// COLORS
+    $primary-color: #4f46e5;
+    $secondary-color: #6366f1;
+    $light-bg: #f9fafb;
+    $dark-text: #1f2937;
+    $gray: #9ca3af;
+    $white: #ffffff;
+    $shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    $dark-bg: #121420; // Color de fondo oscuro para la barra de navegación
+    $text-color: #333333; // Color de texto principal
+    $light-bg: #ffffff; // Color de fondo claro
+    $border-radius: 6px; // Radio de borde para elementos
+    $box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); // Sombra sutil
+    $transition-speed: 0.3s; // Velocidad de transición para efectos
+
+
+// MIXINS
+    @mixin flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    }

@@ -17,7 +17,7 @@ export default function Search() {
     <div className="flex items-center border rounded-full overflow-hidden p-2">
       <input
         type="text"
-        placeholder="ubicacion buscar"
+        placeholder="Search location"
         className="px-4 py-2 w-full outline-none"
         value={location}
         onChange={(e) => setLocation(e.target.value)}

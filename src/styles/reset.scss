@@ -1,0 +1,51 @@
+// ------------------------------
+// Reset
+// ------------------------------
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  text-rendering: optimizeLegibility;
+  @apply antialiased
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  text-rendering: optimizeLegibility;
+  @apply antialiased
+}
+button,
+a,
+Link {
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+
+  &::before,
+  &::after {
+    content: "";
+  }
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+input[type="number"].no-spinner::-webkit-outer-spin-button,
+input[type="number"].no-spinner::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

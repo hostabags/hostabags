@@ -41,15 +41,15 @@ export default function SearchBox() {
   };
 
   return (
-    <div className="absolute top-4 left-4 z-[1000] w-80">
+    <div className="absolute top-20 left-4 z-[1000] w-80">
       <div className="relative">
         <input
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-          placeholder="Buscar ubicación..."
-          className="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Search location..."
+          className="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-700"
         />
         <button
           onClick={handleSearch}
