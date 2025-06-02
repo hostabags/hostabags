@@ -1,31 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hostabags
 
-## Getting Started
+**Hostabags** es una aplicación web desarrollada con Next.js, TypeScript y Tailwind CSS que permite a los usuarios encontrar y reservar espacios para dejar sus maletas en distintas ubicaciones. Utiliza Firebase para la autenticación y la base de datos, y MapTiler para mostrar los hosts en un mapa interactivo.
 
-First, run the development server:
+## 🧳 Características
+
+- Registro e inicio de sesión de usuarios (Firebase Auth).
+- Mapa interactivo con marcadores para ver los hosts disponibles (MapTiler).
+- Hosts con calendario de disponibilidad.
+- Sistema de reservas.
+- Estilo moderno y responsive con Tailwind CSS.
+
+## 🚀 Tecnologías
+
+- [Next.js](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Firebase](https://firebase.google.com/)
+- [MapTiler](https://www.maptiler.com/)
+
+## 📦 Instalación
+
+1. Clona este repositorio:
+
+```bash
+git clone https://github.com/hostabags/hostabags.git
+cd hostabags
+```
+
+2. Instala las dependencias:
+
+```bash
+npm install
+```
+
+3. Configura Firebase:
+
+- Crea un proyecto en [Firebase Console](https://console.firebase.google.com/).
+- Habilita la autenticación por email/contraseña.
+- Crea una base de datos Firestore.
+- Crea un archivo `.env.local` en la raíz del proyecto con las siguientes variables:
+
+```
+NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+```
+
+4. Configura MapTiler:
+
+- Regístrate en [MapTiler](https://www.maptiler.com/) y consigue tu API key.
+- Añádela en el archivo `.env.local`:
+
+```
+NEXT_PUBLIC_MAPTILER_API_KEY=your_maptiler_api_key
+```
+
+5. Inicia la aplicación:
 
 ```bash
 npm run dev
-npm run server
+```
 
+Accede a `http://localhost:3000` para ver la app en funcionamiento.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🗺️ Cómo funciona
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Usuarios
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Pueden registrarse, iniciar sesión y cerrar sesión.
+- Pueden ver un mapa con todos los hosts disponibles.
+- Pueden seleccionar un host, ver su información y calendario de disponibilidad.
+- Pueden hacer reservas para dejar sus maletas en un host.
 
-## Learn More
+### Hosts
 
-To learn more about Next.js, take a look at the following resources:
+- Se muestran en el mapa con pines personalizados.
+- Cada host tiene un calendario con fechas seleccionables (disponibles).
+- Los hosts pueden ser gestionados desde el backend o en futuras versiones desde el panel de usuario.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ✅ Estado del proyecto
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+🚧 En desarrollo activo. Se planean mejoras como sistema de reseñas, pagos online y gestión de hosts por los propios usuarios.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
