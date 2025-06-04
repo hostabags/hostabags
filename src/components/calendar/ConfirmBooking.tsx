@@ -1,6 +1,7 @@
 import { saveBooking } from "@/utils/localStorage";
 import { Host } from "@/types/host";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 
 interface Props {
   host: Host;
@@ -16,26 +17,41 @@ export default function ConfirmBooking({
   onConfirm,
 }: Props) {
   const router = useRouter();
+  const { user } = useAuth();
   
-  const handleClick = () => {
-    const newConfirmed = host.calendarNew.filter(
-      (d) => !host.calendarSelected.includes(d)
-    );
-    const updatedCalendarSelected = [...host.calendarSelected];
-    const updatedHost = {
-      ...host,
-      calendarSelected: updatedCalendarSelected,
-    };
-    onConfirm(newConfirmed, updatedHost);
+  const handleClick = async () => {
+    if (!user) {
+      router.push('/auth/signin');
+      return;
+    }
 
-    saveBooking({
-      hostId: host.id,
-      dates: newConfirmed,
-      quantity,
-      totalPrice,
-    });
+    try {
+      const newConfirmed = host.calendarNew.filter(
+        (d) => !host.calendarSelected.includes(d)
+      );
+      const updatedCalendarSelected = [...host.calendarSelected];
+      const updatedHost = {
+        ...host,
+        calendarSelected: updatedCalendarSelected,
+      };
 
-    router.push('/confirm');
+      // Update host calendar
+      await onConfirm(newConfirmed, updatedHost);
+
+      // Save booking details to localStorage
+      saveBooking({
+        hostId: host.id,
+        dates: host.calendarNew,
+        quantity,
+        totalPrice,
+        hostName: host.name,
+        hostAddress: host.address,
+      });
+
+      router.push('/confirm');
+    } catch (error) {
+      console.error('Error saving booking:', error);
+    }
   };
 
   return (
@@ -43,7 +59,7 @@ export default function ConfirmBooking({
       onClick={handleClick}
       className="btn w-full mt-6"
     >
-      <span>Save Booking</span>
+      <span>{user ? 'Save Booking' : 'Sign In to Book'}</span>
     </button>
   );
 }

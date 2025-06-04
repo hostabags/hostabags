@@ -1,4 +1,3 @@
-
 "use client";
 import { useState, useEffect } from "react";
 import { useHost } from "@/hooks/useHost";
@@ -6,6 +5,8 @@ import CalendarUI from "./CalendarUI";
 import QuantitySelector from "./QuantitySelector";
 import ConfirmBooking from "./ConfirmBooking";
 import { Host } from "@/types/host";
+import { database } from "@/config/firebase";
+import { ref, update } from "firebase/database";
 import "./calendar.scss";
 
 export default function CalendarComponent({ id }: { id: number }) {
@@ -25,7 +26,7 @@ export default function CalendarComponent({ id }: { id: number }) {
   const toggleDate = (date: Date) => {
     if (!host) return;
     const dateStr = formatDate(date);
-    if (host.calendarSelected.includes(dateStr)) return;
+    if (host?.calendarSelected?.includes(dateStr)) return;
 
     const updatedCalendarNew = host.calendarNew.includes(dateStr)
       ? host.calendarNew.filter((d) => d !== dateStr)
@@ -34,37 +35,37 @@ export default function CalendarComponent({ id }: { id: number }) {
     setHost({ ...host, calendarNew: updatedCalendarNew });
   };
 
- const onConfirm = async (confirmedDates: string[], updatedHost: Host) => {
-  const updatedCalendarSelected = [
-    ...new Set([...updatedHost.calendarSelected, ...confirmedDates]),
-  ];
+  const onConfirm = async (confirmedDates: string[], updatedHost: Host) => {
+    try {
+      const updatedCalendarSelected = [
+        ...new Set([...updatedHost.calendarSelected, ...confirmedDates]),
+      ];
 
-  const finalHost = {
-    ...updatedHost,
-    calendarSelected: updatedCalendarSelected,
-    calendarNew: [], // solo en estado, no se enviará al backend
+      const finalHost = {
+        ...updatedHost,
+        calendarSelected: updatedCalendarSelected,
+        calendarNew: [], // solo en estado, no se enviará al backend
+      };
+
+      // Update only the calendarSelected field in Firebase
+      const hostRef = ref(database, `hosts/${updatedHost.id}`);
+      await update(hostRef, {
+        calendarSelected: updatedCalendarSelected
+      });
+
+      setHost(finalHost);
+      localStorage.removeItem(`calendarNew-${updatedHost.id}`);
+    } catch (error) {
+      console.error("Error updating host:", error);
+      throw error;
+    }
   };
-
-  setHost(finalHost);
-  localStorage.removeItem(`calendarNew-${updatedHost.id}`);
-
-  await fetch(`http://localhost:3001/hosts/${updatedHost.id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      ...updatedHost,
-      calendarSelected: updatedCalendarSelected,
-      // No calendarNew aquí
-    }),
-  });
-};
-
 
   const tileClassName = ({ date }: { date: Date }) => {
     const dateStr = formatDate(date);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    if (host?.calendarSelected.includes(dateStr) && date >= today)
+    if (host?.calendarSelected?.includes(dateStr) && date >= today)
       return "selected-date";
     if (host?.calendarNew.includes(dateStr)) return "new-date";
     return "";
@@ -75,7 +76,7 @@ export default function CalendarComponent({ id }: { id: number }) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     return (
-      (!!host && host.calendarSelected.includes(dateStr)) || date < today
+      (!!host && host?.calendarSelected?.includes(dateStr)) || date < today
     );
   };
 
@@ -92,7 +93,6 @@ export default function CalendarComponent({ id }: { id: number }) {
 
   return (
     <div className="calendarContainer">
-      
       <CalendarUI
         onClickDay={toggleDate}
         tileClassName={tileClassName}
@@ -114,8 +114,6 @@ export default function CalendarComponent({ id }: { id: number }) {
             totalPrice={totalPrice}
             onConfirm={onConfirm}
           />
-
-          
         </>
       )}
     </div>
