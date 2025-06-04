@@ -7,15 +7,8 @@ import Header from '@/components/layout/header/Header';
 import { getBookings } from '@/utils/localStorage';
 import { database } from '@/config/firebase';
 import { ref, push } from 'firebase/database';
+import { BookingDetails } from '@/types/bookingDetails';
 
-interface BookingDetails {
-  hostId: string;
-  dates: string[];
-  quantity: number;
-  totalPrice: number;
-  hostName: string;
-  hostAddress: string;
-}
 
 export default function ConfirmPage() {
   const [bookingDetails, setBookingDetails] = useState<BookingDetails | null>(null);
@@ -28,11 +21,12 @@ export default function ConfirmPage() {
       return;
     }
 
-    const bookings = (getBookings() || []) as BookingDetails[];
-    if (bookings && bookings.length > 0) {
-      const lastBooking = bookings[bookings.length - 1];
-      setBookingDetails(lastBooking);
+    const bookings = getBookings();
+    if (bookings ) {
+console.log(bookings);
+      setBookingDetails({...bookings});
     } else {
+
       router.push('/booking');
     }
   }, [user, router]);

@@ -34,7 +34,7 @@ export default function ConfirmBooking({
         ...host,
         calendarSelected: updatedCalendarSelected,
       };
-
+     
       // Update host calendar
       await onConfirm(newConfirmed, updatedHost);
 
@@ -47,7 +47,7 @@ export default function ConfirmBooking({
         hostName: host.name,
         hostAddress: host.address,
       });
-
+console.log("hola");
       router.push('/confirm');
     } catch (error) {
       console.error('Error saving booking:', error);
