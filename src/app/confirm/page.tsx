@@ -1,16 +1,20 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getBookings } from '@/utils/localStorage';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import Header from '@/components/layout/header/Header';
+import { getBookings } from '@/utils/localStorage';
+import { database } from '@/config/firebase';
+import { ref, push } from 'firebase/database';
 
 interface BookingDetails {
   hostId: string;
   dates: string[];
   quantity: number;
   totalPrice: number;
+  hostName: string;
+  hostAddress: string;
 }
 
 export default function ConfirmPage() {
@@ -19,40 +23,36 @@ export default function ConfirmPage() {
   const router = useRouter();
 
   useEffect(() => {
-    const bookings = getBookings();
-    // Get the most recent booking (last one in the array)
-    if (bookings && bookings.length > 0) {
-      const lastBooking = bookings[bookings.length - 1];
-      setBookingDetails(lastBooking);
-    }
-  }, []);
-
-  const handleConfirmReservation = async () => {
     if (!user) {
       router.push('/auth/signin');
       return;
     }
 
-    if (!bookingDetails) return;
+    const bookings = (getBookings() || []) as BookingDetails[];
+    if (bookings && bookings.length > 0) {
+      const lastBooking = bookings[bookings.length - 1];
+      setBookingDetails(lastBooking);
+    } else {
+      router.push('/booking');
+    }
+  }, [user, router]);
+
+  const handleConfirmReservation = async () => {
+    if (!user || !bookingDetails) return;
 
     try {
-      // Create booking in JSON server
-      const response = await fetch('http://localhost:3001/bookings', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userId: user.uid,
-          hostId: bookingDetails.hostId,
-          date: bookingDetails.dates[0], // Using first date as the booking date
-          luggageCount: bookingDetails.quantity
-        }),
+      // Create booking in Firebase
+      const bookingsRef = ref(database, 'bookings');
+      await push(bookingsRef, {
+        userId: user.uid,
+        hostId: bookingDetails.hostId,
+        date: bookingDetails.dates[0], // Using first date as the booking date
+        luggageCount: bookingDetails.quantity,
+        totalPrice: bookingDetails.totalPrice,
+        hostName: bookingDetails.hostName,
+        hostAddress: bookingDetails.hostAddress,
+        createdAt: new Date().toISOString()
       });
-
-      if (!response.ok) {
-        throw new Error('Failed to create booking');
-      }
 
       // Clear the booking from localStorage
       localStorage.removeItem('hostabagsBookings');
@@ -61,9 +61,12 @@ export default function ConfirmPage() {
       router.push('/reserve');
     } catch (error) {
       console.error('Error creating booking:', error);
-      // You might want to show an error message to the user here
     }
   };
+
+  if (!user) {
+    return null;
+  }
 
   if (!bookingDetails) {
     return (
@@ -88,8 +91,9 @@ export default function ConfirmPage() {
               <h2 className="text-xl font-semibold text-gray-800 mb-4">Booking Details</h2>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-gray-600">Host ID</p>
-                  <p className="font-medium">{bookingDetails.hostId}</p>
+                  <p className="text-sm text-gray-600">Host</p>
+                  <p className="font-medium">{bookingDetails.hostName}</p>
+                  <p className="text-sm text-gray-500">{bookingDetails.hostAddress}</p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-600">Quantity</p>
@@ -125,7 +129,7 @@ export default function ConfirmPage() {
                 onClick={handleConfirmReservation}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors duration-200"
               >
-               {user ? 'Confirm Booking' : 'SignIn to Confirm Booking'}
+                Confirm Booking
               </button>
             </div>
           </div>

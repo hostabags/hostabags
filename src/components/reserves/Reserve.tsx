@@ -3,20 +3,17 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
+import { database } from '@/config/firebase';
+import { ref, onValue } from 'firebase/database';
+import { Host } from '@/types/host';
 import { getBookings } from '@/utils/localStorage';
 
 interface Booking {
   id: string;
   userId: string;
   hostId: string;
-  date: string;  // Changed back to single date to match JSON server
+  date: string;
   luggageCount: number;
-}
-
-interface Host {
-  id: string;
-  name: string;
-  address: string;
 }
 
 export default function Reserve() {
@@ -27,37 +24,45 @@ export default function Reserve() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchUserBookings = async () => {
-      if (!user) return;
+    if (!user) return;
 
-      try {
-        // Fetch all bookings
-        const bookingsResponse = await fetch('http://localhost:3001/bookings');
-        const allBookings: Booking[] = await bookingsResponse.json();
+    try {
+      setLoading(true);
+
+      // Subscribe to bookings updates
+      const bookingsRef = ref(database, 'bookings');
+      const bookingsUnsubscribe = onValue(bookingsRef, (snapshot) => {
+        const allBookings: Booking[] = [];
+        snapshot.forEach((childSnapshot) => {
+          allBookings.push({ id: childSnapshot.key!, ...childSnapshot.val() });
+        });
         
         // Filter bookings for current user
         const userBookings = allBookings.filter(booking => booking.userId === user.uid);
         setUserBookings(userBookings);
+      });
 
-        // Fetch hosts data for the bookings
-        const hostsResponse = await fetch('http://localhost:3001/hosts');
-        const allHosts: Host[] = await hostsResponse.json();
-        
-        // Create a map of host IDs to host data
-        const hostsMap = allHosts.reduce((acc, host) => {
-          acc[host.id] = host;
-          return acc;
-        }, {} as { [key: string]: Host });
-        
+      // Subscribe to hosts updates
+      const hostsRef = ref(database, 'hosts');
+      const hostsUnsubscribe = onValue(hostsRef, (snapshot) => {
+        const hostsMap: { [key: string]: Host } = {};
+        snapshot.forEach((childSnapshot) => {
+          const host = childSnapshot.val();
+          hostsMap[childSnapshot.key!] = host;
+        });
         setHosts(hostsMap);
-      } catch (error) {
-        console.error('Error fetching bookings:', error);
-      } finally {
         setLoading(false);
-      }
-    };
+      });
 
-    fetchUserBookings();
+      // Cleanup subscriptions on unmount
+      return () => {
+        bookingsUnsubscribe();
+        hostsUnsubscribe();
+      };
+    } catch (error) {
+      console.error('Error setting up listeners:', error);
+      setLoading(false);
+    }
   }, [user]);
 
   const handleConfirmReservation = async () => {
