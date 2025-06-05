@@ -165,9 +165,18 @@ export default function Reserve() {
                   <h3 className="text-xl font-semibold mb-2">{host?.name || 'Host no encontrado'}</h3>
                   <p className="text-gray-600 mb-2">{host?.address || 'Dirección no disponible'}</p>
                   <div className="space-y-2">
-                    <p className="text-gray-700">
-                      <span className="font-medium">Reservation dates:</span> {formatDate(booking.date)}
-                    </p>
+                  <p className="text-gray-700">
+  <span className="font-medium">Reservation dates:</span>
+                    <ul className="list-disc list-inside">
+                      {Array.isArray(booking.date) ? (
+                        booking.date.map((d) => (
+                          <li key={d}>{formatDate(d)}</li>
+                        ))
+                      ) : (
+                        <li>{formatDate(booking.date)}</li>
+                      )}
+                    </ul>
+                  </p>
                     <p className="text-gray-700">
                       <span className="font-medium">Number of bags:</span> {booking.luggageCount}
                     </p>

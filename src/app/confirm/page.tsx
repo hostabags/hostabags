@@ -40,7 +40,7 @@ console.log(bookings);
       await push(bookingsRef, {
         userId: user.uid,
         hostId: bookingDetails.hostId,
-        date: bookingDetails.dates[0], // Using first date as the booking date
+        date: bookingDetails.dates, // Using first date as the booking date
         luggageCount: bookingDetails.quantity,
         totalPrice: bookingDetails.totalPrice,
         hostName: bookingDetails.hostName,
