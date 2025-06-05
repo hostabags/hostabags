@@ -21,8 +21,15 @@ export function useHost(hostId: number) {
           const storedDates = localStorage.getItem(`calendarNew-${hostId}`);
           const calendarNew = storedDates ? JSON.parse(storedDates) : [];
 
+          // Asegurar que calendarSelected sea un array
+          const calendarSelected = Array.isArray(data.calendarSelected) ? data.calendarSelected : [];
+
           // Añadir calendarNew solo en frontend
-          setHostState({ ...data, calendarNew });
+          setHostState({ 
+            ...data, 
+            calendarNew,
+            calendarSelected 
+          });
         } else {
           setHostState(null);
         }
@@ -51,6 +58,11 @@ export function useHost(hostId: number) {
         JSON.stringify(updatedHost.calendarNew ?? [])
       );
 
+      // Asegurar que calendarSelected sea un array antes de actualizar
+      const calendarSelected = Array.isArray(updatedHost.calendarSelected) 
+        ? updatedHost.calendarSelected 
+        : [];
+
       // Update host in Firebase
       const hostRef = ref(database, `hosts/${updatedHost.id}`);
       await update(hostRef, {
@@ -58,7 +70,7 @@ export function useHost(hostId: number) {
         address: updatedHost.address,
         lat: updatedHost.lat,
         lng: updatedHost.lng,
-        calendarSelected: updatedHost.calendarSelected
+        calendarSelected
       });
 
       setHostState(updatedHost);
