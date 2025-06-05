@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { database } from '@/config/firebase';
 import { ref, onValue } from 'firebase/database';
 import { Host } from '@/types/host';
-import { getBookings } from '@/utils/localStorage';
+// import { getBookings } from '@/utils/localStorage';
 
 interface Booking {
   id: string;
@@ -65,50 +65,50 @@ export default function Reserve() {
     }
   }, [user]);
 
-  const handleConfirmReservation = async () => {
-    if (!user) {
-      router.push('/auth/signin');
-      return;
-    }
+  // const handleConfirmReservation = async () => {
+  //   if (!user) {
+  //     router.push('/auth/signin');
+  //     return;
+  //   }
 
-    try {
-      const bookings = getBookings();
-      if (bookings && bookings.length > 0) {
-        const lastBooking = bookings[bookings.length - 1];
+  //   try {
+  //     const bookings = getBookings();
+  //     if (bookings && bookings.length > 0) {
+  //       const lastBooking = bookings[bookings.length - 1];
         
-        // Create booking in JSON server
-        const response = await fetch('http://localhost:3001/bookings', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            userId: user.uid,
-            hostId: lastBooking.hostId,
-            date: lastBooking.dates[0],  // Use first date as the booking date
-            luggageCount: lastBooking.quantity
-          }),
-        });
+  //       // Create booking in JSON server
+  //       const response = await fetch('http://localhost:3001/bookings', {
+  //         method: 'POST',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify({
+  //           userId: user.uid,
+  //           hostId: lastBooking.hostId,
+  //           date: lastBooking.dates[0],  // Use first date as the booking date
+  //           luggageCount: lastBooking.quantity
+  //         }),
+  //       });
 
-        if (!response.ok) {
-          throw new Error('Failed to create booking');
-        }
+  //       if (!response.ok) {
+  //         throw new Error('Failed to create booking');
+  //       }
 
-        // Clear the booking from localStorage
-        localStorage.removeItem('hostabagsBookings');
+  //       // Clear the booking from localStorage
+  //       localStorage.removeItem('hostabagsBookings');
         
-        // Refresh the bookings list
-        const updatedBookingsResponse = await fetch('http://localhost:3001/bookings');
-        const allBookings: Booking[] = await updatedBookingsResponse.json();
-        setUserBookings(allBookings.filter(booking => booking.userId === user.uid));
-      }
-    } catch (error) {
-      console.error('Error creating booking:', error);
-    }
-  };
+  //       // Refresh the bookings list
+  //       const updatedBookingsResponse = await fetch('http://localhost:3001/bookings');
+  //       const allBookings: Booking[] = await updatedBookingsResponse.json();
+  //       setUserBookings(allBookings.filter(booking => booking.userId === user.uid));
+  //     }
+  //   } catch (error) {
+  //     console.error('Error creating booking:', error);
+  //   }
+  // };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('es-ES', {
+    return new Date(dateString).toLocaleDateString('en-GB', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
@@ -151,22 +151,33 @@ export default function Reserve() {
       </main>
     );
   }
-
+const lastBookingId = userBookings.length > 0 ? userBookings[userBookings.length - 1].id : null;
   return (
     <main className="m-8">
       <h1 >Your Bookings</h1>
       <div className="space-y-6">
-        {userBookings.map((booking) => {
-          const host = hosts[booking.hostId];
-          return (
-            <div key={booking.id} className="bg-white rounded-lg shadow-md p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <h3 className="text-xl font-semibold mb-2">{host?.name || 'Host no encontrado'}</h3>
-                  <p className="text-gray-600 mb-2">{host?.address || 'Dirección no disponible'}</p>
-                  <div className="space-y-2">
+       {userBookings.map((booking) => {
+        const host = hosts[booking.hostId];
+        const isLast = booking.id === lastBookingId;
+        return (
+          <div
+            key={booking.id}
+            className={`bg-white rounded-lg shadow-md p-6 ${isLast ? "border-2 border-blue-500" : ""}`}
+          >
+            {isLast && (
+              <div className="mb-2">
+                <span className="inline-block bg-blue-500 text-white text-xs px-2 py-1 rounded">
+                  Latest booking
+                </span>
+              </div>
+            )}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <h3 className="text-xl font-semibold mb-2">{host?.name || 'Host no encontrado'}</h3>
+                <p className="text-gray-600 mb-2">{host?.address || 'Dirección no disponible'}</p>
+                <div className="space-y-2">
                   <p className="text-gray-700">
-  <span className="font-medium">Reservation dates:</span>
+                    <span className="font-medium">Reservation dates:</span>
                     <ul className="list-disc list-inside">
                       {Array.isArray(booking.date) ? (
                         booking.date.map((d) => (
@@ -177,23 +188,23 @@ export default function Reserve() {
                       )}
                     </ul>
                   </p>
-                    <p className="text-gray-700">
-                      <span className="font-medium">Number of bags:</span> {booking.luggageCount}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center justify-end">
-                  <button 
-                    onClick={() => router.push('/booking')}
-                    className="btn"
-                  >
-                    See map
-                  </button>
+                  <p className="text-gray-700">
+                    <span className="font-medium">Number of bags:</span> {booking.luggageCount}
+                  </p>
                 </div>
               </div>
+              <div className="flex items-center justify-end">
+                <button 
+                  onClick={() => router.push('/booking')}
+                  className="btn"
+                >
+                  See map
+                </button>
+              </div>
             </div>
-          );
-        })}
+          </div>
+        );
+      })}
       </div>
     </main>
   );
