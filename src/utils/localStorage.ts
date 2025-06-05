@@ -1,12 +1,4 @@
-export interface BookingDetails {
-  length: number;
-  hostId: string;
-  dates: string[];
-  quantity: number;
-  totalPrice: number;
-  hostName: string;
-  hostAddress: string;
-}
+import { BookingDetails } from '@/types/bookingDetails';
 
 export const saveBooking = (booking: BookingDetails) => {
   localStorage.setItem('hostabagsBookings', JSON.stringify(booking));
