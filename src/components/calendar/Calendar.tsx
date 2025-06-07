@@ -9,8 +9,8 @@ import { database } from "@/config/firebase";
 import { ref, update } from "firebase/database";
 import "./calendar.scss";
 
-export default function CalendarComponent({ id }: { id: number }) {
-  const { host, setHost, loading, error } = useHost(id);
+export default function CalendarComponent({ id }: { id: string }) {
+  const { host, setHost, loading, error } = useHost(Number(id));
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -50,7 +50,8 @@ export default function CalendarComponent({ id }: { id: number }) {
       // Update only the calendarSelected field in Firebase
       const hostRef = ref(database, `hosts/${updatedHost.id}`);
       await update(hostRef, {
-        calendarSelected: updatedCalendarSelected
+        calendarSelected: updatedCalendarSelected,
+        calendarNew: [] // Clear calendarNew in the database as well
       });
 
       setHost(finalHost);

@@ -1,7 +1,7 @@
 import { saveBooking } from "@/utils/localStorage";
 import { Host } from "@/types/host";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface Props {
   host: Host;
@@ -18,14 +18,19 @@ export default function ConfirmBooking({
 }: Props) {
   const router = useRouter();
   const { user } = useAuth();
-  
+
   const handleClick = async () => {
     if (!user) {
-      router.push('/auth/signin');
+      router.push("/auth/signin");
       return;
     }
 
     try {
+      if (!host.id) {
+        console.error("Host ID is missing");
+        return;
+      }
+
       const newConfirmed = host.calendarNew.filter(
         (d) => !host.calendarSelected.includes(d)
       );
@@ -34,9 +39,9 @@ export default function ConfirmBooking({
         ...host,
         calendarSelected: updatedCalendarSelected,
       };
-     
+
       // Update host calendar
-      await onConfirm(newConfirmed, updatedHost);
+      onConfirm(newConfirmed, updatedHost);
 
       // Save booking details to localStorage
       saveBooking({
@@ -47,19 +52,15 @@ export default function ConfirmBooking({
         hostName: host.name,
         hostAddress: host.address,
       });
-console.log("hola");
-      router.push('/confirm');
+      router.push("/confirm");
     } catch (error) {
-      console.error('Error saving booking:', error);
+      console.error("Error saving booking:", error);
     }
   };
 
   return (
-    <button
-      onClick={handleClick}
-      className="btn w-full mt-6"
-    >
-      <span>{user ? 'Save Booking' : 'Sign In to Book'}</span>
+    <button onClick={handleClick} className="btn w-full mt-6">
+      <span>{user ? "Save Booking" : "Sign In to Book"}</span>
     </button>
   );
 }

@@ -4,7 +4,7 @@ import CloseButton from "../CloseButton/CloseButton";
 
 
 interface Props {
-  id: number;
+  id: string;
   name: string;
   address: string;
   setSelectedHost: (host: Host | null) => void;

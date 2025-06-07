@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
-import { Host } from "@/types/host";
+import type { Host } from "@/types/host";
 import Modal from "@/components/ui/Modal/Modal";
 import Header from "@/components/layout/header/Header";
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from "next/navigation";
 import { database } from "@/config/firebase";
 import { ref, onValue } from "firebase/database";
 
@@ -21,9 +21,9 @@ const Map = dynamic(() => import("@/components/map/Map"), {
 export default function MapPage() {
   const [selectedHost, setSelectedHost] = useState<Host | null>(null);
   const [hosts, setHosts] = useState<Host[]>([]);
-  const searchParams = useSearchParams();
-  const location = searchParams.get('location');
   const [initialLocation, setInitialLocation] = useState<string | null>(null);
+  const searchParams = useSearchParams();
+  const location = searchParams.get("location");
 
   useEffect(() => {
     if (location) {
@@ -33,16 +33,16 @@ export default function MapPage() {
 
   useEffect(() => {
     // Subscribe to hosts updates
-    const hostsRef = ref(database, 'hosts');
+    const hostsRef = ref(database, "hosts");
     const unsubscribe = onValue(hostsRef, (snapshot) => {
       const hostsData: Host[] = [];
       snapshot.forEach((childSnapshot) => {
         const host = childSnapshot.val();
         hostsData.push({
           ...host,
-          id: Number(childSnapshot.key),
+          id: childSnapshot.key,
           calendarSelected: host.calendarSelected || [],
-          calendarNew: []
+          calendarNew: [],
         });
       });
       setHosts(hostsData);
@@ -65,7 +65,7 @@ export default function MapPage() {
         initialLocation={initialLocation}
       />
       {selectedHost && (
-        <Modal 
+        <Modal
           id={selectedHost.id}
           address={selectedHost.address}
           name={selectedHost.name}
