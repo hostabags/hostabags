@@ -1,5 +1,5 @@
 import { Host } from "@/types/host";
-import Calendar from "@/components/calendar/Calendar";
+import PreBooking from "@/components/pre-booking/PreBooking";
 import CloseButton from "../CloseButton/CloseButton";
 
 
@@ -17,7 +17,7 @@ export default function Modal({ id, name, address, setSelectedHost }: Props) {
       <h2 className="text-xl font-bold mb-2">{name}</h2>
       <p className="text-gray-600 mb-6">{address}</p>
 
-      <Calendar id={id} />
+      <PreBooking id={id} />
 
     </div>
   );

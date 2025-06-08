@@ -1,20 +1,20 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useHost } from "@/hooks/useHost";
-import CalendarUI from "./CalendarUI";
+import CalendarUI from "../calendar/CalendarUI";
 import QuantitySelector from "./QuantitySelector";
-import ConfirmBooking from "./ConfirmBooking";
+import SaveBooking from "./SaveBooking";
 import { Host } from "@/types/host";
 import { database } from "@/config/firebase";
 import { ref, update } from "firebase/database";
-import "./calendar.scss";
+import "./preBooking.scss";
 
-export default function CalendarComponent({ id }: { id: string }) {
-  const { host, setHost, loading, error } = useHost(Number(id));
+export default function PreBooking({ id }: { id: string }) {
+  const { host, setHost, loading, error } = useHost(id);
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const pricePerDay = 3; 
+  const pricePerDay = 3;
 
   useEffect(() => {
     const numDays = host?.calendarNew.length ?? 0;
@@ -51,7 +51,7 @@ export default function CalendarComponent({ id }: { id: string }) {
       const hostRef = ref(database, `hosts/${updatedHost.id}`);
       await update(hostRef, {
         calendarSelected: updatedCalendarSelected,
-        calendarNew: [] // Clear calendarNew in the database as well
+        calendarNew: [], // Clear calendarNew in the database as well
       });
 
       setHost(finalHost);
@@ -85,12 +85,8 @@ export default function CalendarComponent({ id }: { id: string }) {
     return <div className="text-center mt-10">Loading calendar...</div>;
   if (!host) return null;
   if (error) {
-      return (
-        <div className="text-center mt-10 text-red-600">
-          {error}
-        </div>
-      );
-    }
+    return <div className="text-center mt-10 text-red-600">{error}</div>;
+  }
 
   return (
     <div className="calendarContainer">
@@ -107,9 +103,10 @@ export default function CalendarComponent({ id }: { id: string }) {
           </label>
           <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
           <div className="text-center mt-4 text-lg text-gray-700 font-semibold">
-            Total price: <span className="font-bold text-xl evid">{totalPrice}€</span>
+            Total price:{" "}
+            <span className="font-bold text-xl evid">{totalPrice}€</span>
           </div>
-          <ConfirmBooking
+          <SaveBooking
             host={host}
             quantity={quantity}
             totalPrice={totalPrice}
