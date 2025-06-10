@@ -17,7 +17,7 @@ export function useHost(hostId: string) {
       const unsubscribe = onValue( hostRef, (snapshot) => {
           const data = snapshot.val();
           if (data) {
-            console.log("data:"+ data)
+            console.log("data:"+ JSON.stringify(data))
             // Cargar fechas guardadas en localStorage
             const storedDates = localStorage.getItem(`calendarNew-${hostId}`);
             console.log("dates local:"+ storedDates)

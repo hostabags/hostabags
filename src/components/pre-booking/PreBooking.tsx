@@ -13,27 +13,59 @@ export default function PreBooking({ id }: { id: string }) {
   const { host, setHost, loading, error } = useHost(id);
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [calendarNew, setCalendarNew] = useState<string[]>([]);
 
   const pricePerDay = 3;
 
   useEffect(() => {
-    const numDays = host?.calendarNew.length ?? 0;
+    const numDays = calendarNew.length ?? 0;
+    console.log("numDays:", numDays);
+    console.log("calendarNew:", calendarNew);
     setTotalPrice(quantity * numDays * pricePerDay);
-  }, [quantity, host?.calendarNew]);
+  }, [quantity, calendarNew]);
 
-  const formatDate = (date: Date) => date.toISOString().slice(0, 10);
+  // Funcion para darle formato a la fecha actual
+  const formatDate = (date: Date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
 
+  console.log("host selected:",host)
+
+  //Agregar los dias seleccionados en el estado
   const toggleDate = (date: Date) => {
     if (!host) return;
     const dateStr = formatDate(date);
     if (host?.calendarSelected?.includes(dateStr)) return;
 
-    const updatedCalendarNew = host.calendarNew.includes(dateStr)
-      ? host.calendarNew.filter((d) => d !== dateStr)
-      : [...host.calendarNew, dateStr];
+    const updatedCalendarNew = calendarNew.includes(dateStr)
+      ? calendarNew.filter((d) => d !== dateStr)
+      : [...calendarNew, dateStr];
 
-    setHost({ ...host, calendarNew: updatedCalendarNew });
+    setCalendarNew(updatedCalendarNew);
   };
+
+  const tileClassName = ({ date }: { date: Date }) => {
+    const dateStr = formatDate(date);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    if (host?.calendarSelected?.includes(dateStr) && date >= today)
+      return "selected-date";
+    if (calendarNew.includes(dateStr)) return "new-date";
+    return "";
+  };
+
+  const tileDisabled = ({ date }: { date: Date }) => {
+    const dateStr = formatDate(date);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return (
+      (host?.calendarSelected.includes(dateStr)) || date < today
+    );
+  };
+
 
   const onConfirm = async (confirmedDates: string[], updatedHost: Host) => {
     try {
@@ -62,24 +94,6 @@ export default function PreBooking({ id }: { id: string }) {
     }
   };
 
-  const tileClassName = ({ date }: { date: Date }) => {
-    const dateStr = formatDate(date);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    if (host?.calendarSelected?.includes(dateStr) && date >= today)
-      return "selected-date";
-    if (host?.calendarNew.includes(dateStr)) return "new-date";
-    return "";
-  };
-
-  const tileDisabled = ({ date }: { date: Date }) => {
-    const dateStr = formatDate(date);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    return (
-      (!!host && host?.calendarSelected?.includes(dateStr)) || date < today
-    );
-  };
 
   if (loading)
     return <div className="text-center mt-10">Loading calendar...</div>;
@@ -96,7 +110,7 @@ export default function PreBooking({ id }: { id: string }) {
         tileDisabled={tileDisabled}
       />
 
-      {host.calendarNew.length > 0 && (
+      {calendarNew.length > 0 && (
         <>
           <label className="block mt-6 text-sm font-medium text-gray-800">
             Number of bags:
