@@ -14,14 +14,17 @@ export function useHost(hostId: string) {
       const hostRef = ref(database, `hosts/${hostId}`);
 
       // Subscribe to real-time updates
-      const unsubscribe = onValue(
-        hostRef,
-        (snapshot) => {
+      const unsubscribe = onValue( hostRef, (snapshot) => {
           const data = snapshot.val();
           if (data) {
+            console.log("data:"+ data)
             // Cargar fechas guardadas en localStorage
             const storedDates = localStorage.getItem(`calendarNew-${hostId}`);
+            console.log("dates local:"+ storedDates)
+
             const calendarNew = storedDates ? JSON.parse(storedDates) : [];
+            console.log("calendar new:"+ calendarNew)
+
 
             // Asegurar que calendarSelected sea un array
             const calendarSelected = Array.isArray(data.calendarSelected)

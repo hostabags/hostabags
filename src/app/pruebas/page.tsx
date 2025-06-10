@@ -1,13 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useHost } from "@/hooks/useHost";
-import CalendarUI from "../calendar/CalendarUI";
-import QuantitySelector from "./QuantitySelector";
-import SaveBooking from "./SaveBooking";
+// import CalendarUI from "../calendar/CalendarUI";
+// import QuantitySelector from "./QuantitySelector";
+// import SaveBooking from "./SaveBooking";
 import type { Host } from "@/types/host";
 import { database } from "@/config/firebase";
 import { ref, update } from "firebase/database";
-import "./preBooking.scss";
+// import "./preBooking.scss";
 
 export default function PreBooking({ id }: { id: string }) {
   const { host, setHost, loading, error } = useHost(id);

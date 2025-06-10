@@ -1,127 +1,305 @@
 {
   "users": [
-    { "id": 1, "name": "Alice", "email": "alice@example.com" },
-    { "id": 2, "name": "Bob", "email": "bob@example.com" },
-    { "id": 3, "name": "Carol", "email": "carol@example.com" },
-    { "id": 4, "name": "David", "email": "david@example.com" }
+    {
+      "id": "1",
+      "name": "Alice",
+      "email": "alice@example.com"
+    },
+    {
+      "id": "2",
+      "name": "Bob",
+      "email": "bob@example.com"
+    },
+    {
+      "id": "3",
+      "name": "Carol",
+      "email": "carol@example.com"
+    },
+    {
+      "id": "4",
+      "name": "David",
+      "email": "david@example.com"
+    }
   ],
   "hosts": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Locker Sants Estació",
       "address": "Plaça dels Països Catalans, 1",
       "lat": 41.3809,
       "lng": 2.1408,
-      "calendar": ["2025-05-22", "2025-05-23"]
+      "calendarSelected": [
+        "2025-05-27",
+        "2025-05-28",
+        "2025-05-29",
+        "2025-07-15",
+        "2025-07-16",
+        "2025-07-17"
+      ]
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Hostel Gòtic Drop",
       "address": "Carrer de Ferran, 17",
       "lat": 41.3803,
       "lng": 2.1755,
-      "calendar": ["2025-05-21"]
+      "calendarSelected": [
+        "28/05/2025",
+        "29/05/2025",
+        "20/06/2025",
+        "19/06/2025",
+        "03/06/2025",
+        "04/06/2025",
+        "27/06/2025",
+        "26/06/2025",
+        "30/05/2025",
+        "10/06/2025"
+      ] 
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Café El Raval Storage",
       "address": "Carrer de l'Hospital, 74",
       "lat": 41.3795,
       "lng": 2.1687,
-      "calendar": []
+      "calendarSelected": []
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Plaça Catalunya Lockers",
       "address": "Plaça de Catalunya, 1",
-      "lat": 41.3870,
+      "lat": 41.387,
       "lng": 2.1701,
-      "calendar": ["2025-05-20", "2025-05-24"]
+      "calendarSelected": [
+        "2025-05-28",
+        "2025-05-29",
+        "2025-05-30",
+        "2025-05-27",
+        "2025-06-08",
+        "2025-06-09"
+      ]
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Aerobus Stop Storage",
       "address": "Gran Via de les Corts Catalanes, 674",
       "lat": 41.3853,
       "lng": 2.1616,
-      "calendar": []
+      "calendarSelected": [
+        "2025-05-26",
+        "2025-05-27",
+        "2025-05-28",
+        "2025-05-29",
+        "2025-05-30"
+      ]
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Museu Picasso Locker Point",
       "address": "Carrer Montcada, 15",
       "lat": 41.3859,
       "lng": 2.1805,
-      "calendar": []
+      "calendarSelected": [
+        "2025-05-27",
+        "2025-05-28",
+        "2025-05-29"
+      ]
     },
     {
-      "id": 7,
+      "id": "7",
       "name": "Diagonal Metro Lockers",
       "address": "Avinguda Diagonal, 468",
       "lat": 41.3947,
       "lng": 2.1596,
-      "calendar": ["2025-05-19"]
+      "calendarSelected": [
+        "2025-05-29",
+        "2025-05-30"
+      ]
     },
     {
-      "id": 8,
+      "id": "8",
       "name": "Gràcia Bag Drop",
       "address": "Carrer d'Astúries, 36",
       "lat": 41.4031,
       "lng": 2.1536,
-      "calendar": []
+      "calendarSelected": [
+        "2025-05-27",
+        "2025-05-28",
+        "2025-05-29",
+        "2025-05-30",
+        "2025-06-04",
+        "2025-06-03"
+      ]
     },
     {
-      "id": 9,
+      "id": "9",
       "name": "Sagrada Família Lockers",
       "address": "Carrer de Mallorca, 401",
       "lat": 41.4036,
       "lng": 2.1744,
-      "calendar": []
+      "calendarSelected": [
+        "2025-05-28",
+        "2025-05-29",
+        "2025-05-27",
+        "2025-05-30",
+        "2026-05-07"
+      ]
     },
     {
-      "id": 10,
+      "id": "10",
       "name": "Glòries Shopping Center",
       "address": "Avinguda Diagonal, 208",
       "lat": 41.4033,
-      "lng": 2.1910,
-      "calendar": []
+      "lng": 2.191,
+      "calendarSelected": [
+        "2025-05-26",
+        "2025-05-27",
+        "2025-05-28",
+        "2025-05-29",
+        "2025-05-30",
+        "2025-06-04",
+        "2025-06-12",
+        "2025-06-11"
+      ]
     }
   ],
   "bookings": [
     {
-      "id": 1,
-      "userId": 1,
-      "hostId": 2,
+      "id": "1",
+      "userId": "1",
+      "hostId": "2",
       "date": "2025-05-21",
       "luggageCount": 2
     },
     {
-      "id": 2,
-      "userId": 3,
-      "hostId": 4,
+      "id": "2",
+      "userId": "3",
+      "hostId": "4",
       "date": "2025-05-24",
       "luggageCount": 1
     },
     {
-      "id": 3,
-      "userId": 2,
-      "hostId": 1,
+      "id": "3",
+      "userId": "2",
+      "hostId": "1",
       "date": "2025-05-22",
       "luggageCount": 3
     },
     {
-      "id": 4,
-      "userId": 4,
-      "hostId": 7,
+      "id": "4",
+      "userId": "4",
+      "hostId": "7",
       "date": "2025-05-19",
       "luggageCount": 1
     },
     {
-      "id": 5,
-      "userId": 1,
-      "hostId": 4,
+      "id": "5",
+      "userId": "1",
+      "hostId": "4",
       "date": "2025-05-20",
       "luggageCount": 2
+    },
+    {
+      "id": "2705",
+      "userId": "LTjihs3sboYv0Exs6vzgA5jLhbv1",
+      "hostId": "4",
+      "date": "2025-06-26",
+      "luggageCount": 2
+    },
+    {
+      "id": "d15f",
+      "userId": "LTjihs3sboYv0Exs6vzgA5jLhbv1",
+      "hostId": "5",
+      "date": "2025-06-17",
+      "luggageCount": 2
+    },
+    {
+      "id": "ea91",
+      "userId": "LTjihs3sboYv0Exs6vzgA5jLhbv1",
+      "hostId": "7",
+      "date": "2025-05-29",
+      "luggageCount": 2
+    },
+    {
+      "id": "4abd",
+      "userId": "LTjihs3sboYv0Exs6vzgA5jLhbv1",
+      "hostId": "4",
+      "date": "2025-06-18",
+      "luggageCount": 4
+    },
+    {
+      "id": "a692",
+      "userId": "POEb4eUE9oWtBhqcAnle6UtFW3y2",
+      "hostId": "10",
+      "date": "2025-06-14",
+      "luggageCount": 1
+    },
+    {
+      "id": "5fee",
+      "userId": "POEb4eUE9oWtBhqcAnle6UtFW3y2",
+      "hostId": "10",
+      "date": "2025-06-29",
+      "luggageCount": 3
+    },
+    {
+      "id": "51e7",
+      "userId": "POEb4eUE9oWtBhqcAnle6UtFW3y2",
+      "hostId": "9",
+      "date": "2026-05-07",
+      "luggageCount": 2
+    },
+    {
+
+      "id": "3847",
+      "userId": "POEb4eUE9oWtBhqcAnle6UtFW3y2",
+      "hostId": "10",
+      "date": "2025-06-08",
+      "luggageCount": 2
+    },
+    {
+      "id": "3751",
+      "userId": "POEb4eUE9oWtBhqcAnle6UtFW3y2",
+      "hostId": "10",
+      "date": "2025-06-02",
+      "luggageCount": 2
+    },
+    {
+      "id": "988d",
+      "userId": "POEb4eUE9oWtBhqcAnle6UtFW3y2",
+      "hostId": "2",
+      "date": "2025-06-09",
+      "luggageCount": 1
+
+    }
+  ],
+  "reviews": [
+    {
+      "id": "1",
+      "userId": "1",
+      "hostId": "2",
+      "rating": 5,
+      "comment": "Great service and friendly staff!"
+    },
+    {
+      "id": "2",
+      "userId": "3",
+      "hostId": "4",
+      "rating": 4,
+      "comment": "Convenient location, but a bit crowded."
+    },
+    {
+      "id": "3",
+      "userId": "2",
+      "hostId": "1",
+      "rating": 5,
+      "comment": "Excellent experience, highly recommend!"
+    },
+    {
+      "id": "4",
+      "userId": "4",
+      "hostId": "7",
+      "rating": 3,
+      "comment": "Average service, could be improved."
     }
   ]
 }
