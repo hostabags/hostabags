@@ -5,12 +5,11 @@ import CalendarUI from "../calendar/CalendarUI";
 import QuantitySelector from "./QuantitySelector";
 import SaveBooking from "./SaveBooking";
 import type { Host } from "@/types/host";
-import { database } from "@/config/firebase";
-import { ref, update } from "firebase/database";
 import "./preBooking.scss";
+import { formatDate } from "@/utils/functions";
 
 export default function PreBooking({ id }: { id: string }) {
-  const { host, setHost, loading, error } = useHost(id);
+  const { host, setHostLocal, loading, error } = useHost(id);
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
   const [calendarNew, setCalendarNew] = useState<string[]>([]);
@@ -19,21 +18,10 @@ export default function PreBooking({ id }: { id: string }) {
 
   useEffect(() => {
     const numDays = calendarNew.length ?? 0;
-    console.log("numDays:", numDays);
-    console.log("calendarNew:", calendarNew);
     setTotalPrice(quantity * numDays * pricePerDay);
   }, [quantity, calendarNew]);
 
-  // Funcion para darle formato a la fecha actual
-  const formatDate = (date: Date) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  };
-
-  console.log("host selected:",host)
-
+  //Funciones para el renderizado del calentario
   //Agregar los dias seleccionados en el estado
   const toggleDate = (date: Date) => {
     if (!host) return;
@@ -47,6 +35,7 @@ export default function PreBooking({ id }: { id: string }) {
     setCalendarNew(updatedCalendarNew);
   };
 
+  //Agrega la clase a cada celda del calendario, dependiendo su estado
   const tileClassName = ({ date }: { date: Date }) => {
     const dateStr = formatDate(date);
     const today = new Date();
@@ -56,44 +45,32 @@ export default function PreBooking({ id }: { id: string }) {
     if (calendarNew.includes(dateStr)) return "new-date";
     return "";
   };
-
+  
+  //Pone como disabled las fechas anteriores a hoy
   const tileDisabled = ({ date }: { date: Date }) => {
     const dateStr = formatDate(date);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    return (
-      (host?.calendarSelected.includes(dateStr)) || date < today
-    );
+    return host?.calendarSelected.includes(dateStr) || date < today;
   };
 
+  // const onConfirm = async (updatedHost: Host, confirmedDates: string[]) => {
+  //   try {
+  //     const updatedCalendarSelected = [
+  //       ...new Set([...updatedHost.calendarSelected, ...confirmedDates]),
+  //     ];
 
-  const onConfirm = async (confirmedDates: string[], updatedHost: Host) => {
-    try {
-      const updatedCalendarSelected = [
-        ...new Set([...updatedHost.calendarSelected, ...confirmedDates]),
-      ];
-
-      const finalHost = {
-        ...updatedHost,
-        calendarSelected: updatedCalendarSelected,
-        calendarNew: [], // solo en estado, no se enviará al backend
-      };
-
-      // Update only the calendarSelected field in Firebase
-      const hostRef = ref(database, `hosts/${updatedHost.id}`);
-      await update(hostRef, {
-        calendarSelected: updatedCalendarSelected,
-        calendarNew: [], // Clear calendarNew in the database as well
-      });
-
-      setHost(finalHost);
-      localStorage.removeItem(`calendarNew-${updatedHost.id}`);
-    } catch (error) {
-      console.error("Error updating host:", error);
-      throw error;
-    }
-  };
-
+  //     const finalHost = {
+  //       ...updatedHost,
+  //       calendarSelected: updatedCalendarSelected,
+  //       calendarNew: calendarNew,
+  //     };
+  //     setHostLocal(finalHost);
+  //   } catch (error) {
+  //     console.error("Error updating host:", error);
+  //     throw error;
+  //   }
+  // };
 
   if (loading)
     return <div className="text-center mt-10">Loading calendar...</div>;
@@ -124,7 +101,8 @@ export default function PreBooking({ id }: { id: string }) {
             host={host}
             quantity={quantity}
             totalPrice={totalPrice}
-            onConfirm={onConfirm}
+            calendarNew={calendarNew}
+            // onConfirm={onConfirm}
           />
         </>
       )}

@@ -1,4 +1,4 @@
-import { BookingDetails } from '@/types/bookingDetails';
+import { BookingDetails } from '@/types/preBooking';
 
 export const saveBooking = (booking: BookingDetails) => {
   localStorage.setItem('hostabagsBookings', JSON.stringify(booking));

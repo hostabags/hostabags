@@ -1,20 +1,13 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
-import { useRouter } from 'next/navigation';
-import { database } from '@/config/firebase';
-import { ref, onValue } from 'firebase/database';
-import { Host } from '@/types/host';
+import { useEffect, useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useRouter } from "next/navigation";
+import { database } from "@/config/firebase";
+import { ref, onValue } from "firebase/database";
+import type { Host } from "@/types/host";
+import type { Booking } from "@/types/booking";
 // import { getBookings } from '@/utils/localStorage';
-
-interface Booking {
-  id: string;
-  userId: string;
-  hostId: string;
-  date: string;
-  luggageCount: number;
-}
 
 export default function Reserve() {
   const { user } = useAuth();
@@ -26,92 +19,69 @@ export default function Reserve() {
   useEffect(() => {
     if (!user) return;
 
-    try {
-      setLoading(true);
+    setLoading(true);
 
-      // Subscribe to bookings updates
-      const bookingsRef = ref(database, 'bookings');
-      const bookingsUnsubscribe = onValue(bookingsRef, (snapshot) => {
+    let bookingsUnsubscribe: (() => void) | null = null;
+    let hostsUnsubscribe: (() => void) | null = null;
+
+    try {
+      const bookingsRef = ref(database, "bookings");
+      bookingsUnsubscribe = onValue(bookingsRef, (snapshot) => {
         const allBookings: Booking[] = [];
+
         snapshot.forEach((childSnapshot) => {
-          allBookings.push({ id: childSnapshot.key!, ...childSnapshot.val() });
+          const key = childSnapshot.key;
+          if (key !== null) {
+            allBookings.push({ id: key, ...childSnapshot.val() });
+          }
         });
-        
-        // Filter bookings for current user
-        const userBookings = allBookings.filter(booking => booking.userId === user.uid);
+
+        const userBookings = allBookings.filter(
+          (booking) => booking.userId === user.uid
+        );
+
+        // console.log("bookings:", userBookings)
+
         setUserBookings(userBookings);
       });
-
-      // Subscribe to hosts updates
-      const hostsRef = ref(database, 'hosts');
-      const hostsUnsubscribe = onValue(hostsRef, (snapshot) => {
-        const hostsMap: { [key: string]: Host } = {};
-        snapshot.forEach((childSnapshot) => {
-          const host = childSnapshot.val();
-          hostsMap[childSnapshot.key!] = host;
-        });
-        setHosts(hostsMap);
-        setLoading(false);
-      });
-
-      // Cleanup subscriptions on unmount
-      return () => {
-        bookingsUnsubscribe();
-        hostsUnsubscribe();
-      };
     } catch (error) {
-      console.error('Error setting up listeners:', error);
-      setLoading(false);
+      console.error("Error subscribing to bookings:", error);
     }
+
+    try {
+      const hostsRef = ref(database, "hosts");
+      hostsUnsubscribe = onValue(hostsRef, (snapshot) => {
+        const hostsMap: { [key: string]: Host } = {};
+
+        snapshot.forEach((childSnapshot) => {
+          const key = childSnapshot.key;
+          if (key !== null) {
+            hostsMap[key] = childSnapshot.val();
+          }
+        });
+
+        console.log("hosts:", hostsMap)
+
+
+        setHosts(hostsMap);
+      });
+    } catch (error) {
+      console.error("Error subscribing to hosts:", error);
+    }
+
+    setLoading(false);
+
+    return () => {
+      if (bookingsUnsubscribe) bookingsUnsubscribe();
+      if (hostsUnsubscribe) hostsUnsubscribe();
+    };
   }, [user]);
 
-  // const handleConfirmReservation = async () => {
-  //   if (!user) {
-  //     router.push('/auth/signin');
-  //     return;
-  //   }
-
-  //   try {
-  //     const bookings = getBookings();
-  //     if (bookings && bookings.length > 0) {
-  //       const lastBooking = bookings[bookings.length - 1];
-        
-  //       // Create booking in JSON server
-  //       const response = await fetch('http://localhost:3001/bookings', {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify({
-  //           userId: user.uid,
-  //           hostId: lastBooking.hostId,
-  //           date: lastBooking.dates[0],  // Use first date as the booking date
-  //           luggageCount: lastBooking.quantity
-  //         }),
-  //       });
-
-  //       if (!response.ok) {
-  //         throw new Error('Failed to create booking');
-  //       }
-
-  //       // Clear the booking from localStorage
-  //       localStorage.removeItem('hostabagsBookings');
-        
-  //       // Refresh the bookings list
-  //       const updatedBookingsResponse = await fetch('http://localhost:3001/bookings');
-  //       const allBookings: Booking[] = await updatedBookingsResponse.json();
-  //       setUserBookings(allBookings.filter(booking => booking.userId === user.uid));
-  //     }
-  //   } catch (error) {
-  //     console.error('Error creating booking:', error);
-  //   }
-  // };
-
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-GB', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+    return new Date(dateString).toLocaleDateString("en-GB", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
   };
 
@@ -126,9 +96,11 @@ export default function Reserve() {
   if (!user) {
     return (
       <div className="m-8 text-center">
-        <p className="text-gray-600 mb-4">Please, SignIn to see your bookings</p>
-        <button 
-          onClick={() => router.push('/auth/signin')}
+        <p className="text-gray-600 mb-4">
+          Please, SignIn to see your bookings
+        </p>
+        <button
+          onClick={() => router.push("/auth/signin")}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
           SignIn
@@ -142,8 +114,8 @@ export default function Reserve() {
       <main className="m-8">
         <h1 className="text-2xl font-bold mb-4">Your Bookings</h1>
         <p className="text-gray-600">You don`t have any active booking</p>
-        <button 
-          onClick={() => router.push('/booking')}
+        <button
+          onClick={() => router.push("/map-page")}
           className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
           Make a new booking
@@ -151,60 +123,73 @@ export default function Reserve() {
       </main>
     );
   }
-const lastBookingId = userBookings.length > 0 ? userBookings[userBookings.length - 1].id : null;
+
+
+  const lastBookingId =
+    userBookings.length > 0 ? userBookings[userBookings.length - 1].id : null;
+
   return (
     <main className="m-8">
-      <h1 >Your Bookings</h1>
+      <h1>Your Bookings</h1>
       <div className="space-y-6">
-       {userBookings.map((booking) => {
-        const host = hosts[booking.hostId];
-        const isLast = booking.id === lastBookingId;
-        return (
-          <div
-            key={booking.id}
-            className={`bg-white rounded-lg shadow-md p-6 ${isLast ? "border-2 border-blue-500" : ""}`}
-          >
-            {isLast && (
-              <div className="mb-2">
-                <span className="inline-block bg-blue-500 text-white text-xs px-2 py-1 rounded">
-                  Latest booking
-                </span>
-              </div>
-            )}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <h3 className="text-xl font-semibold mb-2">{host?.name || 'Host no encontrado'}</h3>
-                <p className="text-gray-600 mb-2">{host?.address || 'Dirección no disponible'}</p>
-                <div className="space-y-2">
-                  <p className="text-gray-700">
-                    <span className="font-medium">Reservation dates:</span>
-                    <ul className="list-disc list-inside">
-                      {Array.isArray(booking.date) ? (
-                        booking.date.map((d) => (
-                          <li key={d}>{formatDate(d)}</li>
-                        ))
-                      ) : (
-                        <li>{formatDate(booking.date)}</li>
-                      )}
-                    </ul>
+        {userBookings.map((booking, i) => {
+          const host = hosts[booking.hostId];
+          // console.log(`host ${i}:`, host)
+          // console.log(`booking.hostId ${i}:`, booking.hostId)
+          const isLast = booking.id === lastBookingId;
+          return (
+            <div
+              key={booking.id}
+              className={`bg-white rounded-lg shadow-md p-6 ${
+                isLast ? "border-2 border-blue-500" : ""
+              }`}
+            >
+              {isLast && (
+                <div className="mb-2">
+                  <span className="inline-block bg-blue-500 text-white text-xs px-2 py-1 rounded">
+                    Latest booking
+                  </span>
+                </div>
+              )}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <h3 className="text-xl font-semibold mb-2">
+                    {host?.name || "Host no encontrado"}
+                  </h3>
+                  <p className="text-gray-600 mb-2">
+                    {host?.address || "Dirección no disponible"}
                   </p>
-                  <p className="text-gray-700">
-                    <span className="font-medium">Number of bags:</span> {booking.luggageCount}
-                  </p>
+                  <div className="space-y-2">
+                    <div className="text-gray-700">
+                      <span className="font-medium">Reservation dates:</span>
+                      <ul className="list-disc list-inside">
+                        {Array.isArray(booking.date) ? (
+                          booking.date.map((d) => (
+                            <li key={d}>{formatDate(d)}</li>
+                          ))
+                        ) : (
+                          <li>{formatDate(booking.date)}</li>
+                        )}
+                      </ul>
+                    </div>
+                    <p className="text-gray-700">
+                      <span className="font-medium">Number of bags:</span>{" "}
+                      {booking.luggageCount}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center justify-end">
+                  <button
+                    onClick={() => router.push("/map-page")}
+                    className="btn"
+                  >
+                    See map
+                  </button>
                 </div>
               </div>
-              <div className="flex items-center justify-end">
-                <button 
-                  onClick={() => router.push('/booking')}
-                  className="btn"
-                >
-                  See map
-                </button>
-              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
       </div>
     </main>
   );

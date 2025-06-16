@@ -7,19 +7,22 @@ interface Props {
   host: Host;
   quantity: number;
   totalPrice: number;
-  onConfirm: (confirmedDates: string[], updatedHost: Host) => void;
+  calendarNew: string[] | [];
+  // onConfirm: (updatedHost: Host, confirmedDates: string[]) => void;
 }
 
 export default function ConfirmBooking({
   host,
   quantity,
   totalPrice,
-  onConfirm,
+  calendarNew,
+  // onConfirm,
 }: Props) {
   const router = useRouter();
   const { user } = useAuth();
 
   const handleClick = async () => {
+    // Si no hay un usiario autenticado va a la pagina de signin
     if (!user) {
       router.push("/auth/signin");
       return;
@@ -27,11 +30,12 @@ export default function ConfirmBooking({
 
     try {
       if (!host.id) {
+        console.log("host: ", host)
         console.error("Host ID is missing");
         return;
       }
 
-      const newConfirmed = host.calendarNew.filter(
+      const newConfirmed = calendarNew.filter(
         (d) => !host.calendarSelected.includes(d)
       );
       const updatedCalendarSelected = [...host.calendarSelected];
@@ -41,12 +45,12 @@ export default function ConfirmBooking({
       };
 
       // Update host calendar
-      onConfirm(newConfirmed, updatedHost);
+      // onConfirm(updatedHost, newConfirmed);
 
       // Save booking details to localStorage
       saveBooking({
         hostId: host.id,
-        dates: host.calendarNew,
+        dates: calendarNew,
         quantity,
         totalPrice,
         hostName: host.name,

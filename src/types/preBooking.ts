@@ -1,4 +1,4 @@
-export interface BookingDetails {
+export interface preBooking {
   hostId: string;
   dates: string[];
   quantity: number;
