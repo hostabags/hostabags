@@ -1,45 +1,56 @@
 import { useEffect, useState } from "react";
-import { Host } from "@/types/host";
+import type { Host } from "@/types/host";
 import { database } from "@/config/firebase";
 import { ref, onValue, update } from "firebase/database";
 
-export function useHost(hostId: number) {
-  const [host, setHostState] = useState<Host | null>(null);
+export function useHost(hostId: string) {
+  const [host, setHost] = useState<Host | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     try {
       setLoading(true);
+      console.log(`hosts/${hostId}`);
       const hostRef = ref(database, `hosts/${hostId}`);
-      
+
       // Subscribe to real-time updates
-      const unsubscribe = onValue(hostRef, (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-          // Cargar fechas guardadas en localStorage
-          const storedDates = localStorage.getItem(`calendarNew-${hostId}`);
-          const calendarNew = storedDates ? JSON.parse(storedDates) : [];
+      const unsubscribe = onValue(
+        hostRef,
+        (snapshot) => {
+          const data = snapshot.val();
+          if (data) {
+            console.log("data:" + JSON.stringify(data));
+            // Cargar fechas guardadas en localStorage
+            const storedDates = localStorage.getItem(`calendarNew-${hostId}`);
+            console.log("dates local:" + storedDates);
 
-          // Asegurar que calendarSelected sea un array
-          const calendarSelected = Array.isArray(data.calendarSelected) ? data.calendarSelected : [];
+            const calendarNew = storedDates ? JSON.parse(storedDates) : [];
+            console.log("calendar new:" + calendarNew);
 
-          // Añadir calendarNew solo en frontend
-          setHostState({ 
-            ...data, 
-            calendarNew,
-            calendarSelected 
-          });
-        } else {
-          setHostState(null);
+            // Asegurar que calendarSelected sea un array
+            const calendarSelected = Array.isArray(data.calendarSelected)
+              ? data.calendarSelected
+              : [];
+
+            // Añadir calendarNew solo en frontend
+            setHost({
+              ...data,
+              calendarNew,
+              calendarSelected,
+            });
+          } else {
+            setHost(null);
+          }
+          setError(null);
+          setLoading(false);
+        },
+        (error) => {
+          console.error("Error fetching host data:", error);
+          setError("Failed to load calendar data");
+          setLoading(false);
         }
-        setError(null);
-        setLoading(false);
-      }, (error) => {
-        console.error("Error fetching host data:", error);
-        setError("Failed to load calendar data");
-        setLoading(false);
-      });
+      );
 
       // Cleanup subscription on unmount
       return () => unsubscribe();
@@ -50,35 +61,18 @@ export function useHost(hostId: number) {
     }
   }, [hostId]);
 
-  const setHost = async (updatedHost: Host) => {
+  const setHostLocal = (updatedHost: Host) => {
     try {
-      // Save calendarNew to localStorage
       localStorage.setItem(
         `calendarNew-${updatedHost.id}`,
         JSON.stringify(updatedHost.calendarNew ?? [])
       );
-
-      // Asegurar que calendarSelected sea un array antes de actualizar
-      const calendarSelected = Array.isArray(updatedHost.calendarSelected) 
-        ? updatedHost.calendarSelected 
-        : [];
-
-      // Update host in Firebase
-      const hostRef = ref(database, `hosts/${updatedHost.id}`);
-      await update(hostRef, {
-        name: updatedHost.name,
-        address: updatedHost.address,
-        lat: updatedHost.lat,
-        lng: updatedHost.lng,
-        calendarSelected
-      });
-
-      setHostState(updatedHost);
+      console.log("Hasta aqui funciona 2");
     } catch (err) {
       console.error("Error updating host:", err);
       setError("Failed to update host data");
     }
   };
 
-  return { host, setHost, loading, error };
+  return { host, setHostLocal, loading, error };
 }

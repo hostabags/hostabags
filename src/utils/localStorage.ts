@@ -1,10 +1,10 @@
-import { BookingDetails } from '@/types/bookingDetails';
+import { preBooking } from '@/types/preBooking';
 
-export const saveBooking = (booking: BookingDetails) => {
+export const saveBooking = (booking: preBooking) => {
   localStorage.setItem('hostabagsBookings', JSON.stringify(booking));
 };
 
-export const getBookings = (): BookingDetails | null => {
+export const getBookings = (): preBooking | null => {
   const bookings = localStorage.getItem('hostabagsBookings');
   return bookings ? JSON.parse(bookings) : null;
 };

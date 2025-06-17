@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
@@ -30,7 +30,7 @@ export default function Header() {
 
         {/* Desktop menu */}
         <nav className="nav-links">
-          <Link href="/booking">MAP</Link>
+          <Link href="/map-page">MAP</Link>
           <Link href="/reserve">BOOKINGS</Link>
           <Link href="/dashboard">DASHBOARD</Link>
         </nav>
@@ -68,7 +68,7 @@ export default function Header() {
       {/* Mobile dropdown menu */}
       {isMobileMenuOpen && (
         <nav className="flex flex-col mt-2 space-y-2 md:hidden">
-          <Link href="/booking">MAP</Link>
+          <Link href="/map-page">MAP</Link>
           <Link href="/reserve">BOOKINGS</Link>
           <Link href="/dashboard">DASHBOARD</Link>
         </nav>
