@@ -1,18 +1,21 @@
-"use client"
+"use client";
 
-import { createContext, useContext, useEffect, useState } from 'react';
-import { 
+import { createContext, useContext, useEffect, useState } from "react";
+import {
   User,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  onAuthStateChanged
-} from 'firebase/auth';
-import { auth } from '@/config/firebase';
+  onAuthStateChanged,
+} from "firebase/auth";
+import { auth } from "@/config/firebase";
+import { database } from "@/config/firebase";
+import { ref, set, get } from "firebase/database";
 
 interface AuthContextType {
   user: User | null;
   loading: boolean;
+  role: string | null;
   signUp: (email: string, password: string) => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
@@ -22,13 +25,32 @@ const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 export const useAuth = () => useContext(AuthContext);
 
-export const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
+export const AuthContextProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [user, setUser] = useState<User | null>(null);
+  const [role, setRole] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setUser(user);
+
+      if (user) {
+        const roleRef = ref(database, "users/" + user.uid + "/role");
+        const snapshot = await get(roleRef);
+
+        if (snapshot.exists()) {
+          setRole(snapshot.val());
+        } else {
+          setRole(null);
+        }
+      } else {
+        setRole(null);
+      }
+
       setLoading(false);
     });
 
@@ -36,7 +58,17 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
   }, []);
 
   const signUp = async (email: string, password: string) => {
-    await createUserWithEmailAndPassword(auth, email, password);
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const user = userCredential.user;
+
+    await set(ref(database, "users/" + user.uid), {
+      email: user.email,
+      role: "user",
+    });
   };
 
   const signIn = async (email: string, password: string) => {
@@ -48,8 +80,8 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, signUp, signIn, logout }}>
+    <AuthContext.Provider value={{ user, role, loading, signUp, signIn, logout }}>
       {!loading && children}
     </AuthContext.Provider>
   );
-}; 
+};
