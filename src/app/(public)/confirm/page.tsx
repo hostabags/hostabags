@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import Header from "@/components/layout/header/Header";
 import { getBookings } from "@/utils/localStorage";
 import { database } from "@/config/firebase";
-import { ref, push, update } from "firebase/database";
+import { ref, push, update, get } from "firebase/database";
 import type { preBooking } from "@/types/preBooking";
 import { formatDate } from "@/utils/functions";
 
@@ -34,7 +34,6 @@ export default function ConfirmPage() {
     if (!user || !bookingDetails) return;
 
     try {
-      // Crear booking en firebase
       const elementToPush = {
         userId: user.uid,
         hostId: bookingDetails.hostId,
@@ -57,12 +56,24 @@ export default function ConfirmPage() {
         id: newBookingRef.key,
       });
 
-      // Obtener el ID generado
-      const bookingId = newBookingRef.key;
+      // Obtener el host de la base de datos
+      const hostRef = ref(database, `hosts/${Number(bookingDetails.hostId) - 1}`);
+      const hostSnapshot = await get(hostRef);
+      
+      if (hostSnapshot.exists()) {
+        const hostData = hostSnapshot.val();
+        const currentCalendarSelected = hostData.calendarSelected || [];
+        
+        // Agregar las nuevas fechas al calendario del host
+        const updatedCalendarSelected = [...new Set([...currentCalendarSelected, ...bookingDetails.dates])];
+        
+        // Actualizar el host con las nuevas fechas
+        await update(hostRef, {
+          calendarSelected: updatedCalendarSelected
+        });
+      }
 
-      console.log("Booking created with ID:", bookingId);
-
-      // Clear the booking from localStorage
+      // Una vez confirmada la reserva borrar el localstorage
       localStorage.removeItem("hostabagsBookings");
 
       // Redirect to reserve page
