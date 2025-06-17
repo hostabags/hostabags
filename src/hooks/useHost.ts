@@ -61,7 +61,7 @@ export function useHost(hostId: string) {
     }
   }, [hostId]);
 
-  const setHostLocal = async (updatedHost: Host) => {
+  const setHostLocal = (updatedHost: Host) => {
     try {
       localStorage.setItem(
         `calendarNew-${updatedHost.id}`,

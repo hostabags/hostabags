@@ -3,13 +3,12 @@ import { useState, useEffect } from "react";
 import { useHost } from "@/hooks/useHost";
 import CalendarUI from "../calendar/CalendarUI";
 import QuantitySelector from "./QuantitySelector";
-import SaveBooking from "./SaveBooking";
-import type { Host } from "@/types/host";
+import SaveLSButton from "./SaveLSButton";
 import "./preBooking.scss";
 import { formatDate } from "@/utils/functions";
 
 export default function PreBooking({ id }: { id: string }) {
-  const { host, setHostLocal, loading, error } = useHost(id);
+  const { host, loading, error } = useHost(id);
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
   const [calendarNew, setCalendarNew] = useState<string[]>([]);
@@ -54,23 +53,6 @@ export default function PreBooking({ id }: { id: string }) {
     return host?.calendarSelected.includes(dateStr) || date < today;
   };
 
-  // const onConfirm = async (updatedHost: Host, confirmedDates: string[]) => {
-  //   try {
-  //     const updatedCalendarSelected = [
-  //       ...new Set([...updatedHost.calendarSelected, ...confirmedDates]),
-  //     ];
-
-  //     const finalHost = {
-  //       ...updatedHost,
-  //       calendarSelected: updatedCalendarSelected,
-  //       calendarNew: calendarNew,
-  //     };
-  //     setHostLocal(finalHost);
-  //   } catch (error) {
-  //     console.error("Error updating host:", error);
-  //     throw error;
-  //   }
-  // };
 
   if (loading)
     return <div className="text-center mt-10">Loading calendar...</div>;
@@ -97,12 +79,11 @@ export default function PreBooking({ id }: { id: string }) {
             Total price:{" "}
             <span className="font-bold text-xl evid">{totalPrice}€</span>
           </div>
-          <SaveBooking
+          <SaveLSButton
             host={host}
             quantity={quantity}
             totalPrice={totalPrice}
             calendarNew={calendarNew}
-            // onConfirm={onConfirm}
           />
         </>
       )}

@@ -6,13 +6,12 @@ import { useRouter } from "next/navigation";
 import Header from "@/components/layout/header/Header";
 import { getBookings } from "@/utils/localStorage";
 import { database } from "@/config/firebase";
-import { ref, push } from "firebase/database";
+import { ref, push, update } from "firebase/database";
 import type { preBooking } from "@/types/preBooking";
+import { formatDate } from "@/utils/functions";
 
 export default function ConfirmPage() {
-  const [bookingDetails, setBookingDetails] = useState<preBooking | null>(
-    null
-  );
+  const [bookingDetails, setBookingDetails] = useState<preBooking | null>(null);
   const { user } = useAuth();
   const router = useRouter();
 
@@ -36,25 +35,32 @@ export default function ConfirmPage() {
 
     try {
       // Crear booking en firebase
-      const bookingsRef = ref(database, "bookings");
-
       const elementToPush = {
         userId: user.uid,
         hostId: bookingDetails.hostId,
-        date: bookingDetails.dates, 
+        date: bookingDetails.dates,
         luggageCount: bookingDetails.quantity,
         totalPrice: bookingDetails.totalPrice,
         hostName: bookingDetails.hostName,
         hostAddress: bookingDetails.hostAddress,
-        createdAt: new Date().toISOString(),
-      }
+        createdAt: formatDate(new Date()),
+      };
 
-      // console.log(elementToPush)
+      // Crear una referencia a la colección 'bookings'
+      const bookingsRef = ref(database, "bookings");
 
-      //Enviar los datos a la base de datos de firebase
-      await push(bookingsRef, {
-        ...elementToPush
+      // Usar push() para generar un ID único y guardar el booking
+      const newBookingRef = await push(bookingsRef, elementToPush);
+
+      // Actualizar el booking con su ID
+      await update(ref(database, `bookings/${newBookingRef.key}`), {
+        id: newBookingRef.key,
       });
+
+      // Obtener el ID generado
+      const bookingId = newBookingRef.key;
+
+      console.log("Booking created with ID:", bookingId);
 
       // Clear the booking from localStorage
       localStorage.removeItem("hostabagsBookings");

@@ -7,7 +7,6 @@ import { database } from "@/config/firebase";
 import { ref, onValue } from "firebase/database";
 import type { Host } from "@/types/host";
 import type { Booking } from "@/types/booking";
-// import { getBookings } from '@/utils/localStorage';
 
 export default function Reserve() {
   const { user } = useAuth();
@@ -40,8 +39,6 @@ export default function Reserve() {
           (booking) => booking.userId === user.uid
         );
 
-        // console.log("bookings:", userBookings)
-
         setUserBookings(userBookings);
       });
     } catch (error) {
@@ -51,19 +48,16 @@ export default function Reserve() {
     try {
       const hostsRef = ref(database, "hosts");
       hostsUnsubscribe = onValue(hostsRef, (snapshot) => {
-        const hostsMap: { [key: string]: Host } = {};
+        const hosts: { [key: string]: Host } = {};
 
         snapshot.forEach((childSnapshot) => {
           const key = childSnapshot.key;
           if (key !== null) {
-            hostsMap[key] = childSnapshot.val();
+            hosts[key] = childSnapshot.val();
           }
         });
 
-        console.log("hosts:", hostsMap)
-
-
-        setHosts(hostsMap);
+        setHosts(hosts);
       });
     } catch (error) {
       console.error("Error subscribing to hosts:", error);
@@ -124,7 +118,6 @@ export default function Reserve() {
     );
   }
 
-
   const lastBookingId =
     userBookings.length > 0 ? userBookings[userBookings.length - 1].id : null;
 
@@ -132,14 +125,13 @@ export default function Reserve() {
     <main className="m-8">
       <h1>Your Bookings</h1>
       <div className="space-y-6">
-        {userBookings.map((booking, i) => {
-          const host = hosts[booking.hostId];
-          // console.log(`host ${i}:`, host)
-          // console.log(`booking.hostId ${i}:`, booking.hostId)
-          const isLast = booking.id === lastBookingId;
+        {userBookings.map((booking) => {
+          const {hostName, hostAddress, id, date, totalPrice} = booking;
+          const isLast = id === lastBookingId;
+
           return (
             <div
-              key={booking.id}
+              key={id}
               className={`bg-white rounded-lg shadow-md p-6 ${
                 isLast ? "border-2 border-blue-500" : ""
               }`}
@@ -154,27 +146,31 @@ export default function Reserve() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <h3 className="text-xl font-semibold mb-2">
-                    {host?.name || "Host no encontrado"}
+                    {hostName || "Host no encontrado"}
                   </h3>
                   <p className="text-gray-600 mb-2">
-                    {host?.address || "Dirección no disponible"}
+                    {hostAddress || "Dirección no disponible"}
                   </p>
                   <div className="space-y-2">
                     <div className="text-gray-700">
-                      <span className="font-medium">Reservation dates:</span>
+                      <span className="font-medium">Reservation dates (days: {`${date.length}`}):</span>
                       <ul className="list-disc list-inside">
-                        {Array.isArray(booking.date) ? (
-                          booking.date.map((d) => (
+                        {Array.isArray(date) ? (
+                          date.map((d) => (
                             <li key={d}>{formatDate(d)}</li>
                           ))
                         ) : (
-                          <li>{formatDate(booking.date)}</li>
+                          <li>{formatDate(date)}</li>
                         )}
                       </ul>
                     </div>
                     <p className="text-gray-700">
                       <span className="font-medium">Number of bags:</span>{" "}
                       {booking.luggageCount}
+                    </p>
+                    <p className="text-gray-700">
+                      <span className="font-medium">Total price:</span>{"  "}
+                      <span className="font-bold">€{totalPrice}</span>
                     </p>
                   </div>
                 </div>

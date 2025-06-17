@@ -8,20 +8,18 @@ interface Props {
   quantity: number;
   totalPrice: number;
   calendarNew: string[] | [];
-  // onConfirm: (updatedHost: Host, confirmedDates: string[]) => void;
 }
 
-export default function ConfirmBooking({
+export default function saveLSButton({
   host,
   quantity,
   totalPrice,
   calendarNew,
-  // onConfirm,
 }: Props) {
   const router = useRouter();
   const { user } = useAuth();
 
-  const handleClick = async () => {
+  const handleClick = () => {
     // Si no hay un usiario autenticado va a la pagina de signin
     if (!user) {
       router.push("/auth/signin");
@@ -34,18 +32,6 @@ export default function ConfirmBooking({
         console.error("Host ID is missing");
         return;
       }
-
-      const newConfirmed = calendarNew.filter(
-        (d) => !host.calendarSelected.includes(d)
-      );
-      const updatedCalendarSelected = [...host.calendarSelected];
-      const updatedHost = {
-        ...host,
-        calendarSelected: updatedCalendarSelected,
-      };
-
-      // Update host calendar
-      // onConfirm(updatedHost, newConfirmed);
 
       // Save booking details to localStorage
       saveBooking({
