@@ -30,16 +30,20 @@ export default function Header() {
         </div>
 
         {/* Desktop menu */}
-        {role == "admin" ? (
+        {!user ? (
           <nav className="nav-links">
             <Link href="/map-page">MAP</Link>
-            <Link href="/reserve">BOOKINGS</Link>
+          </nav>
+        ) : role === "admin" ? (
+          <nav className="nav-links">
+            <Link href="/map-page">MAP</Link>
+            <Link href="/bookings">BOOKINGS</Link>
             <Link href="/dashboard">DASHBOARD</Link>
           </nav>
         ) : (
           <nav className="nav-links">
             <Link href="/map-page">MAP</Link>
-            <Link href="/reserve">BOOKINGS</Link>
+            <Link href="/bookings">BOOKINGS</Link>
           </nav>
         )}
 
@@ -84,16 +88,20 @@ export default function Header() {
 
       {/* Mobile dropdown menu */}
       {isMobileMenuOpen &&
-        (role === "admin" ? (
+        (!user ? (
+          <nav className="nav-links">
+            <Link href="/map-page">MAP</Link>
+          </nav>
+        ) : role === "admin" ? (
           <nav className="flex flex-col mt-2 space-y-2 md:hidden">
             <Link href="/map-page">MAP</Link>
-            <Link href="/reserve">BOOKINGS</Link>
+            <Link href="/bookings">BOOKINGS</Link>
             <Link href="/dashboard">DASHBOARD</Link>
           </nav>
         ) : (
           <nav className="flex flex-col mt-2 space-y-2 md:hidden">
             <Link href="/map-page">MAP</Link>
-            <Link href="/reserve">BOOKINGS</Link>
+            <Link href="/bookings">BOOKINGS</Link>
           </nav>
         ))}
     </header>

@@ -1,4 +1,3 @@
-import React from 'react'
 import Search from "@/components/Search";
 import Image from 'next/image';
 import HeroImage from '../../../public/images/bags.jpeg';

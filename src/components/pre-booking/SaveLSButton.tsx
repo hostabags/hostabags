@@ -20,15 +20,9 @@ export default function saveLSButton({
   const { user } = useAuth();
 
   const handleClick = () => {
-    // Si no hay un usiario autenticado va a la pagina de signin
-    if (!user) {
-      router.push("/auth/signin");
-      return;
-    }
-
     try {
       if (!host.id) {
-        console.log("host: ", host)
+        console.log("host: ", host);
         console.error("Host ID is missing");
         return;
       }
@@ -42,6 +36,12 @@ export default function saveLSButton({
         hostName: host.name,
         hostAddress: host.address,
       });
+
+      if (!user) {
+        router.push("/auth/signin");
+        return;
+      }
+
       router.push("/confirm");
     } catch (error) {
       console.error("Error saving booking:", error);

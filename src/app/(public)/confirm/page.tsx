@@ -77,7 +77,7 @@ export default function ConfirmPage() {
       localStorage.removeItem("hostabagsBookings");
 
       // Redirect to reserve page
-      router.push("/reserve");
+      router.push("/bookings");
     } catch (error) {
       console.error("Error creating booking:", error);
     }
