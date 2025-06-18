@@ -7,6 +7,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  setPersistence, //Esto es para mantener la session hasta que se cierra pestaña o navegador
+  browserSessionPersistence, //Esto es para mantener la session hasta que se cierra pestaña o navegador
 } from "firebase/auth";
 import { auth } from "@/config/firebase";
 import { database } from "@/config/firebase";
@@ -72,6 +74,7 @@ export const AuthContextProvider = ({
   };
 
   const signIn = async (email: string, password: string) => {
+    await setPersistence(auth, browserSessionPersistence);  //Esto es para mantener la session hasta que se cierra pestaña o navegador
     await signInWithEmailAndPassword(auth, email, password);
   };
 
@@ -80,7 +83,9 @@ export const AuthContextProvider = ({
   };
 
   return (
-    <AuthContext.Provider value={{ user, role, loading, signUp, signIn, logout }}>
+    <AuthContext.Provider
+      value={{ user, role, loading, signUp, signIn, logout }}
+    >
       {!loading && children}
     </AuthContext.Provider>
   );
