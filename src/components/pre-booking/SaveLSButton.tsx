@@ -38,7 +38,7 @@ export default function saveLSButton({
       });
 
       if (!user) {
-        router.push("/auth/signin");
+        router.push("/signin");
         return;
       }
 

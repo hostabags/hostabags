@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import "./header.scss";
-import SignButton from "@/components/ui/SignButton/SignButton";
+import SignButton from "@/components/ui/Button/Button";
 
 export default function Header() {
   const { user, role, logout } = useAuth();
@@ -16,7 +16,7 @@ export default function Header() {
   const handleLogout = async () => {
     try {
       await logout();
-      router.push("/auth/signin");
+      router.push("/signin");
     } catch (error) {
       console.error("Failed to log out:", error);
     }
@@ -75,11 +75,11 @@ export default function Header() {
           ) : (
             <div>
               <SignButton colorButton="indigo" colorText="white">
-                <Link href="/auth/signin">Sign in</Link>
+                <Link href="/signin">Sign in</Link>
               </SignButton>
 
               <SignButton colorButton="indigo" colorText="white">
-                <Link href="/auth/signup">Sign up</Link>
+                <Link href="/signup">Sign up</Link>
               </SignButton>
             </div>
           )}
