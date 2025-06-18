@@ -11,7 +11,6 @@ export function useHost(hostId: string) {
   useEffect(() => {
     try {
       setLoading(true);
-      console.log(`hosts/${hostId}`);
       const hostRef = ref(database, `hosts/${hostId}`);
 
       // Subscribe to real-time updates
@@ -20,23 +19,13 @@ export function useHost(hostId: string) {
         (snapshot) => {
           const data = snapshot.val();
           if (data) {
-            console.log("data:" + JSON.stringify(data));
-            // Cargar fechas guardadas en localStorage
-            const storedDates = localStorage.getItem(`calendarNew-${hostId}`);
-            console.log("dates local:" + storedDates);
 
-            const calendarNew = storedDates ? JSON.parse(storedDates) : [];
-            console.log("calendar new:" + calendarNew);
-
-            // Asegurar que calendarSelected sea un array
             const calendarSelected = Array.isArray(data.calendarSelected)
               ? data.calendarSelected
               : [];
 
-            // Añadir calendarNew solo en frontend
             setHost({
               ...data,
-              calendarNew,
               calendarSelected,
             });
           } else {
@@ -61,18 +50,5 @@ export function useHost(hostId: string) {
     }
   }, [hostId]);
 
-  const setHostLocal = (updatedHost: Host) => {
-    try {
-      localStorage.setItem(
-        `calendarNew-${updatedHost.id}`,
-        JSON.stringify(updatedHost.calendarNew ?? [])
-      );
-      console.log("Hasta aqui funciona 2");
-    } catch (err) {
-      console.error("Error updating host:", err);
-      setError("Failed to update host data");
-    }
-  };
-
-  return { host, setHostLocal, loading, error };
+  return { host, loading, error };
 }
