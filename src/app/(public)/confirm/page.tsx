@@ -5,10 +5,10 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import Header from "@/components/layout/header/Header";
 import { getBookings } from "@/utils/localStorage";
-import { database } from "@/config/firebase";
-import { ref, push, update, get } from "firebase/database";
+import { createBookingAndUpdateHost } from "@/services/firebaseService";
 import type { preBooking } from "@/types/preBooking";
 import { formatDate } from "@/utils/functions";
+import Button from "@/components/ui/Button/Button";
 
 export default function ConfirmPage() {
   const [bookingDetails, setBookingDetails] = useState<preBooking | null>(null);
@@ -17,7 +17,7 @@ export default function ConfirmPage() {
 
   useEffect(() => {
     if (!user) {
-      router.push("/auth/signin");
+      router.push("/signin");
       return;
     }
 
@@ -30,62 +30,31 @@ export default function ConfirmPage() {
   }, [user]);
 
   const handleConfirmReservation = async () => {
-    //Validacion si el usario no logueado o no hay datos
     if (!user || !bookingDetails) return;
-
     try {
-      const elementToPush = {
-        userId: user.uid,
-        hostId: bookingDetails.hostId,
-        date: bookingDetails.dates,
-        luggageCount: bookingDetails.quantity,
-        totalPrice: bookingDetails.totalPrice,
-        hostName: bookingDetails.hostName,
-        hostAddress: bookingDetails.hostAddress,
-        createdAt: formatDate(new Date()),
-      };
+      await createBookingAndUpdateHost(
+        user.uid,
+        bookingDetails,
+        formatDate(new Date())
+      );
 
-      // Crear una referencia a la colección 'bookings'
-      const bookingsRef = ref(database, "bookings");
-
-      // Usar push() para generar un ID único y guardar el booking
-      const newBookingRef = await push(bookingsRef, elementToPush);
-
-      // Actualizar el booking con su ID
-      await update(ref(database, `bookings/${newBookingRef.key}`), {
-        id: newBookingRef.key,
-      });
-
-      // Obtener el host de la base de datos
-      const hostRef = ref(database, `hosts/${Number(bookingDetails.hostId) - 1}`);
-      const hostSnapshot = await get(hostRef);
-      
-      if (hostSnapshot.exists()) {
-        const hostData = hostSnapshot.val();
-        const currentCalendarSelected = hostData.calendarSelected || [];
-        
-        // Agregar las nuevas fechas al calendario del host
-        const updatedCalendarSelected = [...new Set([...currentCalendarSelected, ...bookingDetails.dates])];
-        
-        // Actualizar el host con las nuevas fechas
-        await update(hostRef, {
-          calendarSelected: updatedCalendarSelected
-        });
-      }
-
-      // Una vez confirmada la reserva borrar el localstorage
       localStorage.removeItem("hostabagsBookings");
+      router.push("/bookings");
 
-      // Redirect to reserve page
-      router.push("/reserve");
     } catch (error) {
       console.error("Error creating booking:", error);
     }
   };
 
-  if (!user) {
-    return null;
-  }
+  const handleCancelReservation = () => {
+    if (!user || !bookingDetails) return;
+    try {
+      localStorage.removeItem("hostabagsBookings");
+      router.push("/map-page");
+    } catch (error) {
+      console.error("Error canceling booking:", error);
+    }
+  };
 
   if (!bookingDetails) {
     return (
@@ -160,13 +129,22 @@ export default function ConfirmPage() {
             </div>
 
             <div className="flex justify-center mt-8">
-              <button
+              <Button
                 onClick={handleConfirmReservation}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8
-                rounded-lg text-lg transition-colors duration-200"
+                colorButton="green"
+                colorText="white"
+                size="xl"
               >
                 Confirm Booking
-              </button>
+              </Button>
+              <Button
+                onClick={handleCancelReservation}
+                colorButton="red"
+                colorText="white"
+                size="xl"
+              >
+                Cancel
+              </Button>
             </div>
           </div>
         </div>

@@ -1,22 +1,9 @@
+import { User } from 'firebase/auth';
 import { database } from '../config/firebase';
 import { ref, get, set, update, remove, push } from 'firebase/database';
-
-// Types
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-}
-
-export interface Host {
-  id: string;
-  name: string;
-  address: string;
-  lat: number;
-  lng: number;
-  calendarSelected: string[];
-  calendarNew: string[];
-}
+import type { Host } from '@/types/host';
+import type { Booking } from '@/types/booking';
+import type { preBooking } from '@/types/preBooking';
 
 // Users
 export const getUsers = async (): Promise<User[]> => {
@@ -71,4 +58,106 @@ export const updateHost = async (id: string, updates: Partial<Host>): Promise<vo
 export const deleteHost = async (id: string): Promise<void> => {
   const hostRef = ref(database, `hosts/${id}`);
   await remove(hostRef);
+};
+
+// Bookings
+export const getBookings = async (): Promise<Booking[]> => {
+  const bookingsRef = ref(database, 'bookings');
+  const snapshot = await get(bookingsRef);
+  const bookings: Booking[] = [];
+  snapshot.forEach((childSnapshot) => {
+    bookings.push({ id: childSnapshot.key!, ...childSnapshot.val() });
+  });
+  return bookings;
+};
+
+export const getBookingById = async (id: string): Promise<Booking | null> => {
+  const bookingRef = ref(database, `bookings/${id}`);
+  const snapshot = await get(bookingRef);
+  if (!snapshot.exists()) return null;
+  return { id: snapshot.key!, ...snapshot.val() };
+};
+
+export const createBooking = async (
+  userId: string, 
+  bookingDetails: preBooking, 
+  createdAt: string
+): Promise<Booking> => {
+  const elementToPush = {
+    userId,
+    hostId: bookingDetails.hostId,
+    date: bookingDetails.dates,
+    luggageCount: bookingDetails.quantity,
+    totalPrice: bookingDetails.totalPrice,
+    hostName: bookingDetails.hostName,
+    hostAddress: bookingDetails.hostAddress,
+    createdAt,
+  };
+
+  const bookingsRef = ref(database, "bookings");
+  const newBookingRef = await push(bookingsRef, elementToPush);
+  
+  // Agregar el ID al booking
+  const newBooking = { ...elementToPush, id: newBookingRef.key! };
+  await update(ref(database, `bookings/${newBookingRef.key}`), {
+    id: newBookingRef.key,
+  });
+
+  return newBooking;
+};
+
+export const updateHostCalendar = async (hostId: string, dates: string[]): Promise<void> => {
+  const hostRef = ref(database, `hosts/${Number(hostId) - 1}`);
+  const hostSnapshot = await get(hostRef);
+
+  if (hostSnapshot.exists()) {
+    const hostData = hostSnapshot.val();
+    const currentCalendarSelected = hostData.calendarSelected || [];
+
+    const updatedCalendarSelected = [
+      ...new Set([...currentCalendarSelected, ...dates]),
+    ];
+
+    await update(hostRef, {
+      calendarSelected: updatedCalendarSelected,
+    });
+  }
+};
+
+export const createBookingAndUpdateHost = async (
+  userId: string, 
+  bookingDetails: preBooking, 
+  createdAt: string
+): Promise<Booking> => {
+  // Crear el booking
+  const newBooking = await createBooking(userId, bookingDetails, createdAt);
+  
+  // Actualizar el calendario del host
+  await updateHostCalendar(bookingDetails.hostId, bookingDetails.dates);
+  
+  return newBooking;
+};
+
+export const deleteBooking = async (id: string, hostId: string, dates: string[]): Promise<void> => {
+  // Eliminar el booking
+  const bookingRef = ref(database, `bookings/${id}`);
+  await remove(bookingRef);
+
+  // Actualizar el calendario del host
+  const hostRef = ref(database, `hosts/${Number(hostId) - 1}`);
+  const hostSnapshot = await get(hostRef);
+
+  if (hostSnapshot.exists()) {
+    const hostData = hostSnapshot.val();
+    const currentCalendarSelected = hostData.calendarSelected || [];
+
+    // Remover las fechas del booking eliminado del calendario
+    const updatedCalendarSelected = currentCalendarSelected.filter(
+      (date: string) => !dates.includes(date)
+    );
+
+    await update(hostRef, {
+      calendarSelected: updatedCalendarSelected,
+    });
+  }
 }; 
