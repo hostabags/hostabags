@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import "./header.scss";
+import SignButton from "@/components/ui/SignButton/SignButton";
 
 export default function Header() {
   const { user, role, logout } = useAuth();
@@ -15,7 +16,7 @@ export default function Header() {
   const handleLogout = async () => {
     try {
       await logout();
-      router.push("/auth/signin"); // Redirect to signin after logout
+      router.push("/auth/signin");
     } catch (error) {
       console.error("Failed to log out:", error);
     }
@@ -29,16 +30,16 @@ export default function Header() {
         </div>
 
         {/* Desktop menu */}
-        {role !== "admin" ? (
+        {role == "admin" ? (
           <nav className="nav-links">
             <Link href="/map-page">MAP</Link>
             <Link href="/reserve">BOOKINGS</Link>
+            <Link href="/dashboard">DASHBOARD</Link>
           </nav>
         ) : (
           <nav className="nav-links">
             <Link href="/map-page">MAP</Link>
             <Link href="/reserve">BOOKINGS</Link>
-            <Link href="/dashboard">DASHBOARD</Link>
           </nav>
         )}
 
@@ -54,36 +55,45 @@ export default function Header() {
         {/* User actions */}
         <div className="flex items-center gap-4">
           {user ? (
-            <>
-              <span>CB</span>
-              <button
+            <div>
+              <span className="bg-white text-black mx-2 py-1 px-2 font-bold rounded-full">
+                {user.email?.substring(0, 2).toUpperCase()}
+              </span>
+
+              <SignButton
                 onClick={handleLogout}
-                className="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
+                colorButton="red"
+                colorText="white"
               >
                 Logout
-              </button>
-            </>
+              </SignButton>
+            </div>
           ) : (
-            <>
-              <Link href="/auth/signin">Sign-in</Link>
-              <Link href="/auth/signup">Sign-up</Link>
-            </>
+            <div>
+              <SignButton colorButton="indigo" colorText="white">
+                <Link href="/auth/signin">Sign in</Link>
+              </SignButton>
+
+              <SignButton colorButton="indigo" colorText="white">
+                <Link href="/auth/signup">Sign up</Link>
+              </SignButton>
+            </div>
           )}
         </div>
       </div>
 
       {/* Mobile dropdown menu */}
       {isMobileMenuOpen &&
-        (role !== "admin" ? (
+        (role === "admin" ? (
           <nav className="flex flex-col mt-2 space-y-2 md:hidden">
             <Link href="/map-page">MAP</Link>
             <Link href="/reserve">BOOKINGS</Link>
+            <Link href="/dashboard">DASHBOARD</Link>
           </nav>
         ) : (
           <nav className="flex flex-col mt-2 space-y-2 md:hidden">
             <Link href="/map-page">MAP</Link>
             <Link href="/reserve">BOOKINGS</Link>
-            <Link href="/dashboard">DASHBOARD</Link>
           </nav>
         ))}
     </header>

@@ -11,7 +11,7 @@ export default function page() {
   }
   return (
     <>
-      <Header></Header>
+      <Header/>
       <main className="text-2xl">
         Aqui estara el dashboard del administrador (Esta es una ruta protegida)
       </main>
