@@ -27,7 +27,7 @@ export default function ConfirmPage() {
     } else {
       router.push("/map-page");
     }
-  }, [user]);
+  }, [user, router]);
 
   const handleConfirmReservation = async () => {
     if (!user || !bookingDetails) return;

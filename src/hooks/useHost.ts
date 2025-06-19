@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Host } from "@/types/host";
 import { database } from "@/config/firebase";
-import { ref, onValue, update } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 
 export function useHost(hostId: string) {
   const [host, setHost] = useState<Host | null>(null);

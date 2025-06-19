@@ -3,8 +3,8 @@
 import Header from "@/components/layout/header/Header";
 import { useAuth } from "@/contexts/AuthContext";
 
-export default function page() {
-  const { user, role } = useAuth();
+export default function DashboardPage() {
+  const { role } = useAuth();
 
   if (role !== "admin") {
     return (

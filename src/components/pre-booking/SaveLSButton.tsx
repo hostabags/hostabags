@@ -10,7 +10,7 @@ interface Props {
   calendarNew: string[] | [];
 }
 
-export default function saveLSButton({
+export default function SaveLSButton({
   host,
   quantity,
   totalPrice,
