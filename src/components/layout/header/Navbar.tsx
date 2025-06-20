@@ -1,8 +1,9 @@
 import Link from "next/link";
 import React from "react";
+import { User } from "firebase/auth";
 
 interface NavbarProps {
-  user: any;
+  user: User | null;
   role: string | null;
   isMobile?: boolean;
 }
