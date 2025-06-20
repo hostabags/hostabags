@@ -2,6 +2,8 @@
 
 **Hostabags** es una aplicación web desarrollada con Next.js, TypeScript y Tailwind CSS que permite a los usuarios encontrar y reservar espacios para dejar sus maletas en distintas ubicaciones. Utiliza Firebase para la autenticación y la base de datos, y MapTiler para mostrar los hosts en un mapa interactivo.
 
+- Visita la web de [Hostabags](https://hostabags.vercel.app/)
+
 ## 🧳 Características
 
 - Registro e inicio de sesión de usuarios (Firebase Auth).
@@ -17,6 +19,7 @@
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Firebase](https://firebase.google.com/)
 - [MapTiler](https://www.maptiler.com/)
+- [vercel](https://vercel.com/)
 
 ## 📦 Instalación
 
