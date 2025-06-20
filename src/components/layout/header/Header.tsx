@@ -6,7 +6,10 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import "./header.scss";
-import SignButton from "@/components/ui/Button/Button";
+import Button from "@/components/ui/Button/Button";
+import Image from "next/image";
+import LogoImage from "../../../../public/images/logo-solo.jpg";
+import Navbar from "./Navbar";
 
 export default function Header() {
   const { user, role, logout } = useAuth();
@@ -16,7 +19,7 @@ export default function Header() {
   const handleLogout = async () => {
     try {
       await logout();
-      router.push("/signin");
+      router.push("/");
     } catch (error) {
       console.error("Failed to log out:", error);
     }
@@ -25,27 +28,20 @@ export default function Header() {
   return (
     <header className="header">
       <div className="flex justify-between items-center">
-        <div className="logo">
-          <Link href="/">HOSTABAGS</Link>
-        </div>
+        <Link href="/">
+          <div className="flex gap-4 items-center">
+            <Image
+              src={LogoImage}
+              alt="HostaBags logo"
+              className="rounded-sm shadow-lg"
+              width={30}
+            />
+            <span>Hostabags</span>
+          </div>
+        </Link>
 
         {/* Desktop menu */}
-        {!user ? (
-          <nav className="nav-links">
-            <Link href="/map-page">MAP</Link>
-          </nav>
-        ) : role === "admin" ? (
-          <nav className="nav-links">
-            <Link href="/map-page">MAP</Link>
-            <Link href="/bookings">BOOKINGS</Link>
-            <Link href="/dashboard">DASHBOARD</Link>
-          </nav>
-        ) : (
-          <nav className="nav-links">
-            <Link href="/map-page">MAP</Link>
-            <Link href="/bookings">BOOKINGS</Link>
-          </nav>
-        )}
+        <Navbar user={user} role={role} />
 
         {/* Mobile hamburger button */}
         <button
@@ -56,7 +52,7 @@ export default function Header() {
           {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
 
-        {/* User actions */}
+        {/* Log actions */}
         <div className="flex items-center gap-4">
           {user ? (
             <div>
@@ -64,46 +60,30 @@ export default function Header() {
                 {user.email?.substring(0, 2).toUpperCase()}
               </span>
 
-              <SignButton
+              <Button
                 onClick={handleLogout}
                 colorButton="red"
                 colorText="white"
               >
                 Logout
-              </SignButton>
+              </Button>
             </div>
           ) : (
             <div>
-              <SignButton colorButton="indigo" colorText="white">
+              <Button colorButton="indigo" colorText="white">
                 <Link href="/signin">Sign in</Link>
-              </SignButton>
+              </Button>
 
-              <SignButton colorButton="indigo" colorText="white">
+              <Button colorButton="indigo" colorText="white">
                 <Link href="/signup">Sign up</Link>
-              </SignButton>
+              </Button>
             </div>
           )}
         </div>
       </div>
 
       {/* Mobile dropdown menu */}
-      {isMobileMenuOpen &&
-        (!user ? (
-          <nav className="nav-links">
-            <Link href="/map-page">MAP</Link>
-          </nav>
-        ) : role === "admin" ? (
-          <nav className="flex flex-col mt-2 space-y-2 md:hidden">
-            <Link href="/map-page">MAP</Link>
-            <Link href="/bookings">BOOKINGS</Link>
-            <Link href="/dashboard">DASHBOARD</Link>
-          </nav>
-        ) : (
-          <nav className="flex flex-col mt-2 space-y-2 md:hidden">
-            <Link href="/map-page">MAP</Link>
-            <Link href="/bookings">BOOKINGS</Link>
-          </nav>
-        ))}
+      {isMobileMenuOpen && <Navbar user={user} role={role} isMobile />}
     </header>
   );
 }

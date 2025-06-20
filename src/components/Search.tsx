@@ -9,7 +9,7 @@ export default function Search() {
 
   const handleSearch = () => {
     if (location) {
-      router.push(`/booking?location=${encodeURIComponent(location)}`);
+      router.push(`/map-page?location=${encodeURIComponent(location)}`);
     }
   };
 
