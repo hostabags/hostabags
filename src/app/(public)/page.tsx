@@ -1,4 +1,3 @@
-import Header from "@/components/layout/header/Header";
 import Search from "@/components/Search";
 import Image from 'next/image';
 import HeroImage from '../../../public/images/bags.jpeg';
@@ -6,7 +5,6 @@ import HeroImage from '../../../public/images/bags.jpeg';
 export default function HomePage() {
   return (
     <>
-      <Header />
       <main className="homepage flex flex-col items-center justify-center px-6 py-10 text-center">
         <section className="hero-container flex flex-col md:flex-row items-center gap-10 max-w-6xl">
           <div className="w-full md:w-1/2">

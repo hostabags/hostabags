@@ -18,7 +18,7 @@
 - [TypeScript](https://www.typescriptlang.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Firebase](https://firebase.google.com/)
-- [MapTiler](https://www.maptiler.com/)
+- [Leaflet](https://leafletjs.com/)
 - [vercel](https://vercel.com/)
 
 ## 📦 Instalación

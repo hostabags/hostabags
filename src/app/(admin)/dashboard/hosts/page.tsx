@@ -6,7 +6,7 @@ import { CreateHostForm } from "./CreateHostForm";
 import { HostList } from "./HostList";
 import { useState } from "react";
 
-export default function DashboardPage() {
+export default function HostsPage() {
   const { role } = useAuth();
   const [refreshKey, setRefreshKey] = useState(0);
 
@@ -20,9 +20,9 @@ export default function DashboardPage() {
       </>
     );
   }
+
   return (
     <>
-      <Header />
       <main className="text-2xl p-4">
         <h1>Administrar Hosts</h1>
         <div style={{ display: 'flex', gap: '2rem', marginTop: '1rem' }}>

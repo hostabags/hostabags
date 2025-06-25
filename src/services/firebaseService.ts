@@ -16,6 +16,11 @@ export const getUsers = async (): Promise<User[]> => {
   return users;
 };
 
+export const updateUserRole = async (userId: string, newRole: string): Promise<void> => {
+  const userRef = ref(database, 'users/' + userId);
+  await update(userRef, { role: newRole });
+};
+
 export const createUserWithUid = async (uid: string, user: Omit<User, 'id' | 'role'> & { role: string }): Promise<User> => {
   const userRef = ref(database, 'users/' + uid);
   const newUser = { ...user, id: uid };

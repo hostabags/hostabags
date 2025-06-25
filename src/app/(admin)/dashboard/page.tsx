@@ -1,6 +1,6 @@
 "use client";
 
-import Header from "@/components/layout/header/Header";
+import Link from "next/link";
 import useAuth from "@/hooks/useAuth";
 
 export default function DashboardPage() {
@@ -9,19 +9,17 @@ export default function DashboardPage() {
   if (role !== "admin") {
     return (
       <>
-        <Header />
-        <p>No tienes acceso a este contenido, solo para administradores</p>;
+        <main>No tienes acceso a este contenido, solo para administradores</main>;
       </>
     );
   }
   return (
     <>
-      <Header />
       <main className="text-2xl">
         Aqui estara el dashboard del administrador (Esta es una ruta protegida)
         <div>Aqui van las graficas</div>
-        <div>Aqui van los datos de los usuarios</div>
-        <div>Aqui van los datos de los hosts</div>
+        <div><Link href="/dashboard/users">Aqui van los datos de los usuarios</Link></div>
+        <div><Link href="/dashboard/hosts">Aqui van los datos de los hosts</Link></div>
       </main>
     </>
   );
