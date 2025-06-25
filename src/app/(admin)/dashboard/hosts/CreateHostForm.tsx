@@ -1,46 +1,39 @@
 "use client";
 
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { createHostWithUid, createUserWithUid } from "@/services/firebaseService";
 import { geocodeAddress } from "@/utils/geocoding";
 import { firebaseConfig } from "@/config/firebase";
-
+import { createHostSchema, CreateHostSchema } from "@/validations/hostSchema";
 
 interface Props {
   onHostCreated: () => void;
 }
 
 export function CreateHostForm({ onHostCreated }: Props) {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    ownerName: "",
-    ownerSurname: "",
-    hostName: "",
-    address: "",
-    description: "",
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<CreateHostSchema>({
+    resolver: zodResolver(createHostSchema),
   });
+
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const onSubmit = async (data: CreateHostSchema) => {
     setError(null);
     setSuccess(null);
-    setLoading(true);
 
-    // 1. Geocode address
-    const coordinates = await geocodeAddress(formData.address);
+    const coordinates = await geocodeAddress(data.address);
     if (!coordinates) {
       setError("No se pudo verificar la dirección. Inténtalo de nuevo con una dirección válida.");
-      setLoading(false);
       return;
     }
 
@@ -48,68 +41,67 @@ export function CreateHostForm({ onHostCreated }: Props) {
     const secondaryAuth = getAuth(secondaryApp);
 
     try {
-      // 2. Create user in Auth
       const userCredential = await createUserWithEmailAndPassword(
         secondaryAuth,
-        formData.email,
-        formData.password
+        data.email,
+        data.password
       );
       const { uid } = userCredential.user;
 
-      // 3. Create user profile in DB
       await createUserWithUid(uid, {
-        email: formData.email,
-        name: formData.ownerName,
-        surname: formData.ownerSurname,
+        email: data.email,
+        name: data.ownerName,
+        surname: data.ownerSurname,
         role: "host",
       });
 
-      // 4. Create host profile in DB
       await createHostWithUid(uid, {
-        name: formData.hostName,
-        address: formData.address,
+        name: data.hostName,
+        address: data.address,
         lat: coordinates.lat,
         lng: coordinates.lng,
-        description: formData.description,
+        description: data.description,
         calendarSelected: [],
       });
 
       setSuccess("¡Host creado con éxito!");
       onHostCreated();
-      setFormData({
-        email: "",
-        password: "",
-        ownerName: "",
-        ownerSurname: "",
-        hostName: "",
-        address: "",
-        description: "",
-      });
+      reset();
     } catch (error: any) {
       setError(`Error al crear el host: ${error.message}`);
-    } finally {
-      // We don't need to delete the secondary app manually in v9+ of firebase sdk for client
-      setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+    <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       <h2>Crear nuevo Host</h2>
       
-      <input type="email" name="email" placeholder="Email del propietario" value={formData.email} onChange={handleChange} required style={{ padding: '0.5rem' }} />
-      <input type="password" name="password" placeholder="Contraseña" value={formData.password} onChange={handleChange} required style={{ padding: '0.5rem' }} />
-      <input type="text" name="ownerName" placeholder="Nombre del propietario" value={formData.ownerName} onChange={handleChange} required style={{ padding: '0.5rem' }} />
-      <input type="text" name="ownerSurname" placeholder="Apellido del propietario" value={formData.ownerSurname} onChange={handleChange} style={{ padding: '0.5rem' }} />
+      <input type="email" {...register("email")} placeholder="Email del propietario" style={{ padding: '0.5rem' }} />
+      {errors.email && <p style={{ color: 'red' }}>{errors.email.message}</p>}
+      
+      <input type="password" {...register("password")} placeholder="Contraseña" style={{ padding: '0.5rem' }} />
+      {errors.password && <p style={{ color: 'red' }}>{errors.password.message}</p>}
+
+      <input type="password" {...register("confirmPassword")} placeholder="Confirmar Contraseña" style={{ padding: '0.5rem' }} />
+      {errors.confirmPassword && <p style={{ color: 'red' }}>{errors.confirmPassword.message}</p>}
+
+      <input type="text" {...register("ownerName")} placeholder="Nombre del propietario" style={{ padding: '0.5rem' }} />
+      {errors.ownerName && <p style={{ color: 'red' }}>{errors.ownerName.message}</p>}
+
+      <input type="text" {...register("ownerSurname")} placeholder="Apellido del propietario" style={{ padding: '0.5rem' }} />
       
       <hr />
 
-      <input type="text" name="hostName" placeholder="Nombre del establecimiento" value={formData.hostName} onChange={handleChange} required style={{ padding: '0.5rem' }} />
-      <input type="text" name="address" placeholder="Dirección" value={formData.address} onChange={handleChange} required style={{ padding: '0.5rem' }} />
-      <textarea name="description" placeholder="Descripción" value={formData.description} onChange={handleChange} style={{ padding: '0.5rem' }}></textarea>
+      <input type="text" {...register("hostName")} placeholder="Nombre del establecimiento" style={{ padding: '0.5rem' }} />
+      {errors.hostName && <p style={{ color: 'red' }}>{errors.hostName.message}</p>}
 
-      <button type="submit" disabled={loading} style={{ padding: '0.75rem', cursor: 'pointer' }}>
-        {loading ? "Creando..." : "Crear Host"}
+      <input type="text" {...register("address")} placeholder="Dirección" style={{ padding: '0.5rem' }} />
+      {errors.address && <p style={{ color: 'red' }}>{errors.address.message}</p>}
+
+      <textarea {...register("description")} placeholder="Descripción" style={{ padding: '0.5rem' }}></textarea>
+
+      <button type="submit" disabled={isSubmitting} style={{ padding: '0.75rem', cursor: 'pointer' }}>
+        {isSubmitting ? "Creando..." : "Crear Host"}
       </button>
 
       {error && <p style={{ color: "red" }}>{error}</p>}
