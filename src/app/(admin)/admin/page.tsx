@@ -18,10 +18,7 @@ export default function DashboardPage() {
     <>
       <Header />
       <main className="text-2xl">
-        Aqui estara el dashboard del administrador (Esta es una ruta protegida)
-        <div>Aqui van las graficas</div>
-        <div>Aqui van los datos de los usuarios</div>
-        <div>Aqui van los datos de los hosts</div>
+       Datos personales del administrador
       </main>
     </>
   );

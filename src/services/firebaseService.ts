@@ -1,9 +1,9 @@
-import { User } from 'firebase/auth';
 import { database } from '../config/firebase';
 import { ref, get, set, update, remove, push } from 'firebase/database';
 import type { Host } from '@/types/host';
 import type { Booking } from '@/types/booking';
-import type { preBooking } from '@/types/preBooking';
+import type { PreBookingI } from '@/types/preBooking';
+import type { User } from '@/types/user';
 
 // Users
 export const getUsers = async (): Promise<User[]> => {
@@ -16,11 +16,10 @@ export const getUsers = async (): Promise<User[]> => {
   return users;
 };
 
-export const createUser = async (user: Omit<User, 'id'>): Promise<User> => {
-  const usersRef = ref(database, 'users');
-  const newUserRef = push(usersRef);
-  const newUser = { ...user, id: newUserRef.key! };
-  await set(newUserRef, newUser);
+export const createUserWithUid = async (uid: string, user: Omit<User, 'id' | 'role'> & { role: string }): Promise<User> => {
+  const userRef = ref(database, 'users/' + uid);
+  const newUser = { ...user, id: uid };
+  await set(userRef, newUser);
   return newUser;
 };
 
@@ -42,11 +41,10 @@ export const getHostById = async (id: string): Promise<Host | null> => {
   return { id: snapshot.key!, ...snapshot.val() };
 };
 
-export const createHost = async (host: Omit<Host, 'id'>): Promise<Host> => {
-  const hostsRef = ref(database, 'hosts');
-  const newHostRef = push(hostsRef);
-  const newHost = { ...host, id: newHostRef.key! };
-  await set(newHostRef, newHost);
+export const createHostWithUid = async (uid: string, host: Omit<Host, 'id'>): Promise<Host> => {
+  const hostRef = ref(database, 'hosts/' + uid);
+  const newHost = { ...host, id: uid };
+  await set(hostRef, newHost);
   return newHost;
 };
 
@@ -60,7 +58,7 @@ export const deleteHost = async (id: string): Promise<void> => {
   await remove(hostRef);
 };
 
-// Bookings
+// Get bookings
 export const getBookings = async (): Promise<Booking[]> => {
   const bookingsRef = ref(database, 'bookings');
   const snapshot = await get(bookingsRef);
@@ -71,6 +69,7 @@ export const getBookings = async (): Promise<Booking[]> => {
   return bookings;
 };
 
+// Get booking by id
 export const getBookingById = async (id: string): Promise<Booking | null> => {
   const bookingRef = ref(database, `bookings/${id}`);
   const snapshot = await get(bookingRef);
@@ -80,7 +79,7 @@ export const getBookingById = async (id: string): Promise<Booking | null> => {
 
 export const createBooking = async (
   userId: string, 
-  bookingDetails: preBooking, 
+  bookingDetails: PreBookingI, 
   createdAt: string
 ): Promise<Booking> => {
   const elementToPush = {
@@ -93,6 +92,7 @@ export const createBooking = async (
     hostAddress: bookingDetails.hostAddress,
     createdAt,
   };
+
 
   const bookingsRef = ref(database, "bookings");
   const newBookingRef = await push(bookingsRef, elementToPush);
@@ -107,7 +107,7 @@ export const createBooking = async (
 };
 
 export const updateHostCalendar = async (hostId: string, dates: string[]): Promise<void> => {
-  const hostRef = ref(database, `hosts/${Number(hostId) - 1}`);
+  const hostRef = ref(database, `hosts/${hostId}`);
   const hostSnapshot = await get(hostRef);
 
   if (hostSnapshot.exists()) {
@@ -126,7 +126,7 @@ export const updateHostCalendar = async (hostId: string, dates: string[]): Promi
 
 export const createBookingAndUpdateHost = async (
   userId: string, 
-  bookingDetails: preBooking, 
+  bookingDetails: PreBookingI, 
   createdAt: string
 ): Promise<Booking> => {
   // Crear el booking
@@ -144,7 +144,7 @@ export const deleteBooking = async (id: string, hostId: string, dates: string[])
   await remove(bookingRef);
 
   // Actualizar el calendario del host
-  const hostRef = ref(database, `hosts/${Number(hostId) - 1}`);
+  const hostRef = ref(database, `hosts/${hostId}`);
   const hostSnapshot = await get(hostRef);
 
   if (hostSnapshot.exists()) {

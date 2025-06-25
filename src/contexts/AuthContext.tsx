@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import {
   User,
   createUserWithEmailAndPassword,
@@ -10,11 +10,10 @@ import {
   setPersistence, //Esto es para mantener la session hasta que se cierra pestaña o navegador
   browserSessionPersistence, //Esto es para mantener la session hasta que se cierra pestaña o navegador
 } from "firebase/auth";
-import { auth } from "@/config/firebase";
-import { database } from "@/config/firebase";
+import { auth, database } from "@/config/firebase";
 import { ref, set, get } from "firebase/database";
 
-interface AuthContextType {
+interface AuthContextI {
   user: User | null;
   loading: boolean;
   role: string | null;
@@ -23,9 +22,9 @@ interface AuthContextType {
   logout: () => Promise<void>;
 }
 
-const AuthContext = createContext<AuthContextType>({} as AuthContextType);
-
-export const useAuth = () => useContext(AuthContext);
+export const AuthContext = createContext<AuthContextI>(
+  {} as AuthContextI
+);
 
 export const AuthContextProvider = ({
   children,
@@ -74,7 +73,7 @@ export const AuthContextProvider = ({
   };
 
   const signIn = async (email: string, password: string) => {
-    await setPersistence(auth, browserSessionPersistence);  //Esto es para mantener la session hasta que se cierra pestaña o navegador
+    await setPersistence(auth, browserSessionPersistence); //Esto es para mantener la session hasta que se cierra pestaña o navegador
     await signInWithEmailAndPassword(auth, email, password);
   };
 

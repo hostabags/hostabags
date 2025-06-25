@@ -1,17 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import Header from "@/components/layout/header/Header";
 import { getBookings } from "@/utils/localStorage";
 import { createBookingAndUpdateHost } from "@/services/firebaseService";
-import type { preBooking } from "@/types/preBooking";
+import type { PreBookingI } from "@/types/preBooking";
 import { formatDate } from "@/utils/functions";
 import Button from "@/components/ui/Button/Button";
+import useAuth from "@/hooks/useAuth";
 
 export default function ConfirmPage() {
-  const [bookingDetails, setBookingDetails] = useState<preBooking | null>(null);
+  const [bookingDetails, setBookingDetails] = useState<PreBookingI | null>(null);
   const { user } = useAuth();
   const router = useRouter();
 

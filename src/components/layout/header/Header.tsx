@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
@@ -10,6 +9,7 @@ import Button from "@/components/ui/Button/Button";
 import Image from "next/image";
 import LogoImage from "../../../../public/images/logo-solo.jpg";
 import Navbar from "./Navbar";
+import useAuth from "@/hooks/useAuth";
 
 export default function Header() {
   const { user, role, logout } = useAuth();

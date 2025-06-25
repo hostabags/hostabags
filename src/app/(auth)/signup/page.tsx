@@ -1,11 +1,11 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/contexts/AuthContext';
 import Header from '@/components/layout/header/Header';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SignUpFormValues, signUpSchema } from '@/validations/signSchema';
+import useAuth from '@/hooks/useAuth';
 
 
 export default function SignUp() {

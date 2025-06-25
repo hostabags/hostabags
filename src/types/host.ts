@@ -5,5 +5,9 @@ export interface Host {
   lat: number;
   lng: number;
   calendarSelected: string[];
+  schedules?: string[];
+  description?: string;
+  profilePicture?: string;
+
 } 
 

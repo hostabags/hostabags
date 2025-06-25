@@ -32,6 +32,16 @@ const Navbar: React.FC<NavbarProps> = ({ user, role, isMobile = false }) => {
     );
   }
 
+  if (role === "host") {
+    return (
+      <nav className={navClass}>
+        <Link href="/map-page">MAP</Link>
+        <Link href="/bookings">BOOKINGS</Link>
+        <Link href="/host">HOST</Link>
+      </nav>
+    );
+  }
+
   return (
     <nav className={navClass}>
       <Link href="/map-page">MAP</Link>

@@ -1,7 +1,7 @@
 import { saveBooking } from "@/utils/localStorage";
 import { Host } from "@/types/host";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/contexts/AuthContext";
+import useAuth from "@/hooks/useAuth";
 
 interface Props {
   host: Host;

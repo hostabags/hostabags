@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { database } from "@/config/firebase";
 import { ref, onValue } from "firebase/database";
 import type { Booking } from "@/types/booking";
 import Button from "../ui/Button/Button";
 import { deleteBooking as deleteBookingService } from "@/services/firebaseService";
+import useAuth from "@/hooks/useAuth";
+import { formatDateMonth } from "@/utils/functions";
 
 export default function ReservesList() {
   const { user } = useAuth();
@@ -51,13 +52,6 @@ export default function ReservesList() {
     };
   }, [user]);
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("en-GB", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  };
 
   const deleteBooking = async (
     bookingId: string,
@@ -154,9 +148,9 @@ export default function ReservesList() {
                       </span>
                       <ul className="list-disc list-inside">
                         {Array.isArray(date) ? (
-                          date.map((d) => <li key={d}>{formatDate(d)}</li>)
+                          date.map((d) => <li key={d}>{formatDateMonth(d)}</li>)
                         ) : (
-                          <li>{formatDate(date)}</li>
+                          <li>{formatDateMonth(date)}</li>
                         )}
                       </ul>
                     </div>

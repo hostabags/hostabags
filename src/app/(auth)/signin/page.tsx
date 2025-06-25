@@ -2,16 +2,16 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/contexts/AuthContext";
 import Header from "@/components/layout/header/Header";
 import { getBookings } from "@/utils/localStorage";
-import { preBooking } from "@/types/preBooking";
+import { PreBookingI } from "@/types/preBooking";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignInFormValues, signInSchema } from "@/validations/signSchema";
+import useAuth from "@/hooks/useAuth";
 
 export default function SignIn() {
-  const [bookingDetails, setBookingDetails] = useState<preBooking | null>(null);
+  const [bookingDetails, setBookingDetails] = useState<PreBookingI | null>(null);
   const router = useRouter();
   const { signIn } = useAuth();
 
