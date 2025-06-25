@@ -1,11 +1,8 @@
 "use client";
 
-import Header from "@/components/layout/header/Header";
-import useAuth from "@/hooks/useAuth";
-import { CreateHostForm } from "./CreateHostForm";
-import { HostList } from "./HostList";
-import { MigrationTool } from "./MigrationTool";
 import { useState } from "react";
+import useAuth from "@/hooks/useAuth";
+import { HostsList, CreateHostForm, MigrationTool } from "@/components/hosts";
 
 export default function HostsPage() {
   const { role } = useAuth();
@@ -13,31 +10,50 @@ export default function HostsPage() {
 
   if (role !== "admin") {
     return (
-      <>
-        <Header />
-        <main>
-          <p>No tienes acceso a este contenido, solo para administradores</p>
-        </main>
-      </>
+      <main className="min-h-screen bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="bg-white rounded-lg shadow p-6 text-center">
+            <div className="text-red-600 text-lg font-medium mb-2">
+              Acceso Denegado
+            </div>
+            <p className="text-gray-600">
+              No tienes acceso a este contenido, solo para administradores
+            </p>
+          </div>
+        </div>
+      </main>
     );
   }
 
   return (
-    <>
-      <main className="text-2xl p-4">
-        <h1>Administrar Hosts</h1>
+    <main className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">Administrar Hosts</h1>
+          <p className="mt-2 text-gray-600">
+            Gestiona los hosts registrados en la plataforma
+          </p>
+        </div>
         
-        <MigrationTool />
+        {/* Migration Tool */}
+        <div className="mb-8">
+          <MigrationTool />
+        </div>
         
-        <div style={{ display: 'flex', gap: '2rem', marginTop: '1rem' }}>
-          <section style={{ flex: 1 }}>
-            <HostList key={refreshKey} />
+        {/* Main Content */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Hosts List */}
+          <section>
+            <HostsList refreshKey={refreshKey} />
           </section>
-          <section style={{ flex: 1 }}>
+          
+          {/* Create Host Form */}
+          <section>
             <CreateHostForm onHostCreated={() => setRefreshKey(key => key + 1)} />
           </section>
         </div>
-      </main>
-    </>
+      </div>
+    </main>
   );
 }
