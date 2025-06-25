@@ -23,6 +23,7 @@
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.58.1",
     "react-leaflet": "^5.0.0",
+    "recharts": "^3.0.0",
     "sass": "^1.89.0",
     "zod": "^3.25.67"
   },
