@@ -1,6 +1,4 @@
-import { database } from '@/config/firebase';
-import { ref, get, set, remove } from 'firebase/database';
-import type { Host } from '@/types/host';
+import { DatabaseService } from '@/services/firebase';
 
 /**
  * Script de migración para convertir hosts existentes a la nueva estructura
@@ -11,42 +9,28 @@ export const migrateHostsToNewStructure = async (): Promise<void> => {
     console.log('Iniciando migración de hosts...');
     
     // Obtener todos los hosts existentes
-    const hostsRef = ref(database, 'hosts');
-    const snapshot = await get(hostsRef);
+    const allHosts = await DatabaseService.getAll<any>('hosts');
     
-    if (!snapshot.exists()) {
+    if (allHosts.length === 0) {
       console.log('No hay hosts para migrar');
       return;
     }
 
-    const hostsToMigrate: { [key: string]: any } = {};
-    snapshot.forEach((childSnapshot) => {
-      const hostData = childSnapshot.val();
-      const hostId = childSnapshot.key!;
-      
-      // Verificar si el host ya tiene la nueva estructura
-      if (hostData.ownerId) {
-        console.log(`Host ${hostId} ya tiene la nueva estructura, saltando...`);
-        return;
-      }
-      
-      // Si el host no tiene ownerId, asumimos que el ID del host es el mismo que el del usuario
-      hostsToMigrate[hostId] = {
-        ...hostData,
-        ownerId: hostId, // El ID del host se convierte en el ownerId
-        id: hostId
-      };
-    });
+    const hostsToMigrate = allHosts.filter(host => !host.ownerId);
 
-    console.log(`Encontrados ${Object.keys(hostsToMigrate).length} hosts para migrar`);
+    console.log(`Encontrados ${hostsToMigrate.length} hosts para migrar`);
 
     // Migrar cada host
-    for (const [oldHostId, hostData] of Object.entries(hostsToMigrate)) {
-      // Crear el nuevo host con la estructura correcta
-      const newHostRef = ref(database, `hosts/${oldHostId}`);
-      await set(newHostRef, hostData);
+    for (const host of hostsToMigrate) {
+      const hostWithOwner = {
+        ...host,
+        ownerId: host.id, // El ID del host se convierte en el ownerId
+      };
+
+      // Actualizar el host con la nueva estructura
+      await DatabaseService.update('hosts', host.id, { ownerId: host.id });
       
-      console.log(`Host ${oldHostId} migrado exitosamente`);
+      console.log(`Host ${host.id} migrado exitosamente`);
     }
 
     console.log('Migración completada exitosamente');
@@ -61,22 +45,13 @@ export const migrateHostsToNewStructure = async (): Promise<void> => {
  */
 export const checkMigrationNeeded = async (): Promise<boolean> => {
   try {
-    const hostsRef = ref(database, 'hosts');
-    const snapshot = await get(hostsRef);
+    const allHosts = await DatabaseService.getAll<any>('hosts');
     
-    if (!snapshot.exists()) {
+    if (allHosts.length === 0) {
       return false;
     }
 
-    let needsMigration = false;
-    snapshot.forEach((childSnapshot) => {
-      const hostData = childSnapshot.val();
-      if (!hostData.ownerId) {
-        needsMigration = true;
-      }
-    });
-
-    return needsMigration;
+    return allHosts.some(host => !host.ownerId);
   } catch (error) {
     console.error('Error verificando migración:', error);
     return false;

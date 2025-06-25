@@ -1,12 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useHost } from "@/hooks/useHost";
 import CalendarUI from "../calendar/CalendarUI";
 import QuantitySelector from "./QuantitySelector";
 import SaveLSButton from "./SaveLSButton";
 import "./preBooking.scss";
 import { formatDate } from "@/utils/functions";
+import { useHost } from "@/hooks/useHosts";
 
 export default function PreBooking({ id }: { id: string }) {
   const { host, loading, error } = useHost(id);
@@ -51,7 +51,7 @@ export default function PreBooking({ id }: { id: string }) {
     const dateStr = formatDate(date);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    return host?.calendarSelected.includes(dateStr) || date < today;
+    return (host?.calendarSelected?.includes(dateStr) || false) || date < today;
   };
 
 

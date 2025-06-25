@@ -5,8 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { createHost, createUserWithUid } from "@/services/firebaseService";
-import { firebaseConfig } from "@/config/firebase";
+import { HostsService, UsersService, firebaseConfig } from "@/services/firebase";
 import { createHostSchema, CreateHostSchema } from "@/validations/hostSchema";
 import { geocodeAddress } from "@/utils/geocoding";
 import dynamic from "next/dynamic";
@@ -58,14 +57,15 @@ export function CreateHostForm({ onHostCreated }: Props) {
       );
       const { uid } = userCredential.user;
 
-      await createUserWithUid(uid, {
+      await UsersService.create({
+        id: uid,
         email: data.email,
         name: data.ownerName,
         surname: data.ownerSurname,
         role: "host",
       });
 
-      await createHost({
+      await HostsService.create({
         ownerId: uid,
         name: data.hostName,
         address: data.address,

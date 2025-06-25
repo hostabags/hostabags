@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from 'react';
-import { getUsers, updateUserRole } from '@/services/firebaseService';
+import { UsersService } from '@/services/firebase';
 import useAuth from '@/hooks/useAuth';
 import type { User } from '@/types/user';
 
@@ -17,7 +17,7 @@ const UsersPage = () => {
     const fetchUsers = async () => {
       try {
         setLoading(true);
-        const usersList = await getUsers();
+        const usersList = await UsersService.getAll();
         setUsers(usersList);
       } catch (err) {
         setError('Error al cargar los usuarios');
@@ -30,7 +30,7 @@ const UsersPage = () => {
 
   const handleRoleChange = async (userId: string, newRole: string) => {
     try {
-      await updateUserRole(userId, newRole);
+      await UsersService.updateRole(userId, newRole);
       setUsers((prev) => prev.map(u => u.id === userId ? { ...u, role: newRole } : u));
     } catch (err) {
       setError('Error al actualizar el rol');

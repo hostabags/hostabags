@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getBookings } from "@/utils/localStorage";
-import { createBookingAndUpdateHost } from "@/services/firebaseService";
+import { BookingsService } from "@/services/firebase";
 import type { PreBookingI } from "@/types/preBooking";
 import { formatDate } from "@/utils/functions";
 import Button from "@/components/ui/Button/Button";
@@ -31,10 +31,11 @@ export default function ConfirmPage() {
   const handleConfirmReservation = async () => {
     if (!user || !bookingDetails) return;
     try {
-      await createBookingAndUpdateHost(
+      const createdAt = formatDate(new Date());
+      const newBooking = await BookingsService.createBookingAndUpdateHost(
         user.uid,
         bookingDetails,
-        formatDate(new Date())
+        createdAt
       );
 
       localStorage.removeItem("hostabagsBookings");

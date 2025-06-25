@@ -3,9 +3,7 @@
 import { useEffect, useState } from "react";
 import { Host } from "@/types/host";
 import { User } from "@/types/user";
-import { getUsersWithHosts } from "@/services/firebaseService";
-
-type UserWithHosts = User & { hosts: Host[] };
+import { UsersService, UserWithHosts } from "@/services/firebase";
 
 export function HostList() {
   const [usersWithHosts, setUsersWithHosts] = useState<UserWithHosts[]>([]);
@@ -16,7 +14,7 @@ export function HostList() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const data = await getUsersWithHosts();
+        const data = await UsersService.getUsersWithHosts();
         // Filtrar solo usuarios que son hosts y tienen hosts asociados
         const hostsUsers = data.filter(user => user.role === 'host' && user.hosts.length > 0);
         setUsersWithHosts(hostsUsers);

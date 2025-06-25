@@ -1,57 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { database } from "@/config/firebase";
-import { ref, onValue } from "firebase/database";
 import type { Booking } from "@/types/booking";
 import Button from "../ui/Button/Button";
-import { deleteBooking as deleteBookingService } from "@/services/firebaseService";
+import { BookingsService } from "@/services/firebase";
 import useAuth from "@/hooks/useAuth";
+import { useUserBookings } from "@/hooks/useBookings";
 import { formatDateMonth } from "@/utils/functions";
 
 export default function ReservesList() {
   const { user } = useAuth();
   const router = useRouter();
-  const [userBookings, setUserBookings] = useState<Booking[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (!user) return;
-
-    setLoading(true);
-
-    let bookingsUnsubscribe: (() => void) | null = null;
-
-    try {
-      const bookingsRef = ref(database, "bookings");
-      bookingsUnsubscribe = onValue(bookingsRef, (snapshot) => {
-        const allBookings: Booking[] = [];
-
-        snapshot.forEach((childSnapshot) => {
-          const key = childSnapshot.key;
-          if (key !== null) {
-            allBookings.push({ id: key, ...childSnapshot.val() });
-          }
-        });
-
-        const userBookings = allBookings.filter(
-          (booking) => booking.userId === user.uid
-        );
-
-        setUserBookings(userBookings);
-      });
-    } catch (error) {
-      console.error("Error subscribing to bookings:", error);
-    }
-
-    setLoading(false);
-
-    return () => {
-      if (bookingsUnsubscribe) bookingsUnsubscribe();
-    };
-  }, [user]);
-
+  const { bookings: userBookings, loading, error } = useUserBookings(user?.uid || '');
 
   const deleteBooking = async (
     bookingId: string,
@@ -60,8 +20,8 @@ export default function ReservesList() {
   ) => {
     if (confirm("¿Estás seguro de que quieres eliminar esta reserva?")) {
       try {
-        await deleteBookingService(bookingId, hostId, dates);
-        // El estado se actualizará automáticamente gracias al listener de Firebase
+        await BookingsService.deleteBookingAndUpdateHost(bookingId, hostId, dates);
+        // El estado se actualizará automáticamente gracias al hook
       } catch (error) {
         console.error("Error deleting booking:", error);
         alert("Error al eliminar la reserva. Inténtalo de nuevo.");
@@ -73,6 +33,14 @@ export default function ReservesList() {
     return (
       <div className="m-8 text-center">
         <p className="text-gray-600">Loading Bookings...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="m-8 text-center">
+        <p className="text-red-600">Error: {error}</p>
       </div>
     );
   }
