@@ -46,11 +46,34 @@ export const getHostById = async (id: string): Promise<Host | null> => {
   return { id: snapshot.key!, ...snapshot.val() };
 };
 
-export const createHostWithUid = async (uid: string, host: Omit<Host, 'id'>): Promise<Host> => {
-  const hostRef = ref(database, 'hosts/' + uid);
-  const newHost = { ...host, id: uid };
-  await set(hostRef, newHost);
+export const getHostsByOwnerId = async (ownerId: string): Promise<Host[]> => {
+  const hostsRef = ref(database, 'hosts');
+  const snapshot = await get(hostsRef);
+  const hosts: Host[] = [];
+  snapshot.forEach((childSnapshot) => {
+    const hostData = childSnapshot.val();
+    if (hostData.ownerId === ownerId) {
+      hosts.push({ id: childSnapshot.key!, ...hostData });
+    }
+  });
+  return hosts;
+};
+
+export const createHost = async (host: Omit<Host, 'id'>): Promise<Host> => {
+  const hostsRef = ref(database, 'hosts');
+  const newHostRef = await push(hostsRef, host);
+  const newHost = { ...host, id: newHostRef.key! };
+  await update(ref(database, `hosts/${newHostRef.key}`), {
+    id: newHostRef.key,
+  });
   return newHost;
+};
+
+// Mantener la función anterior para compatibilidad, pero marcarla como deprecated
+export const createHostWithUid = async (uid: string, host: Omit<Host, 'id'>): Promise<Host> => {
+  console.warn('createHostWithUid is deprecated. Use createHost instead.');
+  const hostWithOwner = { ...host, ownerId: uid };
+  return createHost(hostWithOwner);
 };
 
 export const updateHost = async (id: string, updates: Partial<Host>): Promise<void> => {
@@ -165,4 +188,14 @@ export const deleteBooking = async (id: string, hostId: string, dates: string[])
       calendarSelected: updatedCalendarSelected,
     });
   }
+};
+
+export const getUsersWithHosts = async (): Promise<(User & { hosts: Host[] })[]> => {
+  const users = await getUsers();
+  const hosts = await getHosts();
+  
+  return users.map(user => ({
+    ...user,
+    hosts: hosts.filter(host => host.ownerId === user.id)
+  }));
 }; 

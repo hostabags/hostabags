@@ -5,11 +5,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { createHostWithUid, createUserWithUid } from "@/services/firebaseService";
+import { createHost, createUserWithUid } from "@/services/firebaseService";
 import { firebaseConfig } from "@/config/firebase";
 import { createHostSchema, CreateHostSchema } from "@/validations/hostSchema";
 import { geocodeAddress } from "@/utils/geocoding";
-import LocationPickerMap from "@/components/map/LocationPickerMap";
 import dynamic from "next/dynamic";
 
 const DynamicMap = dynamic(() => import('@/components/map/LocationPickerMap'), {
@@ -66,7 +65,8 @@ export function CreateHostForm({ onHostCreated }: Props) {
         role: "host",
       });
 
-      await createHostWithUid(uid, {
+      await createHost({
+        ownerId: uid,
         name: data.hostName,
         address: data.address,
         lat: coordinates.lat,

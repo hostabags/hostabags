@@ -4,6 +4,7 @@ import Header from "@/components/layout/header/Header";
 import useAuth from "@/hooks/useAuth";
 import { CreateHostForm } from "./CreateHostForm";
 import { HostList } from "./HostList";
+import { MigrationTool } from "./MigrationTool";
 import { useState } from "react";
 
 export default function HostsPage() {
@@ -25,6 +26,9 @@ export default function HostsPage() {
     <>
       <main className="text-2xl p-4">
         <h1>Administrar Hosts</h1>
+        
+        <MigrationTool />
+        
         <div style={{ display: 'flex', gap: '2rem', marginTop: '1rem' }}>
           <section style={{ flex: 1 }}>
             <HostList key={refreshKey} />
