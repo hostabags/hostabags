@@ -6,9 +6,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { createHostWithUid, createUserWithUid } from "@/services/firebaseService";
-import { geocodeAddress } from "@/utils/geocoding";
 import { firebaseConfig } from "@/config/firebase";
 import { createHostSchema, CreateHostSchema } from "@/validations/hostSchema";
+import { geocodeAddress } from "@/utils/geocoding";
+import LocationPickerMap from "@/components/map/LocationPickerMap";
+import dynamic from "next/dynamic";
+
+const DynamicMap = dynamic(() => import('@/components/map/LocationPickerMap'), {
+  ssr: false,
+});
 
 interface Props {
   onHostCreated: () => void;
@@ -20,12 +26,17 @@ export function CreateHostForm({ onHostCreated }: Props) {
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
+    setValue,
   } = useForm<CreateHostSchema>({
     resolver: zodResolver(createHostSchema),
   });
 
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+
+  const handleLocationSelect = (lat: number, lng: number, address: string) => {
+    setValue("address", address, { shouldValidate: true });
+  };
 
   const onSubmit = async (data: CreateHostSchema) => {
     setError(null);
@@ -94,7 +105,10 @@ export function CreateHostForm({ onHostCreated }: Props) {
 
       <input type="text" {...register("hostName")} placeholder="Nombre del establecimiento" style={{ padding: '0.5rem' }} />
       {errors.hostName && <p style={{ color: 'red' }}>{errors.hostName.message}</p>}
-
+      
+      <p>Selecciona la ubicación en el mapa o escribe una dirección:</p>
+      <DynamicMap onLocationSelect={handleLocationSelect} />
+      
       <input type="text" {...register("address")} placeholder="Dirección" style={{ padding: '0.5rem' }} />
       {errors.address && <p style={{ color: 'red' }}>{errors.address.message}</p>}
 
