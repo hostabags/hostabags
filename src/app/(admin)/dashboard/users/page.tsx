@@ -1,81 +1,79 @@
 "use client"
 
-import { useEffect, useState } from 'react';
-import { UsersService } from '@/services/firebase';
+import { useState } from 'react';
 import useAuth from '@/hooks/useAuth';
+import { useUsersManagement } from '@/hooks/useUsersManagement';
+import { EditUserModal, DeleteUserModal, UsersTable, UsersStatus } from '@/components/users';
 import type { User } from '@/types/user';
 
-const ROLES = ['admin', 'user', 'host'];
-
 const UsersPage = () => {
-  const { user, role } = useAuth();
-  const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { user } = useAuth();
+  const {
+    users,
+    loading,
+    error,
+    editingUser,
+    isModalOpen,
+    deletingUserId,
+    handleRoleChange,
+    handleEditUser,
+    handleSaveUser,
+    handleDeleteUser,
+    closeModal
+  } = useUsersManagement();
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        setLoading(true);
-        const usersList = await UsersService.getAll();
-        setUsers(usersList);
-      } catch (err) {
-        setError('Error al cargar los usuarios');
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchUsers();
-  }, []);
+  const [deleteModalUser, setDeleteModalUser] = useState<User | null>(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  const handleRoleChange = async (userId: string, newRole: string) => {
-    try {
-      await UsersService.updateRole(userId, newRole);
-      setUsers((prev) => prev.map(u => u.id === userId ? { ...u, role: newRole } : u));
-    } catch (err) {
-      setError('Error al actualizar el rol');
+  const handleDeleteClick = (userToDelete: User) => {
+    setDeleteModalUser(userToDelete);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    if (deleteModalUser) {
+      handleDeleteUser(deleteModalUser.id);
+      setIsDeleteModalOpen(false);
+      setDeleteModalUser(null);
     }
   };
 
-  if (loading) return <div>Cargando usuarios...</div>;
-  if (error) return <div>{error}</div>;
+  const handleDeleteCancel = () => {
+    setIsDeleteModalOpen(false);
+    setDeleteModalUser(null);
+  };
 
   return (
-    <main>
-      <h2>Lista de usuarios</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Rol</th>
-            <th>Acción</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((u) => (
-            <tr key={u.id}>
-              <td>{u.name || ''} {u.surname || ''}</td>
-              <td>{u.email}</td>
-              <td>{u.role}</td>
-              <td>
-                {user?.uid === u.id ? (
-                  <span>No puedes cambiar tu propio rol</span>
-                ) : (
-                  <select
-                    value={u.role}
-                    onChange={e => handleRoleChange(u.id, e.target.value)}
-                  >
-                    {ROLES.map(r => (
-                      <option key={r} value={r}>{r}</option>
-                    ))}
-                  </select>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <main className='p-8'>
+      <h2 className='text-2xl font-bold'>Lista de usuarios</h2>
+      
+      <UsersStatus loading={loading} error={error} />
+      
+      {!loading && !error && (
+        <UsersTable
+          users={users}
+          currentUserId={user?.uid}
+          onRoleChange={handleRoleChange}
+          onEditUser={handleEditUser}
+          onDeleteUser={handleDeleteClick}
+          deletingUserId={deletingUserId}
+        />
+      )}
+
+      <EditUserModal
+        user={editingUser}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        onSave={handleSaveUser}
+      />
+
+      <DeleteUserModal
+        user={deleteModalUser}
+        isOpen={isDeleteModalOpen}
+        onClose={handleDeleteCancel}
+        onConfirm={handleDeleteConfirm}
+        isDeleting={deletingUserId === deleteModalUser?.id}
+      />
     </main>
   );
 };
