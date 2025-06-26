@@ -44,10 +44,11 @@ export default function DashboardCharts() {
     <div className="space-y-8">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
         {/* Gráfico de Usuarios vs Hosts */}
-        <DashboardCard>
-          <h2 className="text-xl font-semibold text-gray-700 mb-4">
-            Distribución de Usuarios vs Hosts
-          </h2>
+        <DashboardCard
+          icon="📊"
+          title="Distribución de Usuarios vs Hosts"
+          description="Proporción de usuarios y hosts en la plataforma"
+        >
           <ResponsiveContainer width="100%" height={220}>
             <PieChart>
               <Pie
@@ -70,10 +71,11 @@ export default function DashboardCharts() {
         </DashboardCard>
 
         {/* Gráfico de Demanda por Meses */}
-        <DashboardCard>
-          <h2 className="text-xl font-semibold text-gray-700 mb-4">
-            Demanda del Servicio por Meses
-          </h2>
+        <DashboardCard
+          icon="📈"
+          title="Demanda del Servicio por Meses"
+          description="Niveles de demanda durante el año"
+        >
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={monthlyDemandData}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -90,10 +92,12 @@ export default function DashboardCharts() {
       </div>
 
       {/* Gráfico de Crecimiento Anual */}
-      <DashboardCard className="w-full">
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">
-          Crecimiento de Usuarios y Hosts Durante el Año
-        </h2>
+      <DashboardCard 
+        className="w-full"
+        icon="📈"
+        title="Crecimiento de Usuarios y Hosts Durante el Año"
+        description="Evolución mensual de usuarios y hosts"
+      >
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={growthData}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -123,20 +127,29 @@ export default function DashboardCharts() {
 
       {/* Resumen de estadísticas */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-        <DashboardCard>
-          <h3 className="text-lg font-semibold text-gray-700 mb-2">Total Usuarios</h3>
+        <DashboardCard
+          icon="👥"
+          title="Total Usuarios"
+          description="Número total de usuarios registrados"
+        >
           <p className="text-3xl font-bold text-blue-600">175</p>
           <p className="text-sm text-gray-500">+5 este mes</p>
         </DashboardCard>
         
-        <DashboardCard>
-          <h3 className="text-lg font-semibold text-gray-700 mb-2">Total Hosts</h3>
+        <DashboardCard
+          icon="🏠"
+          title="Total Hosts"
+          description="Número total de hosts activos"
+        >
           <p className="text-3xl font-bold text-green-600">55</p>
           <p className="text-sm text-gray-500">+3 este mes</p>
         </DashboardCard>
         
-        <DashboardCard>
-          <h3 className="text-lg font-semibold text-gray-700 mb-2">Tasa de Conversión</h3>
+        <DashboardCard
+          icon="📊"
+          title="Tasa de Conversión"
+          description="Porcentaje de usuarios que son hosts"
+        >
           <p className="text-3xl font-bold text-purple-600">31.4%</p>
           <p className="text-sm text-gray-500">Usuarios que son hosts</p>
         </DashboardCard>
