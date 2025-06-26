@@ -67,20 +67,31 @@ export class HostsService {
   }
 
   //Listen to real-time host updates
-  static onHostUpdate(id: string, callback: (host: Host | null) => void): () => void {
-    return DatabaseService.onValue<Host>(`${this.COLLECTION_PATH}/${id}`, callback);
+  static onHostUpdate(
+    id: string, 
+    callback: (host: Host | null) => void,
+    errorCallback?: (error: Error) => void
+  ): () => void {
+    return DatabaseService.onValue<Host>(`${this.COLLECTION_PATH}/${id}`, callback, errorCallback);
   }
 
     //Listen to real-time updates for all hosts
-  static onHostsUpdate(callback: (hosts: Host[]) => void): () => void {
-    return DatabaseService.onValueCollection<Host>(this.COLLECTION_PATH, callback);
+  static onHostsUpdate(
+    callback: (hosts: Host[]) => void,
+    errorCallback?: (error: Error) => void
+  ): () => void {
+    return DatabaseService.onValueCollection<Host>(this.COLLECTION_PATH, callback, errorCallback);
   }
 
   //Listen to real-time updates for hosts by owner
-  static onHostsByOwnerUpdate(ownerId: string, callback: (hosts: Host[]) => void): () => void {
+  static onHostsByOwnerUpdate(
+    ownerId: string, 
+    callback: (hosts: Host[]) => void,
+    errorCallback?: (error: Error) => void
+  ): () => void {
     return DatabaseService.onValueCollection<Host>(this.COLLECTION_PATH, (allHosts) => {
       const ownerHosts = allHosts.filter(host => host.ownerId === ownerId);
       callback(ownerHosts);
-    });
+    }, errorCallback);
   }
 } 
