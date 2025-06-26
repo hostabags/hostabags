@@ -28,7 +28,7 @@ export default function Search() {
       `}>
         <input
           type="text"
-          placeholder="Search location"
+          placeholder="Buscar ubicación"
           className="px-4 py-2 w-full outline-none bg-transparent transition-all duration-200"
           value={location}
           onChange={(e) => setLocation(e.target.value)}

@@ -46,13 +46,13 @@ export default function SignIn() {
   return (
     <>
       <Header />
-      <main className="container ">
-        <div className="form-container ">
-          <h1>Sign in to your account</h1>
+      <main className="container min-h-screen justify-center">
+        <div className="form-container mx-auto">
+          <h1>Iniciar sesión en tu cuenta</h1>
           <form className="form-group" onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label htmlFor="email-address" className="sr-only">
-                Email address
+                Dirección de correo electrónico
               </label>
               <input
                 id="email-address"
@@ -60,14 +60,14 @@ export default function SignIn() {
                 autoComplete="email"
                 required
                 className="appearance-none"
-                placeholder="Email address"
+                placeholder="Dirección de correo electrónico"
                 {...register("email")}
               />
               {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
             </div>
             <div>
               <label htmlFor="password" className="sr-only">
-                Password
+                Contraseña
               </label>
               <input
                 id="password"
@@ -75,7 +75,7 @@ export default function SignIn() {
                 autoComplete="current-password"
                 required
                 className="appearance-none "
-                placeholder="Password"
+                placeholder="Contraseña"
                 {...register("password")}
               />
               {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
@@ -83,7 +83,7 @@ export default function SignIn() {
 
             <div>
               <button type="submit" className="btn w-full">
-                Sign in
+                Iniciar sesión
               </button>
             </div>
           </form>

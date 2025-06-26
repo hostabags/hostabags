@@ -1,6 +1,6 @@
 import Search from "@/components/Search";
-import Image from 'next/image';
-import HeroImage from '../../../public/images/bags.jpeg';
+import Image from "next/image";
+import HeroImage from "../../../public/images/bags.jpeg";
 
 export default function HomePage() {
   return (
@@ -10,7 +10,7 @@ export default function HomePage() {
           <div className="w-full md:w-1/2">
             <Image
               src={HeroImage}
-              alt="HostaBags. Your luggage space"
+              alt="HostaBags. Tu espacio para equipaje"
               className="rounded-lg shadow-lg"
               width={500}
               height={300}
@@ -19,9 +19,14 @@ export default function HomePage() {
           </div>
 
           <div className="w-full md:w-1/2 text-left">
-            <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-6 leading-normal">Your luggage space.  <span className="text-indigo-600">HostaBags</span></h1>
+            <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-6 leading-normal">
+              Tu espacio para equipaje.{" "}
+              <span className="text-indigo-600">HostaBags</span>
+            </h1>
             <p className="text-gray-600 text-lg mb-6">
-              Store your luggage safely while you explore the city. Find trusted hosts near you and book in seconds—because your adventure should start weight-free.so.
+              Almacena tu equipaje de forma segura mientras exploras la ciudad.
+              Encuentra anfitriones de confianza cerca de ti y reserva en
+              segundo, porque tu aventura debería comenzar sin peso.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Search />
