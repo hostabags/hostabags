@@ -3,7 +3,16 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { Menu, X, User, LogOut, MapPin, Calendar, Home, Settings } from "lucide-react";
+import {
+  Menu,
+  X,
+  User,
+  LogOut,
+  MapPin,
+  Calendar,
+  Home,
+  Settings,
+} from "lucide-react";
 import Image from "next/image";
 import LogoImage from "../../../../public/images/logo-solo.jpg";
 import useAuth from "@/hooks/useAuth";
@@ -19,8 +28,8 @@ export default function Header() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleLogout = async () => {
@@ -38,9 +47,7 @@ export default function Header() {
 
   // Navigation items based on role
   const getNavItems = () => {
-    const baseItems = [
-      { href: "/map-page", label: "Mapa", icon: MapPin },
-    ];
+    const baseItems = [{ href: "/map-page", label: "Mapa", icon: MapPin }];
 
     if (!user) return baseItems;
 
@@ -57,10 +64,7 @@ export default function Header() {
     }
 
     if (role === "host") {
-      return [
-        ...userItems,
-        { href: "/host", label: "Host", icon: Home },
-      ];
+      return [...userItems, { href: "/host", label: "Host", icon: Home }];
     }
 
     return userItems;
@@ -70,15 +74,20 @@ export default function Header() {
 
   return (
     <>
-      <header className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-gray-900/95 backdrop-blur-md shadow-lg' 
-          : 'bg-gray-900'
-      }`}>
+      <header
+        className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-300 ${
+          isScrolled
+            ? "bg-gray-900/95 backdrop-blur-md shadow-lg"
+            : "bg-gray-900"
+        }`}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
-            <Link href="/" className="flex items-center space-x-3 group relative z-10">
+            <Link
+              href="/"
+              className="flex items-center space-x-3 group relative z-10"
+            >
               <div className="relative">
                 <Image
                   src={LogoImage}
@@ -115,12 +124,14 @@ export default function Header() {
               {user ? (
                 <div className="flex items-center space-x-3">
                   {/* User Avatar */}
-                  <div className="flex items-center space-x-2 bg-gray-800 rounded-full px-3 py-1.5">
-                    <User className="w-4 h-4 text-gray-400" />
-                    <span className="text-white text-sm font-medium">
-                      {user.email?.substring(0, 2).toUpperCase()}
-                    </span>
-                  </div>
+                  <Link href="/profile">
+                    <div className="flex items-center space-x-2 bg-gray-800 rounded-full px-3 py-1.5">
+                      <User className="w-4 h-4 text-gray-400" />
+                      <span className="text-white text-sm font-medium">
+                        {user.email?.substring(0, 2).toUpperCase()}
+                      </span>
+                    </div>
+                  </Link>
 
                   {/* Logout Button */}
                   <button
@@ -164,11 +175,11 @@ export default function Header() {
           </div>
 
           {/* Mobile Menu */}
-          <div className={`md:hidden transition-all duration-300 ease-in-out ${
-            isMobileMenuOpen 
-              ? 'max-h-96 opacity-100' 
-              : 'max-h-0 opacity-0'
-          } overflow-hidden`}>
+          <div
+            className={`md:hidden transition-all duration-300 ease-in-out ${
+              isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+            } overflow-hidden`}
+          >
             <div className="py-4 space-y-3 border-t border-gray-700">
               {navItems.map((item) => {
                 const Icon = item.icon;
@@ -188,7 +199,7 @@ export default function Header() {
           </div>
         </div>
       </header>
-      
+
       {/* Spacer to prevent content from going under header */}
       <div className="h-16"></div>
     </>
