@@ -1,7 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { useRouter } from 'next/navigation'
 import HomePage from '@/app/(public)/page'
-import Search from '@/components/Search'
 
 // Mock the Search component
 jest.mock('@/components/Search', () => {
@@ -13,7 +11,8 @@ jest.mock('@/components/Search', () => {
 // Mock Next.js Image
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: ({ src, alt, ...props }: any) => {
+  default: ({ src, alt, ...props }: { src: string; alt: string; [key: string]: unknown }) => {
+    // eslint-disable-next-line @next/next/no-img-element
     return <img src={src} alt={alt} {...props} data-testid="hero-image" />
   },
 }))

@@ -1,6 +1,5 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { useRouter } from 'next/navigation'
 import Search from '@/components/Search'
 
 // Mock Next.js router
@@ -135,10 +134,8 @@ describe('Search Component', () => {
     const user = userEvent.setup()
     render(<Search />)
     
-    const input = screen.getByPlaceholderText('Buscar ubicación')
+    await user.type(screen.getByPlaceholderText('Buscar ubicación'), 'Madrid')
     const button = screen.getByRole('button')
-    
-    await user.type(input, 'Madrid')
     
     expect(button).not.toBeDisabled()
   })
