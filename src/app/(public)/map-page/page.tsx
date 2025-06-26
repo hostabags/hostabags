@@ -33,6 +33,11 @@ export default function MapPage() {
     setSelectedHost(host);
   };
 
+  const handlePopupClose = () => {
+    // Cuando se cierra el popup del mapa, también cerrar el modal
+    setSelectedHost(null);
+  };
+
   if (loading) {
     return (
       <div className="h-screen w-full flex items-center justify-center">
@@ -54,6 +59,7 @@ export default function MapPage() {
       <Map
         hosts={hosts}
         onMarkerClick={handleMarkerClick}
+        onPopupClose={handlePopupClose}
         initialLocation={initialLocation}
       />
       {selectedHost && (

@@ -33,6 +33,7 @@ const customIcon = new Icon({
 interface MapProps {
   hosts: Host[];
   onMarkerClick: (host: Host) => void;
+  onPopupClose?: () => void;
   initialLocation: string | null;
 }
 
@@ -44,7 +45,7 @@ function ChangeView({ center, zoom }: { center: [number, number]; zoom: number }
   return null;
 }
 
-export default function Map({ hosts, onMarkerClick, initialLocation }: MapProps) {
+export default function Map({ hosts, onMarkerClick, onPopupClose, initialLocation }: MapProps) {
   const [mapCenter, setMapCenter] = useState<[number, number]>(MAP_CONFIG.DEFAULT_CENTER);
 
   useEffect(() => {
@@ -101,11 +102,17 @@ export default function Map({ hosts, onMarkerClick, initialLocation }: MapProps)
           key={host.id}
           position={[host.lat, host.lng]}
           icon={customIcon}
-          eventHandlers={{
-            click: () => onMarkerClick(host),
-          }}
         >
-          <Popup>
+          <Popup
+            eventHandlers={{
+              remove: () => {
+                // Cuando se cierra el popup, también cerrar el modal
+                if (onPopupClose) {
+                  onPopupClose();
+                }
+              }
+            }}
+          >
             <HostPopup 
               host={host} 
               onBookNow={() => onMarkerClick(host)}
