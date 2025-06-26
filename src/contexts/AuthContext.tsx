@@ -1,31 +1,21 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
-import {
-  User,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged,
-  setPersistence, //Esto es para mantener la session hasta que se cierra pestaña o navegador
-  browserSessionPersistence, //Esto es para mantener la session hasta que se cierra pestaña o navegador
-} from "firebase/auth";
-import { auth } from "@/config/firebase";
-import { database } from "@/config/firebase";
-import { ref, set, get } from "firebase/database";
+import { createContext, useEffect, useState } from "react";
+import { User } from "firebase/auth";
+import { AuthService } from "@/services/firebase";
 
-interface AuthContextType {
+interface AuthContextI {
   user: User | null;
   loading: boolean;
   role: string | null;
-  signUp: (email: string, password: string) => Promise<void>;
+  signUp: (email: string, password: string, userData?: any) => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 }
 
-const AuthContext = createContext<AuthContextType>({} as AuthContextType);
-
-export const useAuth = () => useContext(AuthContext);
+export const AuthContext = createContext<AuthContextI>(
+  {} as AuthContextI
+);
 
 export const AuthContextProvider = ({
   children,
@@ -37,18 +27,12 @@ export const AuthContextProvider = ({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    const unsubscribe = AuthService.onAuthStateChanged(async (user) => {
       setUser(user);
 
       if (user) {
-        const roleRef = ref(database, "users/" + user.uid + "/role");
-        const snapshot = await get(roleRef);
-
-        if (snapshot.exists()) {
-          setRole(snapshot.val());
-        } else {
-          setRole(null);
-        }
+        const userRole = await AuthService.getUserRole(user.uid);
+        setRole(userRole);
       } else {
         setRole(null);
       }
@@ -59,27 +43,28 @@ export const AuthContextProvider = ({
     return () => unsubscribe();
   }, []);
 
-  const signUp = async (email: string, password: string) => {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    const user = userCredential.user;
-
-    await set(ref(database, "users/" + user.uid), {
-      email: user.email,
-      role: "user",
-    });
+  const signUp = async (email: string, password: string, userData?: any) => {
+    try {
+      await AuthService.signUp(email, password, userData);
+    } catch (error) {
+      throw error;
+    }
   };
 
   const signIn = async (email: string, password: string) => {
-    await setPersistence(auth, browserSessionPersistence);  //Esto es para mantener la session hasta que se cierra pestaña o navegador
-    await signInWithEmailAndPassword(auth, email, password);
+    try {
+      await AuthService.signIn(email, password);
+    } catch (error) {
+      throw error;
+    }
   };
 
   const logout = async () => {
-    await signOut(auth);
+    try {
+      await AuthService.signOut();
+    } catch (error) {
+      throw error;
+    }
   };
 
   return (

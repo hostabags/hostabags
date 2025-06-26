@@ -4,10 +4,8 @@ import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import type { Host } from "@/types/host";
 import Modal from "@/components/ui/Modal/Modal";
-import Header from "@/components/layout/header/Header";
 import { useSearchParams } from "next/navigation";
-import { database } from "@/config/firebase";
-import { ref, onValue } from "firebase/database";
+import { useHosts } from "@/hooks/useHosts";
 
 const Map = dynamic(() => import("@/components/map/Map"), {
   ssr: false,
@@ -20,10 +18,10 @@ const Map = dynamic(() => import("@/components/map/Map"), {
 
 export default function MapPage() {
   const [selectedHost, setSelectedHost] = useState<Host | null>(null);
-  const [hosts, setHosts] = useState<Host[]>([]);
   const [initialLocation, setInitialLocation] = useState<string | null>(null);
   const searchParams = useSearchParams();
   const location = searchParams.get("location");
+  const { hosts, loading, error } = useHosts();
 
   useEffect(() => {
     if (location) {
@@ -31,37 +29,37 @@ export default function MapPage() {
     }
   }, [location]);
 
-  useEffect(() => {
-    // Subscribe to hosts updates
-    const hostsRef = ref(database, "hosts");
-    const unsubscribe = onValue(hostsRef, (snapshot) => {
-      const hostsData: Host[] = [];
-      snapshot.forEach((childSnapshot) => {
-        const host = childSnapshot.val();
-        hostsData.push({
-          ...host,
-          id: childSnapshot.key,
-          calendarSelected: host.calendarSelected || [],
-          calendarNew: [],
-        });
-      });
-      setHosts(hostsData);
-    });
-
-    // Cleanup subscription on unmount
-    return () => unsubscribe();
-  }, []);
-
   const handleMarkerClick = (host: Host) => {
     setSelectedHost(host);
   };
 
+  const handlePopupClose = () => {
+    // Cuando se cierra el popup del mapa, también cerrar el modal
+    setSelectedHost(null);
+  };
+
+  if (loading) {
+    return (
+      <div className="h-screen w-full flex items-center justify-center">
+        Cargando hosts...
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="h-screen w-full flex items-center justify-center">
+        <p className="text-red-600">Error: {error}</p>
+      </div>
+    );
+  }
+
   return (
     <>
-      <Header />
       <Map
         hosts={hosts}
         onMarkerClick={handleMarkerClick}
+        onPopupClose={handlePopupClose}
         initialLocation={initialLocation}
       />
       {selectedHost && (

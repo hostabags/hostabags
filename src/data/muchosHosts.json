@@ -1,0 +1,1543 @@
+{
+  "hosts": {
+    "0": {
+      "address": "Plaça dels Països Catalans, 1",
+      "calendarSelected": [
+        "2025-05-27",
+        "2025-05-28",
+        "2025-05-29",
+        "2025-07-15",
+        "2025-07-16",
+        "2025-07-17",
+        "2025-06-20",
+        "2025-06-21",
+        "2025-06-22",
+        "2025-06-23",
+        "2025-06-24",
+        "2025-06-25",
+        "2025-06-27",
+        "2025-06-28",
+        "2025-06-29"
+      ],
+      "id": "0",
+      "lat": 41.3809,
+      "lng": 2.1408,
+      "name": "Locker Sants Estació",
+      "ownerId": "8QGgFPC70ySnQfzLcnMnhriVWx93"
+    },
+    "1": {
+      "address": "Carrer de Ferran, 17",
+      "calendarSelected": [
+        "28/05/2025",
+        "29/05/2025",
+        "20/06/2025",
+        "19/06/2025",
+        "03/06/2025",
+        "04/06/2025",
+        "27/06/2025",
+        "26/06/2025",
+        "30/05/2025",
+        "10/06/2025",
+        "2025-06-25",
+        "2025-06-26",
+        "2025-06-27"
+      ],
+      "id": "1",
+      "lat": 41.3803,
+      "lng": 2.1755,
+      "name": "Hostel Gòtic Drop",
+      "ownerId": "8QGgFPC70ySnQfzLcnMnhriVWx93"
+    },
+    "2": {
+      "address": "Carrer de l'Hospital, 74",
+      "calendarSelected": [
+        "2025-06-26",
+        "2025-06-27"
+      ],
+      "id": "2",
+      "lat": 41.3795,
+      "lng": 2.1687,
+      "name": "Café El Raval Storage",
+      "ownerId": "8QGgFPC70ySnQfzLcnMnhriVWx93"
+    },
+    "3": {
+      "address": "Plaça de Catalunya, 1",
+      "calendarSelected": [
+        "2025-05-28",
+        "2025-05-29",
+        "2025-05-30",
+        "2025-05-27",
+        "2025-06-08",
+        "2025-06-09",
+        "2025-06-27",
+        "2025-06-28",
+        "2025-06-30"
+      ],
+      "id": "3",
+      "lat": 41.387,
+      "lng": 2.1701,
+      "name": "Plaça Catalunya Lockers",
+      "ownerId": "DnJDrtHqm8fNlXVrlu9cCaFTkSD3"
+    },
+    "4": {
+      "address": "Gran Via de les Corts Catalanes, 674",
+      "calendarSelected": [
+        "2025-05-26",
+        "2025-05-27",
+        "2025-05-28",
+        "2025-05-29",
+        "2025-05-30",
+        "2025-06-28",
+        "2025-06-29"
+      ],
+      "id": "4",
+      "lat": 41.3853,
+      "lng": 2.1616,
+      "name": "Aerobus Stop Storage",
+      "ownerId": "DnJDrtHqm8fNlXVrlu9cCaFTkSD3"
+    },
+    "5": {
+      "address": "Carrer Montcada, 15",
+      "calendarSelected": [
+        "2025-05-27",
+        "2025-05-28",
+        "2025-05-29",
+        "2025-06-24",
+        "2025-06-23",
+        "2025-06-25"
+      ],
+      "id": "5",
+      "lat": 41.3859,
+      "lng": 2.1805,
+      "name": "Museu Picasso Locker Point",
+      "ownerId": "DnJDrtHqm8fNlXVrlu9cCaFTkSD3"
+    },
+    "6": {
+      "address": "Avinguda Diagonal, 468",
+      "calendarSelected": [
+        "2025-05-29",
+        "2025-05-30",
+        "2025-06-26",
+        "2025-06-27",
+        "2025-06-28",
+        "2025-07-25",
+        "2025-07-24"
+      ],
+      "id": "6",
+      "lat": 41.3947,
+      "lng": 2.1596,
+      "name": "Diagonal Metro Lockers",
+      "ownerId": "DnJDrtHqm8fNlXVrlu9cCaFTkSD3"
+    },
+    "7": {
+      "address": "Carrer d'Astúries, 36",
+      "calendarSelected": [
+        "2025-05-27",
+        "2025-05-28",
+        "2025-05-29",
+        "2025-05-30",
+        "2025-06-04",
+        "2025-06-03",
+        "2025-06-20",
+        "2025-06-23",
+        "2025-06-24",
+        "2025-06-25",
+        "2025-06-26",
+        "2025-06-27",
+        "2025-06-30",
+        "2025-06-29"
+      ],
+      "id": "7",
+      "lat": 41.4031,
+      "lng": 2.1536,
+      "name": "Gràcia Bag Drop",
+      "ownerId": "G09cL0SZdLUGOBGhc1kl1ey3z8o1"
+    },
+    "8": {
+      "address": "Carrer de Mallorca, 401",
+      "calendarSelected": [
+        "2025-05-28",
+        "2025-05-29",
+        "2025-05-27",
+        "2025-05-30",
+        "2026-05-07",
+        "2025-06-28",
+        "2025-06-29"
+      ],
+      "id": "8",
+      "lat": 41.4036,
+      "lng": 2.1744,
+      "name": "Sagrada Família Lockers",
+      "ownerId": "G09cL0SZdLUGOBGhc1kl1ey3z8o1"
+    },
+    "9": {
+      "address": "Avinguda Diagonal, 208",
+      "calendarSelected": [
+        "2025-05-26",
+        "2025-05-27",
+        "2025-05-28",
+        "2025-05-29",
+        "2025-05-30",
+        "2025-06-04",
+        "2025-06-12",
+        "2025-06-11",
+        "2025-06-27",
+        "2025-06-28",
+        "2025-06-29",
+        "2025-06-30",
+        "2025-06-25",
+        "2025-06-26"
+      ],
+      "id": "9",
+      "lat": 41.4033,
+      "lng": 2.191,
+      "name": "Glòries Shopping Center",
+      "ownerId": "G09cL0SZdLUGOBGhc1kl1ey3z8o1"
+    },
+    "-OTcdYzV-vd1h33zLODX": {
+      "address": "Carrer de Cartagena, el Baix Guinardó, Horta-Guinardó, Barcelona, Barcelonés, Barcelona, Cataluña, 08025, España",
+      "calendarSelected": [
+        "2025-06-29",
+        "2025-06-30",
+        "2025-06-26",
+        "2025-06-27",
+        "2025-06-28"
+      ],
+      "description": "Hay lugar para almacenar varias maletas",
+      "id": "-OTcdYzV-vd1h33zLODX",
+      "lat": 41.4120773,
+      "lng": 2.1731024,
+      "name": "Freezer house",
+      "ownerId": "686ZocGcNuV5g1m8JyKlgkWo0nx2"
+    },
+    "8QGgFPC70ySnQfzLcnMnhriVWx93": {
+      "address": "travessera de gracia 250 barcelona",
+      "calendarSelected": [
+        "2025-06-27",
+        "2025-06-28"
+      ],
+      "description": "Es una vivienda personal",
+      "id": "8QGgFPC70ySnQfzLcnMnhriVWx93",
+      "lat": 41.4053891,
+      "lng": 2.1644663,
+      "name": "Gracia house",
+      "ownerId": "8QGgFPC70ySnQfzLcnMnhriVWx93"
+    },
+    "DnJDrtHqm8fNlXVrlu9cCaFTkSD3": {
+      "address": "Carrer de Roger de Flor 105, el Fort Pienc, Eixample, Barcelona, Barcelonés, Barcelona, Cataluña, 08010, España",
+      "calendarSelected": [
+        "2025-06-28",
+        "2025-06-29"
+      ],
+      "description": "",
+      "id": "DnJDrtHqm8fNlXVrlu9cCaFTkSD3",
+      "lat": 41.3953733,
+      "lng": 2.1769928,
+      "name": "Roger y tetuan",
+      "ownerId": "DnJDrtHqm8fNlXVrlu9cCaFTkSD3"
+    },
+    "G09cL0SZdLUGOBGhc1kl1ey3z8o1": {
+      "address": "15, Passeig de Pujades, el Born, el Parc i la Llacuna del Poblenou, Sant Martí, Barcelona, Barcelonés, Barcelona, Cataluña, 08018, España",
+      "description": "",
+      "id": "G09cL0SZdLUGOBGhc1kl1ey3z8o1",
+      "lat": 41.390419,
+      "lng": 2.1848618,
+      "name": "Casa de juan",
+      "ownerId": "G09cL0SZdLUGOBGhc1kl1ey3z8o1"
+    },
+    "100": {
+      "address": "Carrer de Balmes, 1, Barcelona",
+      "calendarSelected": [],
+      "id": "100",
+      "lat": 41.38879,
+      "lng": 2.16387,
+      "name": "Locker Balmes 1",
+      "ownerId": "owner_bcn_1"
+    },
+    "101": {
+      "address": "Carrer de Pau Claris, 50, Barcelona",
+      "calendarSelected": [],
+      "id": "101",
+      "lat": 41.39125,
+      "lng": 2.17213,
+      "name": "Locker Pau Claris 50",
+      "ownerId": "owner_bcn_2"
+    },
+    "102": {
+      "address": "Carrer de Mallorca, 200, Barcelona",
+      "calendarSelected": [],
+      "id": "102",
+      "lat": 41.39474,
+      "lng": 2.16347,
+      "name": "Locker Mallorca 200",
+      "ownerId": "owner_bcn_3"
+    },
+    "103": {
+      "address": "Carrer d'Aragó, 300, Barcelona",
+      "calendarSelected": [],
+      "id": "103",
+      "lat": 41.39456,
+      "lng": 2.18098,
+      "name": "Locker Aragó 300",
+      "ownerId": "owner_bcn_4"
+    },
+    "104": {
+      "address": "Carrer de la Marina, 150, Barcelona",
+      "calendarSelected": [],
+      "id": "104",
+      "lat": 41.40012,
+      "lng": 2.18523,
+      "name": "Locker Marina 150",
+      "ownerId": "owner_bcn_5"
+    },
+    "105": {
+      "address": "Carrer de Sants, 20, Barcelona",
+      "calendarSelected": [],
+      "id": "105",
+      "lat": 41.37512,
+      "lng": 2.14023,
+      "name": "Locker Sants 20",
+      "ownerId": "owner_bcn_6"
+    },
+    "106": {
+      "address": "Carrer de Muntaner, 100, Barcelona",
+      "calendarSelected": [],
+      "id": "106",
+      "lat": 41.39123,
+      "lng": 2.15345,
+      "name": "Locker Muntaner 100",
+      "ownerId": "owner_bcn_7"
+    },
+    "107": {
+      "address": "Carrer de la Diputació, 250, Barcelona",
+      "calendarSelected": [],
+      "id": "107",
+      "lat": 41.38987,
+      "lng": 2.16321,
+      "name": "Locker Diputació 250",
+      "ownerId": "owner_bcn_8"
+    },
+    "108": {
+      "address": "Carrer de la Rambla, 120, Barcelona",
+      "calendarSelected": [],
+      "id": "108",
+      "lat": 41.38012,
+      "lng": 2.17345,
+      "name": "Locker Rambla 120",
+      "ownerId": "owner_bcn_9"
+    },
+    "109": {
+      "address": "Carrer de Gran Via, 500, Barcelona",
+      "calendarSelected": [],
+      "id": "109",
+      "lat": 41.39012,
+      "lng": 2.17012,
+      "name": "Locker Gran Via 500",
+      "ownerId": "owner_bcn_10"
+    },
+    "110": {
+      "address": "Carrer de Casanova, 80, Barcelona",
+      "calendarSelected": [],
+      "id": "110",
+      "lat": 41.38654,
+      "lng": 2.15789,
+      "name": "Locker Casanova 80",
+      "ownerId": "owner_bcn_11"
+    },
+    "111": {
+      "address": "Carrer de Provença, 120, Barcelona",
+      "calendarSelected": [],
+      "id": "111",
+      "lat": 41.39412,
+      "lng": 2.16012,
+      "name": "Locker Provença 120",
+      "ownerId": "owner_bcn_12"
+    },
+    "112": {
+      "address": "Carrer de la Industria, 60, Barcelona",
+      "calendarSelected": [],
+      "id": "112",
+      "lat": 41.41012,
+      "lng": 2.17412,
+      "name": "Locker Industria 60",
+      "ownerId": "owner_bcn_13"
+    },
+    "113": {
+      "address": "Carrer de Lepant, 150, Barcelona",
+      "calendarSelected": [],
+      "id": "113",
+      "lat": 41.40412,
+      "lng": 2.17512,
+      "name": "Locker Lepant 150",
+      "ownerId": "owner_bcn_14"
+    },
+    "114": {
+      "address": "Carrer de Roger de Llúria, 90, Barcelona",
+      "calendarSelected": [],
+      "id": "114",
+      "lat": 41.39312,
+      "lng": 2.16812,
+      "name": "Locker Roger de Llúria 90",
+      "ownerId": "owner_bcn_15"
+    },
+    "115": {
+      "address": "Carrer de Aribau, 200, Barcelona",
+      "calendarSelected": [],
+      "id": "115",
+      "lat": 41.38912,
+      "lng": 2.15612,
+      "name": "Locker Aribau 200",
+      "ownerId": "owner_bcn_16"
+    },
+    "116": {
+      "address": "Carrer de Enric Granados, 50, Barcelona",
+      "calendarSelected": [],
+      "id": "116",
+      "lat": 41.38992,
+      "lng": 2.15912,
+      "name": "Locker Enric Granados 50",
+      "ownerId": "owner_bcn_17"
+    },
+    "117": {
+      "address": "Carrer de Urgell, 70, Barcelona",
+      "calendarSelected": [],
+      "id": "117",
+      "lat": 41.38412,
+      "lng": 2.15712,
+      "name": "Locker Urgell 70",
+      "ownerId": "owner_bcn_18"
+    },
+    "118": {
+      "address": "Carrer de Calabria, 90, Barcelona",
+      "calendarSelected": [],
+      "id": "118",
+      "lat": 41.38012,
+      "lng": 2.15412,
+      "name": "Locker Calabria 90",
+      "ownerId": "owner_bcn_19"
+    },
+    "119": {
+      "address": "Carrer de Rocafort, 110, Barcelona",
+      "calendarSelected": [],
+      "id": "119",
+      "lat": 41.37812,
+      "lng": 2.15012,
+      "name": "Locker Rocafort 110",
+      "ownerId": "owner_bcn_20"
+    },
+    "120": {
+      "address": "Carrer de Viladomat, 130, Barcelona",
+      "calendarSelected": [],
+      "id": "120",
+      "lat": 41.37712,
+      "lng": 2.14812,
+      "name": "Locker Viladomat 130",
+      "ownerId": "owner_bcn_21"
+    },
+    "121": {
+      "address": "Carrer de Sepúlveda, 140, Barcelona",
+      "calendarSelected": [],
+      "id": "121",
+      "lat": 41.37612,
+      "lng": 2.14612,
+      "name": "Locker Sepúlveda 140",
+      "ownerId": "owner_bcn_22"
+    },
+    "122": {
+      "address": "Carrer de Floridablanca, 150, Barcelona",
+      "calendarSelected": [],
+      "id": "122",
+      "lat": 41.37512,
+      "lng": 2.14412,
+      "name": "Locker Floridablanca 150",
+      "ownerId": "owner_bcn_23"
+    },
+    "123": {
+      "address": "Carrer de Tamarit, 160, Barcelona",
+      "calendarSelected": [],
+      "id": "123",
+      "lat": 41.37412,
+      "lng": 2.14212,
+      "name": "Locker Tamarit 160",
+      "ownerId": "owner_bcn_24"
+    },
+    "124": {
+      "address": "Carrer de Parlament, 170, Barcelona",
+      "calendarSelected": [],
+      "id": "124",
+      "lat": 41.37312,
+      "lng": 2.14012,
+      "name": "Locker Parlament 170",
+      "ownerId": "owner_bcn_25"
+    },
+    "125": {
+      "address": "Carrer de Sant Pau, 180, Barcelona",
+      "calendarSelected": [],
+      "id": "125",
+      "lat": 41.37212,
+      "lng": 2.13812,
+      "name": "Locker Sant Pau 180",
+      "ownerId": "owner_bcn_26"
+    },
+    "126": {
+      "address": "Carrer de Riera Alta, 190, Barcelona",
+      "calendarSelected": [],
+      "id": "126",
+      "lat": 41.37112,
+      "lng": 2.13612,
+      "name": "Locker Riera Alta 190",
+      "ownerId": "owner_bcn_27"
+    },
+    "127": {
+      "address": "Carrer de Joaquim Costa, 200, Barcelona",
+      "calendarSelected": [],
+      "id": "127",
+      "lat": 41.37012,
+      "lng": 2.13412,
+      "name": "Locker Joaquim Costa 200",
+      "ownerId": "owner_bcn_28"
+    },
+    "128": {
+      "address": "Carrer de Tallers, 210, Barcelona",
+      "calendarSelected": [],
+      "id": "128",
+      "lat": 41.36912,
+      "lng": 2.13212,
+      "name": "Locker Tallers 210",
+      "ownerId": "owner_bcn_29"
+    },
+    "129": {
+      "address": "Carrer de Pelai, 220, Barcelona",
+      "calendarSelected": [],
+      "id": "129",
+      "lat": 41.36812,
+      "lng": 2.13012,
+      "name": "Locker Pelai 220",
+      "ownerId": "owner_bcn_30"
+    },
+    "130": {
+      "address": "Carrer de Bergara, 230, Barcelona",
+      "calendarSelected": [],
+      "id": "130",
+      "lat": 41.36712,
+      "lng": 2.12812,
+      "name": "Locker Bergara 230",
+      "ownerId": "owner_bcn_31"
+    },
+    "131": {
+      "address": "Carrer de Fontanella, 240, Barcelona",
+      "calendarSelected": [],
+      "id": "131",
+      "lat": 41.36612,
+      "lng": 2.12612,
+      "name": "Locker Fontanella 240",
+      "ownerId": "owner_bcn_32"
+    },
+    "132": {
+      "address": "Carrer de Trafalgar, 250, Barcelona",
+      "calendarSelected": [],
+      "id": "132",
+      "lat": 41.36512,
+      "lng": 2.12412,
+      "name": "Locker Trafalgar 250",
+      "ownerId": "owner_bcn_33"
+    },
+    "133": {
+      "address": "Carrer de Colón, 1, Valencia",
+      "calendarSelected": [],
+      "id": "133",
+      "lat": 39.4699,
+      "lng": -0.3763,
+      "name": "Locker Colón 1",
+      "ownerId": "owner_val_1"
+    },
+    "134": {
+      "address": "Carrer de la Pau, 50, Valencia",
+      "calendarSelected": [],
+      "id": "134",
+      "lat": 39.4702,
+      "lng": -0.3756,
+      "name": "Locker Pau 50",
+      "ownerId": "owner_val_2"
+    },
+    "135": {
+      "address": "Carrer de Xàtiva, 100, Valencia",
+      "calendarSelected": [],
+      "id": "135",
+      "lat": 39.4705,
+      "lng": -0.3749,
+      "name": "Locker Xàtiva 100",
+      "ownerId": "owner_val_3"
+    },
+    "136": {
+      "address": "Carrer de Guillem de Castro, 150, Valencia",
+      "calendarSelected": [],
+      "id": "136",
+      "lat": 39.4708,
+      "lng": -0.3742,
+      "name": "Locker Guillem de Castro 150",
+      "ownerId": "owner_val_4"
+    },
+    "137": {
+      "address": "Carrer de Sagunt, 200, Valencia",
+      "calendarSelected": [],
+      "id": "137",
+      "lat": 39.4711,
+      "lng": -0.3735,
+      "name": "Locker Sagunt 200",
+      "ownerId": "owner_val_5"
+    },
+    "138": {
+      "address": "Carrer de Quart, 250, Valencia",
+      "calendarSelected": [],
+      "id": "138",
+      "lat": 39.4714,
+      "lng": -0.3728,
+      "name": "Locker Quart 250",
+      "ownerId": "owner_val_6"
+    },
+    "139": {
+      "address": "Carrer de Serrans, 300, Valencia",
+      "calendarSelected": [],
+      "id": "139",
+      "lat": 39.4717,
+      "lng": -0.3721,
+      "name": "Locker Serrans 300",
+      "ownerId": "owner_val_7"
+    },
+    "140": {
+      "address": "Carrer de la Blanqueria, 350, Valencia",
+      "calendarSelected": [],
+      "id": "140",
+      "lat": 39.4720,
+      "lng": -0.3714,
+      "name": "Locker Blanqueria 350",
+      "ownerId": "owner_val_8"
+    },
+    "141": {
+      "address": "Carrer de la Tapineria, 400, Valencia",
+      "calendarSelected": [],
+      "id": "141",
+      "lat": 39.4723,
+      "lng": -0.3707,
+      "name": "Locker Tapineria 400",
+      "ownerId": "owner_val_9"
+    },
+    "142": {
+      "address": "Carrer de la Corretgeria, 450, Valencia",
+      "calendarSelected": [],
+      "id": "142",
+      "lat": 39.4726,
+      "lng": -0.3700,
+      "name": "Locker Corretgeria 450",
+      "ownerId": "owner_val_10"
+    },
+    "143": {
+      "address": "Carrer de la Llotgeta, 500, Valencia",
+      "calendarSelected": [],
+      "id": "143",
+      "lat": 39.4729,
+      "lng": -0.3693,
+      "name": "Locker Llotgeta 500",
+      "ownerId": "owner_val_11"
+    },
+    "144": {
+      "address": "Carrer de la Mar, 550, Valencia",
+      "calendarSelected": [],
+      "id": "144",
+      "lat": 39.4732,
+      "lng": -0.3686,
+      "name": "Locker Mar 550",
+      "ownerId": "owner_val_12"
+    },
+    "145": {
+      "address": "Carrer de la Reina, 600, Valencia",
+      "calendarSelected": [],
+      "id": "145",
+      "lat": 39.4735,
+      "lng": -0.3679,
+      "name": "Locker Reina 600",
+      "ownerId": "owner_val_13"
+    },
+    "146": {
+      "address": "Carrer de la Princesa, 650, Valencia",
+      "calendarSelected": [],
+      "id": "146",
+      "lat": 39.4738,
+      "lng": -0.3672,
+      "name": "Locker Princesa 650",
+      "ownerId": "owner_val_14"
+    },
+    "147": {
+      "address": "Carrer de la Duquessa, 700, Valencia",
+      "calendarSelected": [],
+      "id": "147",
+      "lat": 39.4741,
+      "lng": -0.3665,
+      "name": "Locker Duquessa 700",
+      "ownerId": "owner_val_15"
+    },
+    "148": {
+      "address": "Carrer de la Comtessa, 750, Valencia",
+      "calendarSelected": [],
+      "id": "148",
+      "lat": 39.4744,
+      "lng": -0.3658,
+      "name": "Locker Comtessa 750",
+      "ownerId": "owner_val_16"
+    },
+    "149": {
+      "address": "Carrer de la Marquesa, 800, Valencia",
+      "calendarSelected": [],
+      "id": "149",
+      "lat": 39.4747,
+      "lng": -0.3651,
+      "name": "Locker Marquesa 800",
+      "ownerId": "owner_val_17"
+    },
+    "150": {
+      "address": "Carrer de la Baronesa, 850, Valencia",
+      "calendarSelected": [],
+      "id": "150",
+      "lat": 39.4750,
+      "lng": -0.3644,
+      "name": "Locker Baronesa 850",
+      "ownerId": "owner_val_18"
+    },
+    "151": {
+      "address": "Carrer de la Vescomtessa, 900, Valencia",
+      "calendarSelected": [],
+      "id": "151",
+      "lat": 39.4753,
+      "lng": -0.3637,
+      "name": "Locker Vescomtessa 900",
+      "ownerId": "owner_val_19"
+    },
+    "152": {
+      "address": "Carrer de la Senyora, 950, Valencia",
+      "calendarSelected": [],
+      "id": "152",
+      "lat": 39.4756,
+      "lng": -0.3630,
+      "name": "Locker Senyora 950",
+      "ownerId": "owner_val_20"
+    },
+    "153": {
+      "address": "Carrer de la Dona, 1000, Valencia",
+      "calendarSelected": [],
+      "id": "153",
+      "lat": 39.4759,
+      "lng": -0.3623,
+      "name": "Locker Dona 1000",
+      "ownerId": "owner_val_21"
+    },
+    "154": {
+      "address": "Carrer de la Filla, 1050, Valencia",
+      "calendarSelected": [],
+      "id": "154",
+      "lat": 39.4762,
+      "lng": -0.3616,
+      "name": "Locker Filla 1050",
+      "ownerId": "owner_val_22"
+    },
+    "155": {
+      "address": "Carrer de la Neta, 1100, Valencia",
+      "calendarSelected": [],
+      "id": "155",
+      "lat": 39.4765,
+      "lng": -0.3609,
+      "name": "Locker Neta 1100",
+      "ownerId": "owner_val_23"
+    },
+    "156": {
+      "address": "Carrer de la Besneta, 1150, Valencia",
+      "calendarSelected": [],
+      "id": "156",
+      "lat": 39.4768,
+      "lng": -0.3602,
+      "name": "Locker Besneta 1150",
+      "ownerId": "owner_val_24"
+    },
+    "157": {
+      "address": "Carrer de la Rebésneta, 1200, Valencia",
+      "calendarSelected": [],
+      "id": "157",
+      "lat": 39.4771,
+      "lng": -0.3595,
+      "name": "Locker Rebésneta 1200",
+      "ownerId": "owner_val_25"
+    },
+    "158": {
+      "address": "Carrer de la Tatarabuela, 1250, Valencia",
+      "calendarSelected": [],
+      "id": "158",
+      "lat": 39.4774,
+      "lng": -0.3588,
+      "name": "Locker Tatarabuela 1250",
+      "ownerId": "owner_val_26"
+    },
+    "159": {
+      "address": "Carrer de la Quinta, 1300, Valencia",
+      "calendarSelected": [],
+      "id": "159",
+      "lat": 39.4777,
+      "lng": -0.3581,
+      "name": "Locker Quinta 1300",
+      "ownerId": "owner_val_27"
+    },
+    "160": {
+      "address": "Carrer de la Sexta, 1350, Valencia",
+      "calendarSelected": [],
+      "id": "160",
+      "lat": 39.4780,
+      "lng": -0.3574,
+      "name": "Locker Sexta 1350",
+      "ownerId": "owner_val_28"
+    },
+    "161": {
+      "address": "Carrer de la Setena, 1400, Valencia",
+      "calendarSelected": [],
+      "id": "161",
+      "lat": 39.4783,
+      "lng": -0.3567,
+      "name": "Locker Setena 1400",
+      "ownerId": "owner_val_29"
+    },
+    "162": {
+      "address": "Carrer de la Vuitena, 1450, Valencia",
+      "calendarSelected": [],
+      "id": "162",
+      "lat": 39.4786,
+      "lng": -0.3560,
+      "name": "Locker Vuitena 1450",
+      "ownerId": "owner_val_30"
+    },
+    "163": {
+      "address": "Carrer de la Novena, 1500, Valencia",
+      "calendarSelected": [],
+      "id": "163",
+      "lat": 39.4789,
+      "lng": -0.3553,
+      "name": "Locker Novena 1500",
+      "ownerId": "owner_val_31"
+    },
+    "164": {
+      "address": "Carrer de la Desena, 1550, Valencia",
+      "calendarSelected": [],
+      "id": "164",
+      "lat": 39.4792,
+      "lng": -0.3546,
+      "name": "Locker Desena 1550",
+      "ownerId": "owner_val_32"
+    },
+    "165": {
+      "address": "Carrer de la Onzena, 1600, Valencia",
+      "calendarSelected": [],
+      "id": "165",
+      "lat": 39.4795,
+      "lng": -0.3539,
+      "name": "Locker Onzena 1600",
+      "ownerId": "owner_val_33"
+    },
+    "166": {
+      "address": "Calle de Alcalá, 1, Madrid",
+      "calendarSelected": [],
+      "id": "166",
+      "lat": 40.4168,
+      "lng": -3.7038,
+      "name": "Locker Alcalá 1",
+      "ownerId": "owner_mad_1"
+    },
+    "167": {
+      "address": "Calle de Gran Vía, 50, Madrid",
+      "calendarSelected": [],
+      "id": "167",
+      "lat": 40.4170,
+      "lng": -3.7035,
+      "name": "Locker Gran Vía 50",
+      "ownerId": "owner_mad_2"
+    },
+    "168": {
+      "address": "Calle de Princesa, 100, Madrid",
+      "calendarSelected": [],
+      "id": "168",
+      "lat": 40.4172,
+      "lng": -3.7032,
+      "name": "Locker Princesa 100",
+      "ownerId": "owner_mad_3"
+    },
+    "169": {
+      "address": "Calle de Fuencarral, 150, Madrid",
+      "calendarSelected": [],
+      "id": "169",
+      "lat": 40.4174,
+      "lng": -3.7029,
+      "name": "Locker Fuencarral 150",
+      "ownerId": "owner_mad_4"
+    },
+    "170": {
+      "address": "Calle de Hortaleza, 200, Madrid",
+      "calendarSelected": [],
+      "id": "170",
+      "lat": 40.4176,
+      "lng": -3.7026,
+      "name": "Locker Hortaleza 200",
+      "ownerId": "owner_mad_5"
+    },
+    "171": {
+      "address": "Calle de Barquillo, 250, Madrid",
+      "calendarSelected": [],
+      "id": "171",
+      "lat": 40.4178,
+      "lng": -3.7023,
+      "name": "Locker Barquillo 250",
+      "ownerId": "owner_mad_6"
+    },
+    "172": {
+      "address": "Calle de Velázquez, 300, Madrid",
+      "calendarSelected": [],
+      "id": "172",
+      "lat": 40.4180,
+      "lng": -3.7020,
+      "name": "Locker Velázquez 300",
+      "ownerId": "owner_mad_7"
+    },
+    "173": {
+      "address": "Calle de Serrano, 350, Madrid",
+      "calendarSelected": [],
+      "id": "173",
+      "lat": 40.4182,
+      "lng": -3.7017,
+      "name": "Locker Serrano 350",
+      "ownerId": "owner_mad_8"
+    },
+    "174": {
+      "address": "Calle de Goya, 400, Madrid",
+      "calendarSelected": [],
+      "id": "174",
+      "lat": 40.4184,
+      "lng": -3.7014,
+      "name": "Locker Goya 400",
+      "ownerId": "owner_mad_9"
+    },
+    "175": {
+      "address": "Calle de Hermosilla, 450, Madrid",
+      "calendarSelected": [],
+      "id": "175",
+      "lat": 40.4186,
+      "lng": -3.7011,
+      "name": "Locker Hermosilla 450",
+      "ownerId": "owner_mad_10"
+    },
+    "176": {
+      "address": "Calle de Claudio Coello, 500, Madrid",
+      "calendarSelected": [],
+      "id": "176",
+      "lat": 40.4188,
+      "lng": -3.7008,
+      "name": "Locker Claudio Coello 500",
+      "ownerId": "owner_mad_11"
+    },
+    "177": {
+      "address": "Calle de Ortega y Gasset, 550, Madrid",
+      "calendarSelected": [],
+      "id": "177",
+      "lat": 40.4190,
+      "lng": -3.7005,
+      "name": "Locker Ortega y Gasset 550",
+      "ownerId": "owner_mad_12"
+    },
+    "178": {
+      "address": "Calle de Juan Bravo, 600, Madrid",
+      "calendarSelected": [],
+      "id": "178",
+      "lat": 40.4192,
+      "lng": -3.7002,
+      "name": "Locker Juan Bravo 600",
+      "ownerId": "owner_mad_13"
+    },
+    "179": {
+      "address": "Calle de Ayala, 650, Madrid",
+      "calendarSelected": [],
+      "id": "179",
+      "lat": 40.4194,
+      "lng": -3.6999,
+      "name": "Locker Ayala 650",
+      "ownerId": "owner_mad_14"
+    },
+    "180": {
+      "address": "Calle de Lagasca, 700, Madrid",
+      "calendarSelected": [],
+      "id": "180",
+      "lat": 40.4196,
+      "lng": -3.6996,
+      "name": "Locker Lagasca 700",
+      "ownerId": "owner_mad_15"
+    },
+    "181": {
+      "address": "Calle de Jorge Juan, 750, Madrid",
+      "calendarSelected": [],
+      "id": "181",
+      "lat": 40.4198,
+      "lng": -3.6993,
+      "name": "Locker Jorge Juan 750",
+      "ownerId": "owner_mad_16"
+    },
+    "182": {
+      "address": "Calle de Villanueva, 800, Madrid",
+      "calendarSelected": [],
+      "id": "182",
+      "lat": 40.4200,
+      "lng": -3.6990,
+      "name": "Locker Villanueva 800",
+      "ownerId": "owner_mad_17"
+    },
+    "183": {
+      "address": "Calle de Génova, 850, Madrid",
+      "calendarSelected": [],
+      "id": "183",
+      "lat": 40.4202,
+      "lng": -3.6987,
+      "name": "Locker Génova 850",
+      "ownerId": "owner_mad_18"
+    },
+    "184": {
+      "address": "Calle de Sagasta, 900, Madrid",
+      "calendarSelected": [],
+      "id": "184",
+      "lat": 40.4204,
+      "lng": -3.6984,
+      "name": "Locker Sagasta 900",
+      "ownerId": "owner_mad_19"
+    },
+    "185": {
+      "address": "Calle de Carranza, 950, Madrid",
+      "calendarSelected": [],
+      "id": "185",
+      "lat": 40.4206,
+      "lng": -3.6981,
+      "name": "Locker Carranza 950",
+      "ownerId": "owner_mad_20"
+    },
+    "186": {
+      "address": "Calle de San Bernardo, 1000, Madrid",
+      "calendarSelected": [],
+      "id": "186",
+      "lat": 40.4208,
+      "lng": -3.6978,
+      "name": "Locker San Bernardo 1000",
+      "ownerId": "owner_mad_21"
+    },
+    "187": {
+      "address": "Calle de Alberto Aguilera, 1050, Madrid",
+      "calendarSelected": [],
+      "id": "187",
+      "lat": 40.4210,
+      "lng": -3.6975,
+      "name": "Locker Alberto Aguilera 1050",
+      "ownerId": "owner_mad_22"
+    },
+    "188": {
+      "address": "Calle de Gaztambide, 1100, Madrid",
+      "calendarSelected": [],
+      "id": "188",
+      "lat": 40.4212,
+      "lng": -3.6972,
+      "name": "Locker Gaztambide 1100",
+      "ownerId": "owner_mad_23"
+    },
+    "189": {
+      "address": "Calle de Guzmán el Bueno, 1150, Madrid",
+      "calendarSelected": [],
+      "id": "189",
+      "lat": 40.4214,
+      "lng": -3.6969,
+      "name": "Locker Guzmán el Bueno 1150",
+      "ownerId": "owner_mad_24"
+    },
+    "190": {
+      "address": "Calle de Princesa, 1200, Madrid",
+      "calendarSelected": [],
+      "id": "190",
+      "lat": 40.4216,
+      "lng": -3.6966,
+      "name": "Locker Princesa 1200",
+      "ownerId": "owner_mad_25"
+    },
+    "191": {
+      "address": "Calle de Ferraz, 1250, Madrid",
+      "calendarSelected": [],
+      "id": "191",
+      "lat": 40.4218,
+      "lng": -3.6963,
+      "name": "Locker Ferraz 1250",
+      "ownerId": "owner_mad_26"
+    },
+    "192": {
+      "address": "Calle de Bailén, 1300, Madrid",
+      "calendarSelected": [],
+      "id": "192",
+      "lat": 40.4220,
+      "lng": -3.6960,
+      "name": "Locker Bailén 1300",
+      "ownerId": "owner_mad_27"
+    },
+    "193": {
+      "address": "Calle de Segovia, 1350, Madrid",
+      "calendarSelected": [],
+      "id": "193",
+      "lat": 40.4222,
+      "lng": -3.6957,
+      "name": "Locker Segovia 1350",
+      "ownerId": "owner_mad_28"
+    },
+    "194": {
+      "address": "Calle de Toledo, 1400, Madrid",
+      "calendarSelected": [],
+      "id": "194",
+      "lat": 40.4224,
+      "lng": -3.6954,
+      "name": "Locker Toledo 1400",
+      "ownerId": "owner_mad_29"
+    },
+    "195": {
+      "address": "Calle de Atocha, 1450, Madrid",
+      "calendarSelected": [],
+      "id": "195",
+      "lat": 40.4226,
+      "lng": -3.6951,
+      "name": "Locker Atocha 1450",
+      "ownerId": "owner_mad_30"
+    },
+    "196": {
+      "address": "Calle de Embajadores, 1500, Madrid",
+      "calendarSelected": [],
+      "id": "196",
+      "lat": 40.4228,
+      "lng": -3.6948,
+      "name": "Locker Embajadores 1500",
+      "ownerId": "owner_mad_31"
+    },
+    "197": {
+      "address": "Calle de Lavapiés, 1550, Madrid",
+      "calendarSelected": [],
+      "id": "197",
+      "lat": 40.4230,
+      "lng": -3.6945,
+      "name": "Locker Lavapiés 1550",
+      "ownerId": "owner_mad_32"
+    },
+    "198": {
+      "address": "Calle de Argumosa, 1600, Madrid",
+      "calendarSelected": [],
+      "id": "198",
+      "lat": 40.4232,
+      "lng": -3.6942,
+      "name": "Locker Argumosa 1600",
+      "ownerId": "owner_mad_33"
+    },
+    "199": {
+      "address": "Calle de Santa Isabel, 1650, Madrid",
+      "calendarSelected": [],
+      "id": "199",
+      "lat": 40.4234,
+      "lng": -3.6939,
+      "name": "Locker Santa Isabel 1650",
+      "ownerId": "owner_mad_34"
+    }
+  },
+  "bookings": {
+    "-OT0QhhxZjdq21ZAe1fy": {
+      "createdAt": "2025-06-18",
+      "date": [
+        "2025-06-27",
+        "2025-06-28"
+      ],
+      "hostAddress": "Plaça de Catalunya, 1",
+      "hostId": "4",
+      "hostName": "Plaça Catalunya Lockers",
+      "id": "-OT0QhhxZjdq21ZAe1fy",
+      "luggageCount": 2,
+      "totalPrice": 12,
+      "userId": "LTjihs3sboYv0Exs6vzgA5jLhbv1"
+    },
+    "-OT0S7hBHxkc5Rr3gxGl": {
+      "createdAt": "2025-06-18",
+      "date": [
+        "2025-06-20",
+        "2025-06-21",
+        "2025-06-22"
+      ],
+      "hostAddress": "Plaça dels Països Catalans, 1",
+      "hostId": "1",
+      "hostName": "Locker Sants Estació",
+      "id": "-OT0S7hBHxkc5Rr3gxGl",
+      "luggageCount": 1,
+      "totalPrice": 9,
+      "userId": "LTjihs3sboYv0Exs6vzgA5jLhbv1"
+    },
+    "-OT1D65NoH_nGT9F8G9P": {
+      "createdAt": "2025-06-18",
+      "date": [
+        "2025-06-29",
+        "2025-06-30"
+      ],
+      "hostAddress": "Avinguda Diagonal, 208",
+      "hostId": "10",
+      "hostName": "Glòries Shopping Center",
+      "id": "-OT1D65NoH_nGT9F8G9P",
+      "luggageCount": 1,
+      "totalPrice": 6,
+      "userId": "mNBhxbPz0pSxklAp4usnq4R1ndZ2"
+    },
+    "-OT1DCJVinjVYt3XTW4n": {
+      "createdAt": "2025-06-18",
+      "date": [
+        "2025-06-20"
+      ],
+      "hostAddress": "Carrer d'Astúries, 36",
+      "hostId": "8",
+      "hostName": "Gràcia Bag Drop",
+      "id": "-OT1DCJVinjVYt3XTW4n",
+      "luggageCount": 4,
+      "totalPrice": 12,
+      "userId": "mNBhxbPz0pSxklAp4usnq4R1ndZ2"
+    },
+    "-OT1llPGT7SBmI_rfzCl": {
+      "createdAt": "2025-06-18",
+      "date": [
+        "2025-06-23",
+        "2025-06-24",
+        "2025-06-25"
+      ],
+      "hostAddress": "Carrer d'Astúries, 36",
+      "hostId": "8",
+      "hostName": "Gràcia Bag Drop",
+      "id": "-OT1llPGT7SBmI_rfzCl",
+      "luggageCount": 5,
+      "totalPrice": 45,
+      "userId": "mNBhxbPz0pSxklAp4usnq4R1ndZ2"
+    },
+    "-OT778aMsEZfHjpSdNfV": {
+      "createdAt": "2025-06-19",
+      "date": [
+        "2025-06-26",
+        "2025-06-27",
+        "2025-06-28"
+      ],
+      "hostAddress": "Avinguda Diagonal, 468",
+      "hostId": "7",
+      "hostName": "Diagonal Metro Lockers",
+      "id": "-OT778aMsEZfHjpSdNfV",
+      "luggageCount": 2,
+      "totalPrice": 18,
+      "userId": "LTjihs3sboYv0Exs6vzgA5jLhbv1"
+    },
+    "-OTBxmcbmMzDZATjBph4": {
+      "createdAt": "2025-06-20",
+      "date": [
+        "2025-06-24",
+        "2025-06-23",
+        "2025-06-25"
+      ],
+      "hostAddress": "Carrer Montcada, 15",
+      "hostId": "6",
+      "hostName": "Museu Picasso Locker Point",
+      "id": "-OTBxmcbmMzDZATjBph4",
+      "luggageCount": 2,
+      "totalPrice": 18,
+      "userId": "LTjihs3sboYv0Exs6vzgA5jLhbv1"
+    },
+    "-OTDUUQQSmbB-Sz3xMuJ": {
+      "createdAt": "2025-06-20",
+      "date": [
+        "2025-06-25",
+        "2025-06-26",
+        "2025-06-27"
+      ],
+      "hostAddress": "Carrer de Ferran, 17",
+      "hostId": "2",
+      "hostName": "Hostel Gòtic Drop",
+      "id": "-OTDUUQQSmbB-Sz3xMuJ",
+      "luggageCount": 3,
+      "totalPrice": 27,
+      "userId": "mNBhxbPz0pSxklAp4usnq4R1ndZ2"
+    },
+    "-OTIrLLo89fy1F5ceL69": {
+      "createdAt": "2025-06-21",
+      "date": [
+        "2025-07-25",
+        "2025-07-24"
+      ],
+      "hostAddress": "Avinguda Diagonal, 468",
+      "hostId": "7",
+      "hostName": "Diagonal Metro Lockers",
+      "id": "-OTIrLLo89fy1F5ceL69",
+      "luggageCount": 2,
+      "totalPrice": 12,
+      "userId": "LTjihs3sboYv0Exs6vzgA5jLhbv1"
+    },
+    "-OT_vHUnhlpPqxUIxN_N": {
+      "createdAt": "2025-06-25",
+      "date": [
+        "2025-06-25",
+        "2025-06-26"
+      ],
+      "hostAddress": "Avinguda Diagonal, 208",
+      "hostId": "10",
+      "hostName": "Glòries Shopping Center",
+      "id": "-OT_vHUnhlpPqxUIxN_N",
+      "luggageCount": 2,
+      "totalPrice": 12,
+      "userId": "xt9M5at89bQQfW7XOy8qAe5HJn02"
+    },
+    "-OT_vRqYZJJx93QgHAAZ": {
+      "createdAt": "2025-06-25",
+      "date": [
+        "2025-06-26",
+        "2025-06-27"
+      ],
+      "hostAddress": "Carrer d'Astúries, 36",
+      "hostId": "8",
+      "hostName": "Gràcia Bag Drop",
+      "id": "-OT_vRqYZJJx93QgHAAZ",
+      "luggageCount": 2,
+      "totalPrice": 12,
+      "userId": "xt9M5at89bQQfW7XOy8qAe5HJn02"
+    },
+    "-OTaRcKaT09A95e6gX0G": {
+      "createdAt": "2025-06-25",
+      "date": [
+        "2025-06-27",
+        "2025-06-28"
+      ],
+      "hostAddress": "travessera de gracia 250 barcelona",
+      "hostId": "8QGgFPC70ySnQfzLcnMnhriVWx93",
+      "hostName": "Gracia house",
+      "id": "-OTaRcKaT09A95e6gX0G",
+      "luggageCount": 1,
+      "totalPrice": 6,
+      "userId": "8QGgFPC70ySnQfzLcnMnhriVWx93"
+    },
+    "-OTacqT74sfg4yklkCKj": {
+      "createdAt": "2025-06-25",
+      "date": [
+        "2025-06-28",
+        "2025-06-29"
+      ],
+      "hostAddress": "Carrer de Roger de Flor 105, el Fort Pienc, Eixample, Barcelona, Barcelonés, Barcelona, Cataluña, 08010, España",
+      "hostId": "DnJDrtHqm8fNlXVrlu9cCaFTkSD3",
+      "hostName": "Roger y tetuan",
+      "id": "-OTacqT74sfg4yklkCKj",
+      "luggageCount": 3,
+      "totalPrice": 18,
+      "userId": "mNBhxbPz0pSxklAp4usnq4R1ndZ2"
+    },
+    "-OTc2HdNiERIXDpc0_k2": {
+      "createdAt": "2025-06-25",
+      "date": [
+        "2025-06-28",
+        "2025-06-29"
+      ],
+      "hostAddress": "Carrer de Mallorca, 401",
+      "hostId": "8",
+      "hostName": "Sagrada Família Lockers",
+      "id": "-OTc2HdNiERIXDpc0_k2",
+      "luggageCount": 2,
+      "totalPrice": 12,
+      "userId": "LTjihs3sboYv0Exs6vzgA5jLhbv1"
+    },
+    "-OTc8HzhhZ5fRgf1s-d0": {
+      "createdAt": "2025-06-25",
+      "date": [
+        "2025-06-26",
+        "2025-06-27"
+      ],
+      "hostAddress": "Carrer de l'Hospital, 74",
+      "hostId": "2",
+      "hostName": "Café El Raval Storage",
+      "id": "-OTc8HzhhZ5fRgf1s-d0",
+      "luggageCount": 1,
+      "totalPrice": 6,
+      "userId": "VClp3EGrXKSzKmOz19vKoiVBmF13"
+    },
+    "-OTc8Mhwr-3aMMscp3tu": {
+      "createdAt": "2025-06-25",
+      "date": [
+        "2025-06-28",
+        "2025-06-29"
+      ],
+      "hostAddress": "Gran Via de les Corts Catalanes, 674",
+      "hostId": "4",
+      "hostName": "Aerobus Stop Storage",
+      "id": "-OTc8Mhwr-3aMMscp3tu",
+      "luggageCount": 3,
+      "totalPrice": 18,
+      "userId": "VClp3EGrXKSzKmOz19vKoiVBmF13"
+    },
+    "-OTcdifTadWhn3vtCdOh": {
+      "createdAt": "2025-06-25",
+      "date": [
+        "2025-06-29",
+        "2025-06-30"
+      ],
+      "hostAddress": "Carrer de Cartagena, el Baix Guinardó, Horta-Guinardó, Barcelona, Barcelonés, Barcelona, Cataluña, 08025, España",
+      "hostId": "-OTcdYzV-vd1h33zLODX",
+      "hostName": "Freezer house",
+      "id": "-OTcdifTadWhn3vtCdOh",
+      "luggageCount": 4,
+      "totalPrice": 24,
+      "userId": "mNBhxbPz0pSxklAp4usnq4R1ndZ2"
+    },
+    "-OTf7INAF41KmBeEZI7s": {
+      "createdAt": "2025-06-26",
+      "date": [
+        "2025-06-26",
+        "2025-06-27"
+      ],
+      "hostAddress": "Carrer de Cartagena, el Baix Guinardó, Horta-Guinardó, Barcelona, Barcelonés, Barcelona, Cataluña, 08025, España",
+      "hostId": "-OTcdYzV-vd1h33zLODX",
+      "hostName": "Freezer house",
+      "id": "-OTf7INAF41KmBeEZI7s",
+      "luggageCount": 1,
+      "totalPrice": 6,
+      "userId": "LTjihs3sboYv0Exs6vzgA5jLhbv1"
+    },
+    "-OTfAviB_iGAMQVqpzvq": {
+      "createdAt": "2025-06-26",
+      "date": [
+        "2025-06-27",
+        "2025-06-29"
+      ],
+      "hostAddress": "Carrer d'Astúries, 36",
+      "hostId": "7",
+      "hostName": "Gràcia Bag Drop",
+      "id": "-OTfAviB_iGAMQVqpzvq",
+      "luggageCount": 1,
+      "totalPrice": 6,
+      "userId": "LTjihs3sboYv0Exs6vzgA5jLhbv1"
+    },
+    "-OTfB0f16R-dJSQfjmCR": {
+      "createdAt": "2025-06-26",
+      "date": [
+        "2025-06-28"
+      ],
+      "hostAddress": "Carrer de Cartagena, el Baix Guinardó, Horta-Guinardó, Barcelona, Barcelonés, Barcelona, Cataluña, 08025, España",
+      "hostId": "-OTcdYzV-vd1h33zLODX",
+      "hostName": "Freezer house",
+      "id": "-OTfB0f16R-dJSQfjmCR",
+      "luggageCount": 1,
+      "totalPrice": 3,
+      "userId": "LTjihs3sboYv0Exs6vzgA5jLhbv1"
+    },
+    "-OTfGVp3pbRHcvT3JQgZ": {
+      "createdAt": "2025-06-26",
+      "date": [
+        "2025-06-30"
+      ],
+      "hostAddress": "Plaça de Catalunya, 1",
+      "hostId": "3",
+      "hostName": "Plaça Catalunya Lockers",
+      "id": "-OTfGVp3pbRHcvT3JQgZ",
+      "luggageCount": 1,
+      "totalPrice": 3,
+      "userId": "686ZocGcNuV5g1m8JyKlgkWo0nx2"
+    }
+  },
+    "reviews": [
+    {
+      "comment": "Great service and friendly staff!",
+      "hostId": "2",
+      "id": "1",
+      "rating": 5,
+      "userId": "1"
+    },
+    {
+      "comment": "Convenient location, but a bit crowded.",
+      "hostId": "4",
+      "id": "2",
+      "rating": 4,
+      "userId": "3"
+    },
+    {
+      "comment": "Excellent experience, highly recommend!",
+      "hostId": "1",
+      "id": "3",
+      "rating": 5,
+      "userId": "2"
+    },
+    {
+      "comment": "Average service, could be improved.",
+      "hostId": "7",
+      "id": "4",
+      "rating": 3,
+      "userId": "4"
+    }
+  ],
+  "users": {
+    "686ZocGcNuV5g1m8JyKlgkWo0nx2": {
+      "email": "freezer@gmail.com",
+      "id": "686ZocGcNuV5g1m8JyKlgkWo0nx2",
+      "name": "Freezer",
+      "role": "host",
+      "surname": "Fase 3"
+    },
+    "8QGgFPC70ySnQfzLcnMnhriVWx93": {
+      "accountNumber": "",
+      "bankName": "",
+      "email": "gracia@gmail.com",
+      "id": "8QGgFPC70ySnQfzLcnMnhriVWx93",
+      "name": "Goku",
+      "phone": "777777777",
+      "reservesActives": 0,
+      "reservesCancels": 0,
+      "reservesDones": 0,
+      "role": "host",
+      "surname": "Son"
+    },
+    "DnJDrtHqm8fNlXVrlu9cCaFTkSD3": {
+      "email": "roger@gmail.com",
+      "id": "DnJDrtHqm8fNlXVrlu9cCaFTkSD3",
+      "name": "Roger",
+      "role": "host",
+      "surname": "Flor"
+    },
+    "G09cL0SZdLUGOBGhc1kl1ey3z8o1": {
+      "email": "ciudadela@gmail.com",
+      "id": "G09cL0SZdLUGOBGhc1kl1ey3z8o1",
+      "name": "Juan",
+      "role": "host",
+      "surname": "Garcia"
+    },
+    "LTjihs3sboYv0Exs6vzgA5jLhbv1": {
+      "email": "cris@gmail.com",
+      "role": "host"
+    },
+    "Lcs4yvlGhBfuIj2bh4UxKXHgYHg2": {
+      "email": "sol@gmail.com",
+      "id": "Lcs4yvlGhBfuIj2bh4UxKXHgYHg2",
+      "name": "Sol",
+      "role": "host",
+      "surname": "Azo"
+    },
+    "POEb4eUE9oWtBhqcAnle6UtFW3y2": {
+      "email": "papercri@gmail.com",
+      "role": "user"
+    },
+    "VClp3EGrXKSzKmOz19vKoiVBmF13": {
+      "email": "new@gmail.com",
+      "id": "VClp3EGrXKSzKmOz19vKoiVBmF13",
+      "role": "user"
+    },
+    "mNBhxbPz0pSxklAp4usnq4R1ndZ2": {
+      "accountNumber": "",
+      "bankName": "",
+      "email": "admin@gmail.com",
+      "name": "Danilo",
+      "pass": "admin123",
+      "phone": "",
+      "role": "admin",
+      "surname": "Esp"
+    }
+  }
+} 

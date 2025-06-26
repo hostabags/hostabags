@@ -1,17 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
-import Header from "@/components/layout/header/Header";
 import { getBookings } from "@/utils/localStorage";
-import { createBookingAndUpdateHost } from "@/services/firebaseService";
-import type { preBooking } from "@/types/preBooking";
+import { BookingsService } from "@/services/firebase";
+import type { PreBookingI } from "@/types/preBooking";
 import { formatDate } from "@/utils/functions";
 import Button from "@/components/ui/Button/Button";
+import useAuth from "@/hooks/useAuth";
 
 export default function ConfirmPage() {
-  const [bookingDetails, setBookingDetails] = useState<preBooking | null>(null);
+  const [bookingDetails, setBookingDetails] = useState<PreBookingI | null>(null);
   const { user } = useAuth();
   const router = useRouter();
 
@@ -32,10 +31,11 @@ export default function ConfirmPage() {
   const handleConfirmReservation = async () => {
     if (!user || !bookingDetails) return;
     try {
-      await createBookingAndUpdateHost(
+      const createdAt = formatDate(new Date());
+      const newBooking = await BookingsService.createBookingAndUpdateHost(
         user.uid,
         bookingDetails,
-        formatDate(new Date())
+        createdAt
       );
 
       localStorage.removeItem("hostabagsBookings");
@@ -59,7 +59,6 @@ export default function ConfirmPage() {
   if (!bookingDetails) {
     return (
       <>
-        <Header />
         <main className="min-h-screen flex items-center justify-center">
           <p className="text-xl text-gray-600">No booking details found</p>
         </main>
@@ -69,7 +68,6 @@ export default function ConfirmPage() {
 
   return (
     <>
-      <Header />
       <main className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-8 text-center">

@@ -8,4 +8,6 @@ export interface User {
   reservesActives?: number;
   reservesDones?: number;
   reservesCancels?: number;
+  accountNumber?: string;
+  bankName?: string;
 }

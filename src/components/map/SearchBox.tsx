@@ -41,7 +41,7 @@ export default function SearchBox() {
   };
 
   return (
-    <div className="absolute top-20 left-4 z-[1000] w-80">
+    <div className="absolute top-4 left-4 z-[1000] w-80">
       <div className="relative">
         <input
           type="text"

@@ -1,11 +1,12 @@
 "use client";
+
 import { useState, useEffect } from "react";
-import { useHost } from "@/hooks/useHost";
 import CalendarUI from "../calendar/CalendarUI";
 import QuantitySelector from "./QuantitySelector";
 import SaveLSButton from "./SaveLSButton";
 import "./preBooking.scss";
 import { formatDate } from "@/utils/functions";
+import { useHost } from "@/hooks/useHosts";
 
 export default function PreBooking({ id }: { id: string }) {
   const { host, loading, error } = useHost(id);
@@ -50,15 +51,15 @@ export default function PreBooking({ id }: { id: string }) {
     const dateStr = formatDate(date);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    return host?.calendarSelected.includes(dateStr) || date < today;
+    return (host?.calendarSelected?.includes(dateStr) || false) || date < today;
   };
 
 
   if (loading)
-    return <div className="text-center mt-10">Loading calendar...</div>;
+    return <div className="text-center py-4">Loading calendar...</div>;
   if (!host) return null;
   if (error) {
-    return <div className="text-center mt-10 text-red-600">{error}</div>;
+    return <div className="text-center py-4 text-red-600">{error}</div>;
   }
 
   return (
@@ -71,11 +72,11 @@ export default function PreBooking({ id }: { id: string }) {
 
       {calendarNew.length > 0 && (
         <>
-          <label className="block mt-6 text-sm font-medium text-gray-800">
+          <label className="block mt-4 text-sm font-medium text-gray-800">
             Number of bags:
           </label>
           <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
-          <div className="text-center mt-4 text-lg text-gray-700 font-semibold">
+          <div className="text-center mt-3 text-lg text-gray-700 font-semibold">
             Total price:{" "}
             <span className="font-bold text-xl evid">{totalPrice}€</span>
           </div>

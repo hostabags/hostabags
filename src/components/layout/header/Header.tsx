@@ -1,20 +1,28 @@
 "use client";
 
-import Link from "next/link";
-import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { Menu, X } from "lucide-react";
-import "./header.scss";
-import Button from "@/components/ui/Button/Button";
-import Image from "next/image";
-import LogoImage from "../../../../public/images/logo-solo.jpg";
-import Navbar from "./Navbar";
+import { useState, useEffect } from "react";
+import useAuth from "@/hooks/useAuth";
+import HeaderLogo from "./HeaderLogo";
+import HeaderNavigation from "./HeaderNavigation";
+import HeaderUserActions from "./HeaderUserActions";
+import HeaderMobileMenu from "./HeaderMobileMenu";
+import HeaderMobileButton from "./HeaderMobileButton";
 
 export default function Header() {
   const { user, role, logout } = useAuth();
   const router = useRouter();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -25,65 +33,55 @@ export default function Header() {
     }
   };
 
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
-    <header className="header">
-      <div className="flex justify-between items-center">
-        <Link href="/">
-          <div className="flex gap-4 items-center">
-            <Image
-              src={LogoImage}
-              alt="HostaBags logo"
-              className="rounded-sm shadow-lg"
-              width={30}
-            />
-            <span>Hostabags</span>
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-300 ${
+          isScrolled
+            ? "bg-gray-900/95 backdrop-blur-md shadow-lg"
+            : "bg-gray-900"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            {/* Logo */}
+            <HeaderLogo />
+
+            {/* Desktop Navigation */}
+            <HeaderNavigation user={user} role={role} />
+
+            {/* User Actions */}
+            <div className="flex items-center space-x-4 relative z-10">
+              <HeaderUserActions user={user} onLogout={handleLogout} />
+              
+              {/* Mobile Menu Button */}
+              <HeaderMobileButton 
+                isOpen={isMobileMenuOpen} 
+                onToggle={toggleMobileMenu} 
+              />
+            </div>
           </div>
-        </Link>
 
-        {/* Desktop menu */}
-        <Navbar user={user} role={role} />
-
-        {/* Mobile hamburger button */}
-        <button
-          className="mobile-menu text-white md:hidden"
-          onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle mobile menu"
-        >
-          {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
-
-        {/* Log actions */}
-        <div className="flex items-center gap-4">
-          {user ? (
-            <div>
-              <span className="bg-white text-black mx-2 py-1 px-2 font-bold rounded-full">
-                {user.email?.substring(0, 2).toUpperCase()}
-              </span>
-
-              <Button
-                onClick={handleLogout}
-                colorButton="red"
-                colorText="white"
-              >
-                Logout
-              </Button>
-            </div>
-          ) : (
-            <div>
-              <Button colorButton="indigo" colorText="white">
-                <Link href="/signin">Sign in</Link>
-              </Button>
-
-              <Button colorButton="indigo" colorText="white">
-                <Link href="/signup">Sign up</Link>
-              </Button>
-            </div>
-          )}
+          {/* Mobile Menu */}
+          <HeaderMobileMenu 
+            isOpen={isMobileMenuOpen}
+            user={user}
+            role={role}
+            onClose={closeMobileMenu}
+          />
         </div>
-      </div>
+      </header>
 
-      {/* Mobile dropdown menu */}
-      {isMobileMenuOpen && <Navbar user={user} role={role} isMobile />}
-    </header>
+      {/* Spacer to prevent content from going under header */}
+      <div className="h-16"></div>
+    </>
   );
 }

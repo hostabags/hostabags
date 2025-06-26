@@ -1,7 +1,7 @@
 import { saveBooking } from "@/utils/localStorage";
 import { Host } from "@/types/host";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/contexts/AuthContext";
+import useAuth from "@/hooks/useAuth";
 
 interface Props {
   host: Host;
@@ -49,7 +49,7 @@ export default function SaveLSButton({
   };
 
   return (
-    <button onClick={handleClick} className="btn w-full mt-6">
+    <button onClick={handleClick} className="btn w-full mt-4">
       <span>{user ? "Save Booking" : "Sign In to Book"}</span>
     </button>
   );

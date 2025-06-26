@@ -1,5 +1,3 @@
-
-
 export default function QuantitySelector({
   quantity,
   setQuantity,
@@ -8,7 +6,7 @@ export default function QuantitySelector({
   setQuantity: (q: number) => void;
 }) {
   return (
-    <div className="flex justify-center items-center gap-4 my-4 bg-gray-50 p-4 ">
+    <div className="flex justify-center items-center gap-4 my-3 bg-gray-50 p-3 rounded-lg">
       <button
         onClick={() => setQuantity(Math.max(1, quantity - 1))}
         className="flex items-center justify-center rounded-full border border-gray-300 hover:bg-gray-100 cursor-pointer w-8 h-8"

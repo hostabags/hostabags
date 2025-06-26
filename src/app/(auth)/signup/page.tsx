@@ -1,11 +1,11 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/contexts/AuthContext';
 import Header from '@/components/layout/header/Header';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SignUpFormValues, signUpSchema } from '@/validations/signSchema';
+import useAuth from '@/hooks/useAuth';
 
 
 export default function SignUp() {
@@ -31,13 +31,13 @@ export default function SignUp() {
   return (
     <>
       <Header />
-      <main className="container ">
-        <div className="form-container ">
-          <h1>Create your account</h1>
+      <main className="container min-h-screen justify-center">
+        <div className="form-container mx-auto">
+          <h1>Crear tu cuenta</h1>
           <form className="form-group" onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label htmlFor="email-address" className="sr-only">
-                Email address
+                Dirección de correo electrónico
               </label>
               <input
                 id="email-address"
@@ -45,14 +45,14 @@ export default function SignUp() {
                 autoComplete="email"
                 required
                 className="appearance-none "
-                placeholder="Email address"
+                placeholder="Dirección de correo electrónico"
                 {...register('email')}
               />
               {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
             </div>
             <div>
               <label htmlFor="password" className="sr-only">
-                Password
+                Contraseña
               </label>
               <input
                 id="password"
@@ -60,7 +60,7 @@ export default function SignUp() {
                 autoComplete="new-password"
                 required
                 className="appearance-none "
-                placeholder="Password"
+                placeholder="Contraseña"
                 {...register('password')}
               />
               {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
@@ -68,7 +68,7 @@ export default function SignUp() {
             </div>
             <div>
               <label htmlFor="confirm-password" className="sr-only">
-                Confirm Password
+                Confirmar Contraseña
               </label>
               <input
                 id="confirm-password"
@@ -76,7 +76,7 @@ export default function SignUp() {
                 autoComplete="new-password"
                 required
                 className="appearance-none "
-                placeholder="Confirm Password"
+                placeholder="Confirmar Contraseña"
                 {...register('confirmPassword')}
               />
               {errors.confirmPassword && (
@@ -86,7 +86,7 @@ export default function SignUp() {
 
             <div>
               <button type="submit" className="btn w-full">
-                Sign up
+                Crear cuenta
               </button>
             </div>
           </form>
