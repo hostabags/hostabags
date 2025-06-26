@@ -28,6 +28,8 @@
       "address": "Plaça dels Països Catalans, 1",
       "lat": 41.3809,
       "lng": 2.1408,
+      "description": "Servicio de consigna seguro en la estación de Sants. Perfecto para viajeros que necesitan dejar sus maletas mientras exploran Barcelona.",
+      "schedules": ["Lun-Vie: 6:00-23:00", "Sáb-Dom: 7:00-22:00"],
       "calendarSelected": [
         "2025-05-27",
         "2025-05-28",
@@ -43,6 +45,8 @@
       "address": "Carrer de Ferran, 17",
       "lat": 41.3803,
       "lng": 2.1755,
+      "description": "Consigna en el corazón del Barrio Gótico. Ubicado en un hostel con ambiente joven y cercano a las principales atracciones turísticas.",
+      "schedules": ["Todos los días: 8:00-22:00"],
       "calendarSelected": [
         "28/05/2025",
         "29/05/2025",
@@ -62,6 +66,8 @@
       "address": "Carrer de l'Hospital, 74",
       "lat": 41.3795,
       "lng": 2.1687,
+      "description": "Servicio de consigna en un café acogedor del Raval. Disfruta de un café mientras dejas tus maletas de forma segura.",
+      "schedules": ["Lun-Vie: 7:30-20:00", "Sáb: 8:00-18:00", "Dom: 9:00-17:00"],
       "calendarSelected": []
     },
     {
@@ -70,6 +76,8 @@
       "address": "Plaça de Catalunya, 1",
       "lat": 41.387,
       "lng": 2.1701,
+      "description": "Consigna en el centro neurálgico de Barcelona. Perfecta ubicación para acceder a transporte público y principales puntos de interés.",
+      "schedules": ["Todos los días: 6:00-24:00"],
       "calendarSelected": [
         "2025-05-28",
         "2025-05-29",
@@ -85,6 +93,8 @@
       "address": "Gran Via de les Corts Catalanes, 674",
       "lat": 41.3853,
       "lng": 2.1616,
+      "description": "Consigna junto a la parada del Aerobus. Ideal para viajeros que llegan o parten del aeropuerto.",
+      "schedules": ["Todos los días: 5:30-23:30"],
       "calendarSelected": [
         "2025-05-26",
         "2025-05-27",
@@ -99,6 +109,8 @@
       "address": "Carrer Montcada, 15",
       "lat": 41.3859,
       "lng": 2.1805,
+      "description": "Consigna cerca del Museo Picasso en el histórico barrio de El Born. Ubicación perfecta para visitar museos y galerías.",
+      "schedules": ["Mar-Dom: 9:00-19:00", "Lun: Cerrado"],
       "calendarSelected": [
         "2025-05-27",
         "2025-05-28",
@@ -111,6 +123,8 @@
       "address": "Avinguda Diagonal, 468",
       "lat": 41.3947,
       "lng": 2.1596,
+      "description": "Consigna en estación de metro Diagonal. Servicio rápido y eficiente para viajeros en tránsito.",
+      "schedules": ["Todos los días: 5:00-24:00"],
       "calendarSelected": [
         "2025-05-29",
         "2025-05-30"
@@ -122,6 +136,8 @@
       "address": "Carrer d'Astúries, 36",
       "lat": 41.4031,
       "lng": 2.1536,
+      "description": "Consigna en el barrio bohemio de Gràcia. Ambiente local y cercano a parques y plazas encantadoras.",
+      "schedules": ["Lun-Vie: 8:00-21:00", "Sáb-Dom: 9:00-20:00"],
       "calendarSelected": [
         "2025-05-27",
         "2025-05-28",
@@ -137,6 +153,8 @@
       "address": "Carrer de Mallorca, 401",
       "lat": 41.4036,
       "lng": 2.1744,
+      "description": "Consigna a pocos pasos de la Sagrada Familia. Servicio especializado para visitantes de la basílica.",
+      "schedules": ["Todos los días: 8:00-20:00"],
       "calendarSelected": [
         "2025-05-28",
         "2025-05-29",
@@ -151,6 +169,8 @@
       "address": "Avinguda Diagonal, 208",
       "lat": 41.4033,
       "lng": 2.191,
+      "description": "Consigna en el centro comercial Glòries. Perfecto para hacer compras sin cargar con las maletas.",
+      "schedules": ["Lun-Sáb: 10:00-22:00", "Dom: 11:00-21:00"],
       "calendarSelected": [
         "2025-05-26",
         "2025-05-27",

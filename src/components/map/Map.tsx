@@ -6,15 +6,28 @@ import SearchBox from './SearchBox';
 import MapControls from './MapControls';
 import { MAP_CONFIG } from '@/config/map';
 import { useEffect, useState } from 'react';
+import HostPopup from './HostPopup';
+import './hostPopup.scss';
 
-const icon = new Icon({
-  iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
-  iconRetinaUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png",
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
+// Icono personalizado para los marcadores
+const customIcon = new Icon({
+  iconUrl: 'data:image/svg+xml;base64,' + btoa(`
+    <svg width="32" height="40" viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16 0C10.477 0 6 4.477 6 10c0 7 10 20 10 20s10-13 10-20c0-5.523-4.477-10-10-10z" fill="#4f46e5"/>
+      <path d="M16 5c-2.761 0-5 2.239-5 5s2.239 5 5 5 5-2.239 5-5-2.239-5-5-5z" fill="white"/>
+      <path d="M16 8c-1.105 0-2 0.895-2 2s0.895 2 2 2 2-0.895 2-2-0.895-2-2-2z" fill="#4f46e5"/>
+    </svg>
+  `),
+  iconSize: [32, 40],
+  iconAnchor: [16, 40],
+  popupAnchor: [0, -40],
+  shadowUrl: 'data:image/svg+xml;base64,' + btoa(`
+    <svg width="40" height="20" viewBox="0 0 40 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="20" cy="10" rx="20" ry="10" fill="rgba(0,0,0,0.2)"/>
+    </svg>
+  `),
+  shadowSize: [40, 20],
+  shadowAnchor: [20, 10]
 });
 
 interface MapProps {
@@ -87,16 +100,16 @@ export default function Map({ hosts, onMarkerClick, initialLocation }: MapProps)
         <Marker
           key={host.id}
           position={[host.lat, host.lng]}
-          icon={icon}
+          icon={customIcon}
           eventHandlers={{
             click: () => onMarkerClick(host),
           }}
         >
           <Popup>
-            <div>
-              <h3 className="font-bold">{host.name}</h3>
-              <p>{host.address}</p>
-            </div>
+            <HostPopup 
+              host={host} 
+              onBookNow={() => onMarkerClick(host)}
+            />
           </Popup>
         </Marker>
       ))}

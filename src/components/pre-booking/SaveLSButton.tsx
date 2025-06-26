@@ -49,7 +49,7 @@ export default function SaveLSButton({
   };
 
   return (
-    <button onClick={handleClick} className="btn w-full mt-6">
+    <button onClick={handleClick} className="btn w-full mt-4">
       <span>{user ? "Save Booking" : "Sign In to Book"}</span>
     </button>
   );
