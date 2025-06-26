@@ -3,7 +3,7 @@
 import Link from "next/link";
 import useAuth from "@/hooks/useAuth";
 import { DashboardCard } from "@/components/charts";
-import { ChartIcon, UsersIcon, HostIcon } from "@/components/icons/DashboardIcons";
+import { ChartIcon, UsersIcon, HostIcon } from "@/components/icons/SvgIcons";
 
 export default function DashboardPage() {
   const { role } = useAuth();
