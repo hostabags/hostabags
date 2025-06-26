@@ -21,7 +21,7 @@ export default function Search() {
         className="px-4 py-2 w-full outline-none"
         value={location}
         onChange={(e) => setLocation(e.target.value)}
-        onKeyPress={(e) => {
+        onKeyDown={(e) => {
           if (e.key === 'Enter') {
             handleSearch();
           }

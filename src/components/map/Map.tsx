@@ -68,12 +68,10 @@ export default function Map({ hosts, onMarkerClick, initialLocation }: MapProps)
   }, [initialLocation]); // Re-run effect when initialLocation changes
 
   return (
-
     <MapContainer
-
       center={MAP_CONFIG.DEFAULT_CENTER}
       zoom={MAP_CONFIG.DEFAULT_ZOOM}
-      style={{ height: '100vh', width: '100%' }}
+      style={{ height: 'calc(100vh - 64px)', width: '100%' }}
       zoomControl={false}
       minZoom={MAP_CONFIG.MIN_ZOOM}
       maxZoom={MAP_CONFIG.MAX_ZOOM}
@@ -103,6 +101,5 @@ export default function Map({ hosts, onMarkerClick, initialLocation }: MapProps)
         </Marker>
       ))}
     </MapContainer>
-  
   );
 } 

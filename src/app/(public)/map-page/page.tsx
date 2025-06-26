@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import type { Host } from "@/types/host";
 import Modal from "@/components/ui/Modal/Modal";
-import Header from "@/components/layout/header/Header";
 import { useSearchParams } from "next/navigation";
 import { useHosts } from "@/hooks/useHosts";
 
@@ -36,29 +35,22 @@ export default function MapPage() {
 
   if (loading) {
     return (
-      <>
-        <Header />
-        <div className="h-screen w-full flex items-center justify-center">
-          Cargando hosts...
-        </div>
-      </>
+      <div className="h-screen w-full flex items-center justify-center">
+        Cargando hosts...
+      </div>
     );
   }
 
   if (error) {
     return (
-      <>
-        <Header />
-        <div className="h-screen w-full flex items-center justify-center">
-          <p className="text-red-600">Error: {error}</p>
-        </div>
-      </>
+      <div className="h-screen w-full flex items-center justify-center">
+        <p className="text-red-600">Error: {error}</p>
+      </div>
     );
   }
 
   return (
     <>
-      <Header />
       <Map
         hosts={hosts}
         onMarkerClick={handleMarkerClick}
