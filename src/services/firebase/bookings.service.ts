@@ -83,28 +83,43 @@ export class BookingsService {
   }
 
   //Listen to real-time booking updates
-  static onBookingUpdate(id: string, callback: (booking: Booking | null) => void): () => void {
-    return DatabaseService.onValue<Booking>(`${this.COLLECTION_PATH}/${id}`, callback);
+  static onBookingUpdate(
+    id: string, 
+    callback: (booking: Booking | null) => void,
+    errorCallback?: (error: Error) => void
+  ): () => void {
+    return DatabaseService.onValue<Booking>(`${this.COLLECTION_PATH}/${id}`, callback, errorCallback);
   }
 
     //Listen to real-time updates for all bookings
-  static onBookingsUpdate(callback: (bookings: Booking[]) => void): () => void {
-    return DatabaseService.onValueCollection<Booking>(this.COLLECTION_PATH, callback);
+  static onBookingsUpdate(
+    callback: (bookings: Booking[]) => void,
+    errorCallback?: (error: Error) => void
+  ): () => void {
+    return DatabaseService.onValueCollection<Booking>(this.COLLECTION_PATH, callback, errorCallback);
   }
 
   //Listen to real-time updates for user bookings
-  static onUserBookingsUpdate(userId: string, callback: (bookings: Booking[]) => void): () => void {
+  static onUserBookingsUpdate(
+    userId: string, 
+    callback: (bookings: Booking[]) => void,
+    errorCallback?: (error: Error) => void
+  ): () => void {
     return DatabaseService.onValueCollection<Booking>(this.COLLECTION_PATH, (allBookings) => {
       const userBookings = allBookings.filter(booking => booking.userId === userId);
       callback(userBookings);
-    });
+    }, errorCallback);
   }
 
   //Listen to real-time updates for host bookings
-  static onHostBookingsUpdate(hostId: string, callback: (bookings: Booking[]) => void): () => void {
+  static onHostBookingsUpdate(
+    hostId: string, 
+    callback: (bookings: Booking[]) => void,
+    errorCallback?: (error: Error) => void
+  ): () => void {
     return DatabaseService.onValueCollection<Booking>(this.COLLECTION_PATH, (allBookings) => {
       const hostBookings = allBookings.filter(booking => booking.hostId === hostId);
       callback(hostBookings);
-    });
+    }, errorCallback);
   }
 } 

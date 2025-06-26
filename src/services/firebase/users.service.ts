@@ -63,17 +63,27 @@ export class UsersService {
   }
 
   //Listen to real-time user updates
-  static onUserUpdate(id: string, callback: (user: User | null) => void): () => void {
-    return DatabaseService.onValue<User>(`${this.COLLECTION_PATH}/${id}`, callback);
+  static onUserUpdate(
+    id: string, 
+    callback: (user: User | null) => void,
+    errorCallback?: (error: Error) => void
+  ): () => void {
+    return DatabaseService.onValue<User>(`${this.COLLECTION_PATH}/${id}`, callback, errorCallback);
   }
 
     //Listen to real-time updates for all users
-  static onUsersUpdate(callback: (users: User[]) => void): () => void {
-    return DatabaseService.onValueCollection<User>(this.COLLECTION_PATH, callback);
+  static onUsersUpdate(
+    callback: (users: User[]) => void,
+    errorCallback?: (error: Error) => void
+  ): () => void {
+    return DatabaseService.onValueCollection<User>(this.COLLECTION_PATH, callback, errorCallback);
   }
 
   //Listen to real-time updates for users with hosts
-  static onUsersWithHostsUpdate(callback: (usersWithHosts: UserWithHosts[]) => void): () => void {
+  static onUsersWithHostsUpdate(
+    callback: (usersWithHosts: UserWithHosts[]) => void,
+    errorCallback?: (error: Error) => void
+  ): () => void {
     return DatabaseService.onValueCollection<User>(this.COLLECTION_PATH, async (users) => {
       const hosts = await HostsService.getAll();
       const usersWithHosts = users.map(user => ({
@@ -81,6 +91,6 @@ export class UsersService {
         hosts: hosts.filter(host => host.ownerId === user.id)
       }));
       callback(usersWithHosts);
-    });
+    }, errorCallback);
   }
 } 
